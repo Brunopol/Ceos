@@ -13,23 +13,15 @@
                     <table id="myTable" class="display">
                         <thead>
                             <tr>
-                                <th>Column 1</th>
-                                <th>Column 2</th>
+                                <th>name</th>
+                                <th>email</th>
+                                <th>created_at</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Row 1 Data 1</td>
-                                <td>Row 1 Data 2</td>
-                            </tr>
-                            <tr>
-                                <td>Row 2 Data 1</td>
-                                <td>Row 2 Data 2</td>
-                            </tr>
+                            
                         </tbody>
                     </table>
-
-                    <button class="btn btn-success">Click Me</button>
                 </div>
             </div>
         </div>
@@ -38,12 +30,17 @@
 </x-app-layout>
 
    <script type="module">
-        $("button").click(function(){
-            alert("Thanks");
-        });
-
-        $(document).ready(function() {
-        $('#myTable').DataTable();
-         });
+       
+        $('#myTable').DataTable( {
+            ajax: {
+                url: "{{ route('ajax') }}",
+                dataSrc: 'users'
+            },
+            columns: [ 
+                { data: 'name' },
+                { data: 'email' },
+                { data: 'created_at' }
+             ]
+        } );
     </script>
 
