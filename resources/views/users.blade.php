@@ -19,6 +19,13 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ( $users as $user )
+                                <tr>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $user->created_at }}</td>
+                                </tr>
+                            @endforeach
                             
                         </tbody>
                     </table>
@@ -31,16 +38,7 @@
 
    <script type="module">
        
-        $('#myTable').DataTable( {
-            ajax: {
-                url: "{{ route('ajax') }}",
-                dataSrc: 'users'
-            },
-            columns: [ 
-                { data: 'name' },
-                { data: 'email' },
-                { data: 'created_at' }
-             ]
-        } );
+        $('#myTable').DataTable();
+
     </script>
 

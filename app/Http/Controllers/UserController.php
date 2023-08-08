@@ -12,15 +12,9 @@ class UserController extends Controller
     
     public function index(Request $request): View
     {
-        return view('users');
+        $users = User::all();
+        return view('users', [
+            "users" => $users,
+        ]);
     }
-
-    public function ajax(Request $request): JsonResponse
-{
-    $users = User::all();
-
-    return response()->json(['users' => $users]);
-}
-
-
 }
