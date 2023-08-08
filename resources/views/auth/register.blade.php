@@ -16,6 +16,21 @@
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
+       <!-- Phone Number -->
+        <div class="mt-4">
+            <x-input-label for="phone" :value="__('Phone')" />
+            <x-text-input id="phone" class="block mt-1 w-full" type="tel" name="phone" :value="old('phone')" required autocomplete="tel" pattern="[0-9]{10,11}" title="Please enter a valid phone number." />
+            <x-input-error :messages="$errors->get('phone')" class="mt-2" />
+        </div>
+
+         <!-- Ramal Number -->
+        <div class="mt-4">
+            <x-input-label for="ramal" :value="__('Ramal')" />
+            <x-text-input id="ramal" class="block mt-1 w-full" type="tel" name="ramal" :value="old('ramal')" required autocomplete="tel" pattern="[0-9]{6,11}" title="Please enter a valid ramal number." />
+            <x-input-error :messages="$errors->get('ramal')" class="mt-2" />
+        </div>
+
+
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />
