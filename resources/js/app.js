@@ -1,8 +1,8 @@
-import './bootstrap';
+//import jQuery from 'jquery';
 
-import jQuery from 'jquery';
+//import 'bootstrap';
 
-window.$ = jQuery;
+//window.$ = jQuery;
 
 import pdfmake from 'pdfmake';
 
