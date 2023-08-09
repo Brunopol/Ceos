@@ -2,9 +2,11 @@
 
 namespace Tests\Feature;
 
+use App\Models\Permission;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Testing\Assert;
 use Tests\TestCase;
@@ -66,4 +68,14 @@ class PermissionUserTest extends TestCase
         assertTrue($user->hasPermissionTo('Modulo3-Users'));
 
     }
-}
+
+    public function testandoCache()
+    {
+
+        Permission::query()->create(['permission' => 'encaixe']);
+
+        $fromCache = Cache::get('permissions');
+
+        $this->assertCount(1, $fromCache);
+    }
+}   
