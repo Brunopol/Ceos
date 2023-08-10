@@ -21,6 +21,21 @@ class UserController extends Controller
     public function show($id) 
     {
         $user = User::find($id);
+        dd($user->permissions());
         return response()->json($user);
+    }
+
+    public function update(Request $request, User $user)
+    {
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            // Add validation rules for other fields here
+        ]);
+
+        $user->update($data);
+
+        return response()->json(['message' => 'User updated successfully']);
     }
 }
