@@ -26,6 +26,8 @@ Route::get('/dashboard', function () {
 
 Route::get('/users', [UserController::class, 'index'])->middleware(['auth', 'verified'])->name('users');
 Route::get('/users/{id}', [UserController::class, 'show'])->middleware(['auth', 'verified'])->name('users.show');
+Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+
 Route::get('/ajax', [UserController::class, 'ajax'])->middleware(['auth', 'verified'])->name('ajax');
 Route::get('/encaixe', [EncaixeController::class, 'index'])->middleware(['auth', 'verified'])->name('encaixe');
 

@@ -55,15 +55,32 @@ class User extends Authenticatable
 
     public function givePermissionTo(string $permission): void 
     {
-       /** @var Permission $p */
+        $p = Permission::query()->firstOrCreate(compact('permission'));
 
-       $p = Permission::query()->firstOrCreate(compact('permission'));
+        
+        if (!$this->permissions()->where('permission', $permission)->exists()) {
+            $this->permissions()->attach($p);
+        }
+    }
 
-       $this->permissions()->attach($p);
+    public function removePermissionTo(string $permission): void
+    {
+        
+        $p = Permission::query()->where('permission', $permission)->first();
+
+        if ($p) {
+          
+            $this->permissions()->detach($p);
+        }
     }
 
     public function hasPermissionTo(string $permission): bool
     {
         return $this->permissions()->where('permission', $permission)->exists();
+    }
+
+    public function allPermissions()
+    {
+        return $this->permissions()->get();
     }
 }
