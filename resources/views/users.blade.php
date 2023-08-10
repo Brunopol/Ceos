@@ -11,7 +11,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
 
-                    <table id="myTable" class="display">
+                    <table id="myTable" class="table table-striped" style="width:100%">>
                         <thead>
                             <tr>
                                 <th>name</th>
@@ -70,7 +70,8 @@
 
 <script type="module">
     $('document').ready(function () {
-        $('#myTable').DataTable();
+        //new DataTable('#myTable');
+        $('#myTabdsdfle').DataTable();
 
         $('body').on('click', '#show-user', function () {
             var userURL = $(this).data('url');
