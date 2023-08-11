@@ -11,10 +11,14 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-        <!-- Scripts -->
+        <!-- Prod -->
+
+        <!-- <link rel="stylesheet" href="http://localhost/build/assets/app-9aec0e09.css" /> -->
+
+        <!-- Vite -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans text-gray-900 antialiased">
+    <body class="font-sans text-gray-900 antialiased opacity-80 z-40 bg-black">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
             <div>
                 <a href="/">
@@ -26,5 +30,9 @@
                 {{ $slot }}
             </div>
         </div>
+
+        <!-- Prod -->
+
+        <!-- <script src="http://localhost/build/assets/app-1cfa0830.js" ></script> -->
     </body>
 </html>
