@@ -20,10 +20,11 @@ class UserController extends Controller
 
     public function show($id) 
     {
-        $user = User::find($id);
-        dd($user->permissions());
+        $user = User::with('permissions')->find($id);
+    
         return response()->json($user);
     }
+    
 
     public function update(Request $request, User $user)
     {
@@ -35,6 +36,15 @@ class UserController extends Controller
         ]);
 
         $user->update($data);
+
+        $user->removAllPermissions();
+
+        $permissions = $request->input('permissions', []);
+
+        foreach( $permissions as $permission)
+        {
+            $user->givePermissionTo($permission);
+        }
 
         return response()->json(['message' => 'User updated successfully']);
     }

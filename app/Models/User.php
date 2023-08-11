@@ -74,6 +74,11 @@ class User extends Authenticatable
         }
     }
 
+    public function removAllPermissions(): void
+    {
+        $this->permissions()->detach();
+    }
+
     public function hasPermissionTo(string $permission): bool
     {
         return $this->permissions()->where('permission', $permission)->exists();

@@ -24,12 +24,11 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/users', [UserController::class, 'index'])->middleware(['auth', 'verified'])->name('users');
-Route::get('/users/{id}', [UserController::class, 'show'])->middleware(['auth', 'verified'])->name('users.show');
-Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+Route::get('/users', [UserController::class, 'index'])->middleware(['auth', 'verified','permission:users'])->name('users');
+Route::get('/users/{id}', [UserController::class, 'show'])->middleware(['auth', 'verified','permission:users'])->name('users.show');
+Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update','permission:users');
 
-Route::get('/ajax', [UserController::class, 'ajax'])->middleware(['auth', 'verified'])->name('ajax');
-Route::get('/encaixe', [EncaixeController::class, 'index'])->middleware(['auth', 'verified'])->name('encaixe');
+Route::get('/encaixe', [EncaixeController::class, 'index'])->middleware(['auth', 'verified','permission:encaixe'])->name('encaixe');
 
 
 Route::middleware('auth')->group(function () {

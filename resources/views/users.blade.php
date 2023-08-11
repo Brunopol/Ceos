@@ -60,12 +60,18 @@
                                             <input type="email" class="form-control" id="email" name="email">
                                         </div>
                                         <!-- Add other fields here -->
+                                        <div class="mb-3">
+                                            <label class="form-label">Permissions</label><br>
+                                            <input type="checkbox" id="usersCheckbox" name="permissions[]" value="users"> Users<br>
+                                            <input type="checkbox" id="encaixeCheckbox" name="permissions[]" value="encaixe"> Encaixe<br>
+                                            <input type="checkbox" id="testCheckbox" name="permissions[]" value="test"> Teste<br>
+                                        </div>
                                         
                                     </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" id="updateUserBtn">Save changes</button>
+                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-outline-primary" id="updateUserBtn">Save changes</button>
                                 </div>
                             </div>
                         </div>
@@ -89,8 +95,24 @@
                 $('#name').val(data.name);
                 $('#last_name').val(data.last_name);
                 $('#email').val(data.email);
-                // Set other field values here
-
+        
+                // Check fixed checkboxes
+                if (data.permissions.some(permission => permission.permission === 'test')) {
+                    $('#testCheckbox').prop('checked', true);
+                } else {
+                    $('#testCheckbox').prop('checked', false);
+                }
+                if (data.permissions.some(permission => permission.permission === 'users')) {
+                    $('#usersCheckbox').prop('checked', true);
+                }else {
+                    $('#usersCheckbox').prop('checked', false);
+                }
+                if (data.permissions.some(permission => permission.permission === 'encaixe')) {
+                    $('#encaixeCheckbox').prop('checked', true);
+                }else {
+                    $('#encaixeCheckbox').prop('checked', false);
+                }
+                
                 $('#userShowModal').modal('show');
             });
         });

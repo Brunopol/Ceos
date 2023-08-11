@@ -15,12 +15,16 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    @can('users')
                     <x-nav-link :href="route('users')" :active="request()->routeIs('users')">
                         {{ __('Users') }}
                     </x-nav-link>
+                    @endcan
+                    @can('encaixe')
                     <x-nav-link :href="route('encaixe')" :active="request()->routeIs('encaixe')">
                         {{ __('Encaixe') }}
                     </x-nav-link>
+                    @endcan
                 </div>
             </div>
 
@@ -76,12 +80,16 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('users')" :active="request()->routeIs('users')">
+            @can('user')
+                <x-responsive-nav-link :href="route('users')" :active="request()->routeIs('users')">
                 {{ __('Users') }}
             </x-responsive-nav-link>
+            @endcan
+            @can('encaixe')
             <x-responsive-nav-link :href="route('encaixe')" :active="request()->routeIs('encaixe')">
                 {{ __('Encaixe') }}
             </x-responsive-nav-link>
+            @endcan
         </div>
 
         <!-- Responsive Settings Options -->
