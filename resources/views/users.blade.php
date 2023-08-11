@@ -10,6 +10,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
+                <div id="successMessage" class="alert alert-success" style="display: none;"></div>
 
                     <table id="myTable" class="table table-striped" style="width:100%">
                         <thead>
@@ -34,6 +35,7 @@
 
                         </tbody>
                     </table>
+                    
 
                     <!-- Modal -->
                     <div class="modal fade" id="userShowModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -73,6 +75,7 @@
                                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
                                     <button type="button" class="btn btn-outline-primary" id="updateUserBtn">Save changes</button>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -118,24 +121,32 @@
         });
 
         $('#updateUserBtn').click(function () {
-            var formData = $('#updateUserForm').serialize();
-            var userId = $('#userId').val();
+    var formData = $('#updateUserForm').serialize();
+    var userId = $('#userId').val();
+
+    $.ajax({
+        url: '/users/' + userId,
+        type: 'PUT',
+        data: formData,
+        success: function (response) {
+            // Display success message
+            $('#successMessage').text(response.message);
+            $('#successMessage').show();
+
+            // Hide the modal
+            $('#userShowModal').modal('hide');
             
-            $.ajax({
-                url: '/users/' + userId,
-                type: 'PUT',
-                data: formData,
-                success: function (response) {
-                    // Handle success here
-                    console.log(response);
-                },
-                error: function (error) {
-                    // Handle error here
-                    console.log(error);
-                }
-            });
-        });
+            // Optional: You can clear the form inputs if needed
+            $('#updateUserForm')[0].reset();
+        },
+        error: function (error) {
+            // Handle error here
+            console.log(error);
+        }
+    });
+});
     });
 </script>
+
 
 </html>
