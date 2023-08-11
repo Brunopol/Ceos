@@ -12,12 +12,13 @@
                 <div class="p-6 text-gray-900">
                 <div id="successMessage" class="alert alert-success" style="display: none;"></div>
 
-                    <table id="myTable" class="table table-striped" style="width:100%">
+                    <table id="myTable" class="table table-striped nowrap" style="width:100%">
                         <thead>
                             <tr>
-                                <th>name</th>
+                                <th>nome</th>
+                                <th>sobrenome</th>
                                 <th>email</th>
-                                <th>created_at</th>
+                                <th>celular</th>
                                 <th>action</th>
                             </tr>
                         </thead>
@@ -25,8 +26,9 @@
                             @foreach ($users as $user)
                             <tr>
                                 <td>{{ $user->name }}</td>
+                                <td>{{ $user->last_name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>{{ $user->created_at }}</td>
+                                <td>{{ $user->phone }}</td>
                                 <td>
                                     <a href="javascript:void(0)" id="show-user" data-url="{{ route('users.show', $user->id) }}" class="btn btn-info">Show</a>
                                 </td>
@@ -42,28 +44,36 @@
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">User Details</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <h5 class="modal-title" id="exampleModalLabel">Detalhes do Usuário</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar">X</button>
                                 </div>
                                 <div class="modal-body" id="userModalBody">
                                     <form id="updateUserForm">
                                         @csrf
                                         <input type="hidden" name="user_id" id="userId">
                                         <div class="mb-3">
-                                            <label for="name" class="form-label">Name</label>
+                                            <label for="name" class="form-label">Nome</label>
                                             <input type="text" class="form-control" id="name" name="name">
                                         </div>
                                         <div class="mb-3">
-                                            <label for="last_name" class="form-label">Last Name</label>
+                                            <label for="last_name" class="form-label">Sobrenome</label>
                                             <input type="text" class="form-control" id="last_name" name="last_name">
                                         </div>
                                         <div class="mb-3">
                                             <label for="email" class="form-label">Email</label>
                                             <input type="email" class="form-control" id="email" name="email">
                                         </div>
+                                        <div class="mb-3">
+                                            <label for="phone" class="form-label">Celeular</label>
+                                            <input type="number" class="form-control" id="phone" name="phone">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="ramal" class="form-label">Ramal</label>
+                                            <input type="number" class="form-control" id="ramal" name="ramal">
+                                        </div>
                                         <!-- Add other fields here -->
                                         <div class="mb-3">
-                                            <label class="form-label">Permissions</label><br>
+                                            <label class="form-label">Permissões</label><br>
                                             <input type="checkbox" id="usersCheckbox" name="permissions[]" value="users"> Users<br>
                                             <input type="checkbox" id="encaixeCheckbox" name="permissions[]" value="encaixe"> Encaixe<br>
                                             <input type="checkbox" id="testCheckbox" name="permissions[]" value="test"> Teste<br>
@@ -72,8 +82,8 @@
                                     </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-outline-primary" id="updateUserBtn">Save changes</button>
+                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Fechar</button>
+                                    <button type="button" class="btn btn-outline-primary" id="updateUserBtn">Salvar</button>
                                 </div>
                                 
                             </div>
@@ -89,7 +99,11 @@
 <script type="module">
     $('document').ready(function () {
         //new DataTable('#myTable');
-        $('#myTable').DataTable();
+        
+        $('#myTable').DataTable( {
+            fixedHeader: true,
+            responsive: true
+        } );
 
         $('body').on('click', '#show-user', function () {
             var userURL = $(this).data('url');
@@ -98,6 +112,8 @@
                 $('#name').val(data.name);
                 $('#last_name').val(data.last_name);
                 $('#email').val(data.email);
+                $('#phone').val(data.phone);
+                $('#ramal').val(data.ramal);
         
                 // Check fixed checkboxes
                 if (data.permissions.some(permission => permission.permission === 'test')) {

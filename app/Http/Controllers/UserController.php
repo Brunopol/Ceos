@@ -32,6 +32,8 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
+            'phone' => 'required|string|max:255',
+            'ramal' => 'required|string|max:255',
             // Add validation rules for other fields here
         ]);
 
