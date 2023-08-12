@@ -4,22 +4,32 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Usuários') }}
         </h2>
+
+        <div id="successMessage" class="hidden mt-4 bg-green-500 text-white p-4 rounded-md shadow-md">
+            <svg class="w-6 h-6 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span>Usuário alterado com sucesso</span>
+        </div>
+        
     </x-slot>
+
+   
+
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                <div id="successMessage" class="alert alert-success" style="display: none;"></div>
 
-                    <table id="myTable" class="table table-striped nowrap" style="width:100%">
+                    <table id="myTable" class="table table-striped nowrap cell-border hover stripe" style="width:100%">
                         <thead>
                             <tr>
                                 <th>nome</th>
                                 <th>sobrenome</th>
                                 <th>email</th>
                                 <th>celular</th>
-                                <th>action</th>
+                                <th>editar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -30,8 +40,8 @@
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->phone }}</td>
                                 <td>
-                                    <button class="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" data-url="{{ route('users.show', $user->id) }}" onclick="toggleModal('modal-id', $(this).data('url'))">
-                                        edit
+                                    <button class="bg-blue-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" data-url="{{ route('users.show', $user->id) }}" onclick="toggleModal('modal-id', $(this).data('url'))">
+                                        editar
                                     </button>                                    
                                 </td>
                             </tr>
@@ -53,64 +63,62 @@
                                     <!-- Header -->
                                     <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                                         <h3 class="text-3xl font-semibold">
-                                            Edit User
+                                            Editar Usuário
                                         </h3>
-                                        <button class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none" onclick="toggleModal('modal-id')">
-                                            <span class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                                                ×
-                                            </span>
-                                        </button>
                                     </div>
                                     <!-- Body -->
                                     <div class="relative p-6 flex-auto grid grid-cols-2 gap-4">
                                         <!-- Form inputs -->
                                         <input type="hidden" id="userId">
                                         <div>
-                                            <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-                                            <input type="text" id="name" class="form-control" placeholder="Name">
+                                            <label for="name" class="block text-sm font-medium text-gray-700">Nome</label>
+                                            <input type="text" id="name" name="name" class="form-control" placeholder="Name">
                                         </div>
                                         <div>
-                                            <label for="last_name" class="block text-sm font-medium text-gray-700">Last Name</label>
-                                            <input type="text" id="last_name" class="form-control" placeholder="Last Name">
+                                            <label for="last_name" class="block text-sm font-medium text-gray-700">Sobrenome</label>
+                                            <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Last Name">
                                         </div>
                                         <div>
                                             <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                                            <input type="email" id="email" class="form-control" placeholder="Email">
+                                            <input type="email" id="email" name="email" class="form-control" placeholder="Email">
                                         </div>
                                         <div>
-                                            <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
-                                            <input type="tel" id="phone" class="form-control" placeholder="Phone">
+                                            <label for="phone" class="block text-sm font-medium text-gray-700">Celular</label>
+                                            <input type="tel" id="phone" name="phone" class="form-control" placeholder="Phone">
                                         </div>
                                         <div>
                                             <label for="ramal" class="block text-sm font-medium text-gray-700">Ramal</label>
-                                            <input type="text" id="ramal" class="form-control" placeholder="Ramal">
+                                            <input type="text" id="ramal" name="ramal" class="form-control" placeholder="Ramal">
                                         </div>
                                         <!-- Checkboxes -->
                                         <div class="col-span-2">
-                                            <label class="block text-sm font-medium text-gray-700">Permissions</label>
+                                            <label class="block text-sm font-medium text-gray-700">Permissões</label>
                                             <div class="flex items-center space-x-2">
-                                                <input type="checkbox" id="testCheckbox" class="form-checkbox" value="test">
-                                                <label for="testCheckbox">Test Permission</label>
+                                                <input type="checkbox" id="testCheckbox" name="permissions[]" class="form-checkbox" value="test">
+                                                <label for="testCheckbox">Test</label>
                                             </div>
                                             <div class="flex items-center space-x-2">
-                                                <input type="checkbox" id="usersCheckbox" class="form-checkbox" value="users">
-                                                <label for="usersCheckbox">Users Permission</label>
+                                                <input type="checkbox" id="usersCheckbox" name="permissions[]" class="form-checkbox" value="users">
+                                                <label for="usersCheckbox">Users</label>
                                             </div>
                                             <div class="flex items-center space-x-2">
-                                                <input type="checkbox" id="encaixeCheckbox" class="form-checkbox" value="encaixe">
-                                                <label for="encaixeCheckbox">Encaixe Permission</label>
+                                                <input type="checkbox" id="encaixeCheckbox" name="permissions[]" class="form-checkbox" value="encaixe">
+                                                <label for="encaixeCheckbox">Encaixe</label>
                                             </div>
                                         </div>
                                         <!-- Other form inputs -->
                                     </div>
                                     <!-- Footer -->
+                                    <div id="errorMessage" class="hidden mt-1 bg-red-500 text-white p-1 rounded-b shadow-md items-center border-t border-solid border-slate-200">
+                                        <span>Error, prencha corretamente todos os campos</span>
+                                    </div>
                                     <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
                                         <button class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onclick="closeModal('modal-id')">
-                                            Close
+                                            Fechar
                                         </button>
                                         <button class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onclick="updateUser(event)">
-                                            Save Changes
-                                        </button>
+                                            Salvar
+                                        </button>    
                                     </div>
                                 </div>
                             </form>
@@ -164,9 +172,9 @@
             type: 'PUT',
             data: formData,
             success: function (response) {
+        
                 // Display success message
-                $('#successMessage').text(response.message);
-                $('#successMessage').show();
+                $('#successMessage').removeClass('hidden'); // Show the success div
 
                 // Hide the modal
                 closeModal('modal-id');
@@ -177,6 +185,8 @@
             error: function (error) {
                 // Handle error here
                 console.log(error);
+                $('#errorMessage').removeClass('hidden'); // Show the success div
+                
             }
         });
     }
@@ -187,9 +197,46 @@
     $('document').ready(function () {  
         $('#myTable').DataTable( {
             fixedHeader: true,
-            responsive: true
+            responsive: true,
+            "lengthChange": true,
+            "lengthMenu": [10, 25, 50, 75, 100 ],
+
+            "language": {
+            
+                "decimal": "",
+                "emptyTable": "Nenhum dado disponível na tabela",
+                "info": "Mostrando _START_ até _END_ de _TOTAL_ entradas",
+                "infoEmpty": "Mostrando 0 até 0 de 0 entradas",
+                "infoFiltered": "(filtrado de um total de _MAX_ entradas)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Mostrar _MENU_ entradas",
+                "loadingRecords": "Carregando...",
+                "processing": "",
+                "search": "Buscar:",
+                "zeroRecords": "Nenhum registro correspondente encontrado",
+                "paginate": {
+                    "first": "Primeira",
+                    "last": "Última",
+                    "next": "Próxima",
+                    "previous": "Anterior"
+                },
+                "aria": {
+                    "sortAscending": ": ativar para ordenar coluna de forma ascendente",
+                    "sortDescending": ": ativar para ordenar coluna de forma descendente"
+                }
+
+            }
         } );
     });
 </script>
+
+<style> 
+
+.dataTables_wrapper .dataTables_length select {
+    padding-right: 2rem
+}
+
+</style>
 
 </html>

@@ -29,7 +29,6 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {   
      
-        return response()->json($user);
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
