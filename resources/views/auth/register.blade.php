@@ -2,18 +2,20 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Nome')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
+        <div class="grid grid-cols-2 gap-6">
+            <!-- Name -->
+            <div>
+                <x-input-label for="name" :value="__('Nome')" />
+                <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+                <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            </div>
 
-        <!-- Last Name -->
-        <div>
-            <x-input-label for="last_name" :value="__('Sobrenome')" />
-            <x-text-input id="last_name" class="block mt-1 w-full" type="text" name="last_name" :value="old('last_name')" required autocomplete="last_name" />
-            <x-input-error :messages="$errors->get('last_name')" class="mt-2" />
+            <!-- Last Name -->
+            <div>
+                <x-input-label for="last_name" :value="__('Sobrenome')" />
+                <x-text-input id="last_name" class="block mt-1 w-full" type="text" name="last_name" :value="old('last_name')" required autocomplete="last_name" />
+                <x-input-error :messages="$errors->get('last_name')" class="mt-2" />
+            </div>
         </div>
 
         <!-- Email Address -->
@@ -23,18 +25,20 @@
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
-       <!-- Phone Number -->
-        <div class="mt-4">
-            <x-input-label for="phone" :value="__('Celular')" />
-            <x-text-input id="phone" class="block mt-1 w-full" type="tel" name="phone" :value="old('phone')" required autocomplete="tel" pattern="[0-9]{10,11}" title="Please enter a valid phone number." />
-            <x-input-error :messages="$errors->get('phone')" class="mt-2" />
-        </div>
+        <div class="grid grid-cols-2 gap-6">
+             <!-- Phone Number -->
+            <div class="mt-4">
+                <x-input-label for="phone" :value="__('Celular')" />
+                <x-text-input id="phone" class="block mt-1 w-full" type="tel" name="phone" :value="old('phone')" required autocomplete="tel" pattern="[0-9]{10,11}" title="Please enter a valid phone number." />
+                <x-input-error :messages="$errors->get('phone')" class="mt-2" />
+            </div>
 
-         <!-- Ramal Number -->
-        <div class="mt-4">
-            <x-input-label for="ramal" :value="__('Ramal')" />
-            <x-text-input id="ramal" class="block mt-1 w-full" type="tel" name="ramal" :value="old('ramal')" required autocomplete="tel" pattern="[0-9]{6,11}" title="Please enter a valid ramal number." />
-            <x-input-error :messages="$errors->get('ramal')" class="mt-2" />
+            <!-- Ramal Number -->
+            <div class="mt-4">
+                <x-input-label for="ramal" :value="__('Ramal')" />
+                <x-text-input id="ramal" class="block mt-1 w-full" type="tel" name="ramal" :value="old('ramal')" required autocomplete="tel" pattern="[0-9]{6,11}" title="Please enter a valid ramal number." />
+                <x-input-error :messages="$errors->get('ramal')" class="mt-2" />
+            </div>
         </div>
 
 
