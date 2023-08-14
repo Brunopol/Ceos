@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('encaixes', function (Blueprint $table) {
+        Schema::create('encaixe_movimento_consumos', function (Blueprint $table) {
             $table->id();
-            $table->string('referencia');
+            $table->string('nome');
+            $table->string('valor');
+            $table->foreignId('encaixe_movimento_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('encaixes');
+        Schema::dropIfExists('encaixe_movimento_consumos');
     }
 };
