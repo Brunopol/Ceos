@@ -29,6 +29,7 @@ Route::get('/users/{id}', [UserController::class, 'show'])->middleware(['auth', 
 Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update','permission:users');
 
 Route::get('/encaixe', [EncaixeController::class, 'index'])->middleware(['auth', 'verified','permission:encaixe'])->name('encaixe');
+Route::get('/encaixes/{id}', [EncaixeController::class, 'show'])->middleware(['auth', 'verified','permission:encaixe'])->name('encaixes.show');
 
 
 Route::middleware('auth')->group(function () {

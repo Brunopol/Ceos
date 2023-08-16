@@ -28,7 +28,7 @@
                             <tr>
                                 <td>{{ $encaixe->referencia }}</td>
                                 <td>
-                                    <button class="bg-blue-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" data-url="" onclick="toggleModal('modal-id', $(this).data('url'))">
+                                    <button class="bg-blue-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" data-url="{{ route('encaixes.show', $encaixe->id) }}" onclick="toggleModal('modal-id', $(this).data('url'))">
                                         editar
                                     </button>                                    
                                 </td>
@@ -56,7 +56,7 @@
                                         <div class="w-full">
                                             <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
                                             <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-                                                <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-white bg-pink-600" onclick="changeAtiveTab(event,'tab-profile')">
+                                                <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-white bg-blue-500" onclick="changeAtiveTab(event,'tab-profile')">
                                                 <i class="fas fa-space-shuttle text-base mr-1"></i>  Profile
                                                 </a>
                                             </li>
@@ -136,50 +136,6 @@
     </div>
 </x-app-layout>
 
-<script type="text/javascript">
-
-
-
-  function changeAtiveTab(event,tabID){
-    let element = event.target;
-    while(element.nodeName !== "A"){
-      element = element.parentNode;
-    }
-    ulElement = element.parentNode.parentNode;
-    aElements = ulElement.querySelectorAll("li > a");
-    tabContents = document.getElementById("tabs-id").querySelectorAll(".tab-content > div");
-    for(let i = 0 ; i < aElements.length; i++){
-      aElements[i].classList.remove("text-white");
-      aElements[i].classList.remove("bg-pink-600");
-      aElements[i].classList.add("text-pink-600");
-      aElements[i].classList.add("bg-white");
-      tabContents[i].classList.add("hidden");
-      tabContents[i].classList.remove("block");
-    }
-    element.classList.remove("text-pink-600");
-    element.classList.remove("bg-white");
-    element.classList.add("text-white");
-    element.classList.add("bg-pink-600");
-    document.getElementById(tabID).classList.remove("hidden");
-    document.getElementById(tabID).classList.add("block");
-  }
-
-
-
-    function toggleModal(modalID, userURL) {
-        
-        $("#" + modalID).toggleClass("hidden flex");
-        $("#" + modalID + "-backdrop").toggleClass("hidden flex");
-
-    }
-
-    function closeModal(modalID) {
-        $("#" + modalID).toggleClass("hidden flex");
-        $("#" + modalID + "-backdrop").toggleClass("hidden flex");
-    }
-</script>
-
-
 <script type="module">
     $('document').ready(function () {  
         $('#myTable').DataTable({
@@ -217,12 +173,7 @@
 
         });
     });
+
 </script>
 
-<style> 
-
-    .dataTables_wrapper .dataTables_length select {
-        padding-right: 2rem
-    }
-
-</style>
+<script src="http://localhost/javascript/encaixe.js" type="text/javascript"></script>

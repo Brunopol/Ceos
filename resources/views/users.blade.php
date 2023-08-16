@@ -231,10 +231,3 @@
     });
 </script>
 
-<style> 
-
-.dataTables_wrapper .dataTables_length select {
-    padding-right: 2rem
-}
-
-</style>

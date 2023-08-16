@@ -17,4 +17,11 @@ class EncaixeController extends Controller
         ]);
     }
 
+    public function show($id) 
+    {
+        $encaixe = Encaixe::with(['movimentos', 'movimentos.consumos'])->find($id);
+
+        return response()->json($encaixe);
+    }
+
 }
