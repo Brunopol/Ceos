@@ -52,94 +52,67 @@
                                     </div>
                                     <!-- Body -->
                                    
-                                        <!--Tabs navigation-->
-                                        <ul
-                                        class="mr-4 flex list-none flex-col flex-wrap pl-0"
-                                        role="tablist"
-                                        data-te-nav-ref>
-                                        <li role="presentation" class="flex-grow text-center">
-                                            <a
-                                            href="#tabs-home03"
-                                            class="my-2 block border-x-0 border-b-2 border-t-0 border-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-neutral-500 hover:isolate hover:border-transparent hover:bg-neutral-100 focus:isolate focus:border-transparent data-[te-nav-active]:border-primary data-[te-nav-active]:text-primary dark:text-neutral-400 dark:hover:bg-transparent dark:data-[te-nav-active]:border-primary-400 dark:data-[te-nav-active]:text-primary-400"
-                                            data-te-toggle="pill"
-                                            data-te-target="#tabs-home03"
-                                            data-te-nav-active
-                                            role="tab"
-                                            aria-controls="tabs-home03"
-                                            aria-selected="true"
-                                            >Home</a
-                                            >
-                                        </li>
-                                        <li role="presentation" class="flex-grow text-center">
-                                            <a
-                                            href="#tabs-profile03"
-                                            class="my-2 block border-x-0 border-b-2 border-t-0 border-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-neutral-500 hover:isolate hover:border-transparent hover:bg-neutral-100 focus:isolate focus:border-transparent data-[te-nav-active]:border-primary data-[te-nav-active]:text-primary dark:text-neutral-400 dark:hover:bg-transparent dark:data-[te-nav-active]:border-primary-400 dark:data-[te-nav-active]:text-primary-400"
-                                            data-te-toggle="pill"
-                                            data-te-target="#tabs-profile03"
-                                            role="tab"
-                                            aria-controls="tabs-profile03"
-                                            aria-selected="false"
-                                            >Profile</a
-                                            >
-                                        </li>
-                                        <li role="presentation" class="flex-grow text-center">
-                                            <a
-                                            href="#tabs-messages03"
-                                            class="my-2 block border-x-0 border-b-2 border-t-0 border-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-neutral-500 hover:isolate hover:border-transparent hover:bg-neutral-100 focus:isolate focus:border-transparent data-[te-nav-active]:border-primary data-[te-nav-active]:text-primary dark:text-neutral-400 dark:hover:bg-transparent dark:data-[te-nav-active]:border-primary-400 dark:data-[te-nav-active]:text-primary-400"
-                                            data-te-toggle="pill"
-                                            data-te-target="#tabs-messages03"
-                                            role="tab"
-                                            aria-controls="tabs-messages03"
-                                            aria-selected="false"
-                                            >Messages</a
-                                            >
-                                        </li>
-                                        <li role="presentation" class="flex-grow text-center">
-                                            <a
-                                            href="#tabs-contact03"
-                                            class="disabled pointer-events-none my-2 block border-x-0 border-b-2 border-t-0 border-transparent bg-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-neutral-400 hover:isolate hover:border-transparent hover:bg-neutral-100 focus:isolate focus:border-transparent dark:text-neutral-600"
-                                            data-te-toggle="pill"
-                                            data-te-target="#tabs-contact03"
-                                            role="tab"
-                                            aria-controls="tabs-contact03"
-                                            aria-selected="false"
-                                            >Contact</a
-                                            >
-                                        </li>
-                                        </ul>
+                                        <div class="flex flex-wrap" id="tabs-id">
+                                        <div class="w-full">
+                                            <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
+                                            <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+                                                <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-white bg-pink-600" onclick="changeAtiveTab(event,'tab-profile')">
+                                                <i class="fas fa-space-shuttle text-base mr-1"></i>  Profile
+                                                </a>
+                                            </li>
+                                            <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+                                                <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-pink-600 bg-white" onclick="changeAtiveTab(event,'tab-settings')">
+                                                <i class="fas fa-cog text-base mr-1"></i>  Settings
+                                                </a>
+                                            </li>
+                                            <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+                                                <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-pink-600 bg-white" onclick="changeAtiveTab(event,'tab-options')">
+                                                <i class="fas fa-briefcase text-base mr-1"></i>  Options
+                                                </a>
+                                            </li>
+                                            </ul>
+                                            <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+                                            <div class="px-4 py-5 flex-auto">
+                                                <div class="tab-content tab-space">
+                                                <div class="block" id="tab-profile">
+                                                    <p>
+                                                    Collaboratively administrate empowered markets via
+                                                    plug-and-play networks. Dynamically procrastinate B2C users
+                                                    after installed base benefits.
+                                                    <br />
+                                                    <br />
+                                                    Dramatically visualize customer directed convergence
+                                                    without revolutionary ROI.
+                                                    </p>
+                                                </div>
+                                                <div class="hidden" id="tab-settings">
+                                                    <p>
+                                                    Completely synergize resource taxing relationships via
+                                                    premier niche markets. Professionally cultivate one-to-one
+                                                    customer service with robust ideas.
+                                                    <br />
+                                                    <br />
+                                                    Dynamically innovate resource-leveling customer service for
+                                                    state of the art customer service.
+                                                    </p>
+                                                </div>
+                                                <div class="hidden" id="tab-options">
+                                                    <p>
+                                                    Efficiently unleash cross-media information without
+                                                    cross-media value. Quickly maximize timely deliverables for
+                                                    real-time schemas.
+                                                    <br />
+                                                    <br />
+                                                    Dramatically maintain clicks-and-mortar solutions
+                                                    without functional solutions.
+                                                    </p>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
 
-                                        <!--Tabs content-->
-                                        <div class="my-2">
-                                        <div
-                                            class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
-                                            id="tabs-home03"
-                                            role="tabpanel"
-                                            aria-labelledby="tabs-home-tab03"
-                                            data-te-tab-active>
-                                            Tab 1 content
-                                        </div>
-                                        <div
-                                            class="hidden opacity-0 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
-                                            id="tabs-profile03"
-                                            role="tabpanel"
-                                            aria-labelledby="tabs-profile-tab03">
-                                            Tab 2 content
-                                        </div>
-                                        <div
-                                            class="hidden opacity-0 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
-                                            id="tabs-messages03"
-                                            role="tabpanel"
-                                            aria-labelledby="tabs-profile-tab03">
-                                            Tab 3 content
-                                        </div>
-                                        <div
-                                            class="hidden opacity-0 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
-                                            id="tabs-contact03"
-                                            role="tabpanel"
-                                            aria-labelledby="tabs-contact-tab03">
-                                            Tab 4 content
-                                        </div>
-                                        </div>
 
                                     <!-- Footer -->
                                     <div id="errorMessage" class="hidden mt-1 bg-red-500 text-white p-1 rounded-b shadow-md items-center border-t border-solid border-slate-200">
@@ -164,6 +137,35 @@
 </x-app-layout>
 
 <script type="text/javascript">
+
+
+
+  function changeAtiveTab(event,tabID){
+    let element = event.target;
+    while(element.nodeName !== "A"){
+      element = element.parentNode;
+    }
+    ulElement = element.parentNode.parentNode;
+    aElements = ulElement.querySelectorAll("li > a");
+    tabContents = document.getElementById("tabs-id").querySelectorAll(".tab-content > div");
+    for(let i = 0 ; i < aElements.length; i++){
+      aElements[i].classList.remove("text-white");
+      aElements[i].classList.remove("bg-pink-600");
+      aElements[i].classList.add("text-pink-600");
+      aElements[i].classList.add("bg-white");
+      tabContents[i].classList.add("hidden");
+      tabContents[i].classList.remove("block");
+    }
+    element.classList.remove("text-pink-600");
+    element.classList.remove("bg-white");
+    element.classList.add("text-white");
+    element.classList.add("bg-pink-600");
+    document.getElementById(tabID).classList.remove("hidden");
+    document.getElementById(tabID).classList.add("block");
+  }
+
+
+
     function toggleModal(modalID, userURL) {
         
         $("#" + modalID).toggleClass("hidden flex");
