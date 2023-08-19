@@ -73,8 +73,8 @@ function processJSONResponse(response) {
               <!-- Form inputs -->
               <input type="hidden" id="encaixeID">
               <div>
-                  <label for="movimento" class="block text-sm font-medium text-gray-700">Movimento</label>
-                  <input type="text" id="movimento" name="movimento" class="form-control" value="${movimentoNome}">
+                  <label for="nome" class="block text-sm font-medium text-gray-700">Movimento</label>
+                  <input type="text" id="nome" name="nome" class="form-control" value="${movimentoNome}">
               </div>
               <div>
                   <label for="largura" class="block text-sm font-medium text-gray-700">Largura</label>

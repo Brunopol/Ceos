@@ -22,7 +22,7 @@ class Encaixe_movimento extends Model
     }
 
     protected $fillable = [
-        'movimento', // Add this line
+        'nome',
         'largura',
         'tecido',
         'quantidade',

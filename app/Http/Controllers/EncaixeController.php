@@ -29,7 +29,7 @@ class EncaixeController extends Controller
     {
         
         $validatedData = $request->validate([
-            'movimento' => 'required',
+            'nome' => 'required',
             'largura' => 'required',
             'tecido' => 'required',
             'quantidade' => 'required',
@@ -38,30 +38,29 @@ class EncaixeController extends Controller
             'consumo_valor' => 'array',
         ]);
     
-        
         $encaixeMovimento = Encaixe_movimento::find($id);
-
-        
     
         $encaixeMovimento->update([
-            'movimento' => $validatedData['movimento'],
+            'nome' => $validatedData['nome'],
             'largura' => $validatedData['largura'],
             'tecido' => $validatedData['tecido'],
             'quantidade' => $validatedData['quantidade'],
             'parImper' => $validatedData['parImper'],
         ]);
-
-        return response()->json($encaixeMovimento);
     
-        $consumos = [];
-        foreach ($validatedData['consumo_nome'] as $index => $consumoNome) {
-            $consumos[] = [
-                'nome' => $consumoNome,
-                'valor' => $validatedData['consumo_valor'][$index],
-            ];
+        if (isset($validatedData['consumo_nome']) && is_array($validatedData['consumo_nome'])) {
+            $consumos = [];
+            foreach ($validatedData['consumo_nome'] as $index => $consumoNome) {
+                $consumos[] = [
+                    'nome' => $consumoNome,
+                    'valor' => $validatedData['consumo_valor'][$index],
+                ];
+            }
+    
+            // Delete existing consumos and create new ones
+            $encaixeMovimento->consumos()->delete(); 
+            $encaixeMovimento->consumos()->createMany($consumos);
         }
-        $encaixeMovimento->consumos()->delete(); 
-        $encaixeMovimento->consumos()->createMany($consumos);
     
         return response()->json(['message' => 'Encaixe movimento updated successfully']);
     }

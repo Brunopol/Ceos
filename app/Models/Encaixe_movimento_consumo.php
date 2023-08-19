@@ -14,4 +14,9 @@ class Encaixe_movimento_consumo extends Model
     {
         return $this->belongsTo(Encaixe_movimento::class);
     }
+
+    protected $fillable = [
+        'nome',
+        'valor',
+    ];
 }
