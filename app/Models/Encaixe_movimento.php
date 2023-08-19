@@ -27,6 +27,7 @@ class Encaixe_movimento extends Model
         'tecido',
         'quantidade',
         'parImper',
+        'notas',
         // ... other fields
     ];
 }

@@ -25,6 +25,35 @@ class EncaixeController extends Controller
         return response()->json($encaixe);
     }
 
+    public function addMovimento(Request $request)
+    {
+
+        $validatedData = $request->validate([
+            'encaixeID' => 'required',
+            'nome' => 'required',
+            'largura' => 'required',
+            'tecido' => 'required',
+            'quantidade' => 'required',
+            'parImper' => 'required',
+            'consumo_nome' => 'array',
+            'consumo_valor' => 'array',
+        ]);
+
+        $encaixe = Encaixe::find($validatedData['encaixeID']);
+
+        $encaixe->movimentos()->create([
+            'nome' => $validatedData['nome'],
+            'largura' => $validatedData['largura'],
+            'tecido' => $validatedData['tecido'],
+            'quantidade' => $validatedData['quantidade'],
+            'parImper' => $validatedData['parImper'],
+            'notas' => 'TODO',
+        ]);
+
+        return response()->json($encaixe);
+
+    }
+
     public function updateMovimento(Request $request, $id)
     {
         
