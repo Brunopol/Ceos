@@ -67,8 +67,8 @@ function processJSONResponse(response) {
     `
       <div class="hidden" id="${movimentoId}">
        
-
-
+        <form id="form${movimentoId}">
+          
               <div class="relative p-6 flex-auto grid grid-cols-2 gap-4">
               <!-- Form inputs -->
               <input type="hidden" id="encaixeID">
@@ -97,25 +97,17 @@ function processJSONResponse(response) {
                   <input type="text" id="created_at" name="created_at" class="form-control" value="${movimentoCreatedAt}">
               </div>
 
-              <!-- Footer -->
-              <div id="errorMessage" class="hidden mt-1 bg-red-500 text-white p-1 rounded-b shadow-md items-center border-t border-solid border-slate-200">
-                  <span>Error, prencha corretamente todos os campos</span>
-              </div>
-              <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-                  <button class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onclick="closeModal('modal-id')">
-                      Fechar
-                  </button>
-                  <button class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onclick="updateUser(event)">
-                      Salvar
-                  </button>    
-              </div>
+              
           </div>
 
-
+      </form>
+      
       </div>
     `
 
     tabContents.append(conHtml);
+
+    var tab2Contents = $("#form" + movimentoId);
 
     $.each(movimento.consumos, function(index, consumo) {
 
@@ -124,20 +116,37 @@ function processJSONResponse(response) {
       `
         <div>
           <label for="consumo_nome" class="block text-sm font-medium text-gray-700">consumo_nome</label>
-          <input type="text" id="consumo_nome" name="consumo_nome" class="form-control" value="${consumo.nome}">
+          <input type="text" id="consumo_nome" name="consumo_nome[]" class="form-control" value="${consumo.nome}">
         </div>
         <div>
           <label for="consumo_valor" class="block text-sm font-medium text-gray-700">consumo_valor</label>
-          <input type="text" id="consumo_valor" name="consumo_valor" class="form-control" value="${consumo.valor}">
+          <input type="text" id="consumo_valor" name="consumo_valor[]" class="form-control" value="${consumo.valor}">
         </div>
       
       `
 
-      tabContents.append(conConsumosHtml);
+      tab2Contents.append(conConsumosHtml);
 
     });
 
-    
+    var footer = 
+      `
+        <!-- Footer -->
+        <div id="errorMessage" class="hidden mt-1 bg-red-500 text-white p-1 rounded-b shadow-md items-center border-t border-solid border-slate-200">
+            <span>Error, prencha corretamente todos os campos</span>
+        </div>
+        <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+            <button class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onclick="closeModal('modal-id')">
+                Fechar
+            </button>
+            <button class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onclick="updateEncaixeMovimento(event, ${movimentoId})">
+                Salvar
+            </button>    
+        </div>
+      
+      `
+
+    tab2Contents.append(footer);
 
     
         
@@ -147,4 +156,37 @@ function processJSONResponse(response) {
 function closeModal(modalID) {
   $("#" + modalID).toggleClass("hidden flex");
   $("#" + modalID + "-backdrop").toggleClass("hidden flex");
+}
+
+function updateEncaixeMovimento(event, movimentoId) {
+  // Prevent the default form submission behavior
+  event.preventDefault();
+
+  var formData = $('#form' + movimentoId).serialize();
+
+  $.ajax({
+      url: '/encaixes/' + movimentoId,
+      type: 'PUT',
+      data: formData,
+      headers: {
+        'X-CSRF-TOKEN': csrfToken 
+      },
+      success: function (response) {
+  
+          // Display success message
+          $('#successMessage').removeClass('hidden'); // Show the success div
+
+          // Hide the modal
+          closeModal('modal-id');
+
+          // Optional: You can clear the form inputs if needed
+          $('#form' + movimentoId)[0].reset();
+      },
+      error: function (error) {
+          // Handle error here
+          console.log(error);
+          $('#errorMessage').removeClass('hidden'); // Show the success div
+          
+      }
+  });
 }

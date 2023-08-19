@@ -20,4 +20,13 @@ class Encaixe_movimento extends Model
     {
         return $this->hasMany(Encaixe_movimento_consumo::class);
     }
+
+    protected $fillable = [
+        'movimento', // Add this line
+        'largura',
+        'tecido',
+        'quantidade',
+        'parImper',
+        // ... other fields
+    ];
 }
