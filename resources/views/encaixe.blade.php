@@ -51,10 +51,10 @@
                     <!-- Model -->
                     <div class="hidden overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center"
                         id="modal-id">
-                        <div class="relative w-auto my-6 mx-auto max-w-3xl">
+                        <div class="relative w-2/5 h-1/2 my-6 mx-auto">
                             <!-- Content -->
                             <div
-                                class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                                class="border-0 rounded-lg shadow-lg relative flex flex-col w-full h-full bg-white outline-none focus:outline-none">
                                 <!-- Header -->
                                 <div
                                     class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
@@ -63,19 +63,16 @@
                                     </h3>
                                 </div>
                                 <!-- Body -->
-
-                                <div class="flex flex-wrap" id="tabs-id">
+                                <div class="flex flex-wrap justify-center items-center h-full" id="tabs-id">
                                     <div class="w-full">
                                         <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
-
+                                            <!-- Tab items -->
                                         </ul>
                                         <div
-                                            class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
-                                            <div class="px-4 py-5 flex-auto">
+                                            class="relative flex flex-col min-w-0 break-words bg-white w-full h-full mb-6 shadow-lg rounded">
+                                            <div class="px-4 py-5 flex-auto flex justify-center items-center">
                                                 <div class="tab-content tab-space">
-
-
-
+                                                    <!-- Tab content -->
                                                 </div>
                                             </div>
                                         </div>
@@ -85,6 +82,8 @@
                         </div>
                     </div>
                     <div class="hidden opacity-25 fixed inset-0 z-40 bg-black" id="modal-id-backdrop"></div>
+
+
                 </div>
             </div>
         </div>

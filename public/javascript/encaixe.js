@@ -84,7 +84,7 @@ function processJSONResponse (response) {
        
         <form id="form${movimentoId}">
           
-              <div class="relative p-6 flex-auto grid grid-cols-2 gap-4">
+              <div class="relative p-6 flex-auto grid grid-cols-2 gap-4" id="conteudo">
               <!-- Form inputs -->
               <input type="hidden" id="encaixeID">
               <div>
@@ -122,7 +122,7 @@ function processJSONResponse (response) {
 
         tabContents.append(conHtml)
 
-        var tab2Contents = $('#form' + movimentoId)
+        var tab2Contents = $('#form' + movimentoId + ' #conteudo')
 
         //LOOP PARA PEGAR OS CONSUMOS DO MOVIMENTO
         $.each(movimento.consumos, function (index, consumo) {
@@ -143,10 +143,13 @@ function processJSONResponse (response) {
 
         //BOTÃO ADD MAIS CONSUMO
         var conConsumosAddHtml = `
-      <button class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onclick="AddMoreConsumos(event, ${movimentoId})" id="buttonAddConsumos${movimentoId}">
-                  ADD + consumos
-      </button> 
-    `
+        <button class="col-span-2 bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            onclick="AddMoreConsumos(event, ${movimentoId})"
+            id="buttonAddConsumos${movimentoId}"
+            style="width: 200px; height: 30px; padding: 6px;">
+            ADD + consumos
+            </button>
+        `
 
         tab2Contents.append(conConsumosAddHtml)
 
