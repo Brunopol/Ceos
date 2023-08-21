@@ -1,4 +1,5 @@
-const { reference } = require("@popperjs/core");
+
+//--------------------TROCA TABS--------------------\\
 
 function changeAtiveTab(event,tabID){
   let element = event.target;
@@ -24,6 +25,8 @@ function changeAtiveTab(event,tabID){
   document.getElementById(tabID).classList.add("block");
 }
 
+//--------------------CHAMA O MODEL--------------------\\
+
 function toggleModal(modalID, userURL, referencia) {
   $.get(userURL, function(response) {
       $("#" + modalID).toggleClass("hidden flex");
@@ -35,15 +38,25 @@ function toggleModal(modalID, userURL, referencia) {
   });
 }
 
+//--------------------FECHA O MODEL--------------------\\
+
+function closeModal(modalID) {
+  $("#" + modalID).toggleClass("hidden flex");
+  $("#" + modalID + "-backdrop").toggleClass("hidden flex");
+}
+
+//--------------------PROCESSAR A RESPOSTA DO SERVIDOR E MANIPULAR O DOM--------------------\\
+
 function processJSONResponse(response) {
 
   var tabListHeader = $("#tabs-id ul");
   var tabContents = $("#tabs-id .tab-content");
 
+  //LIMPA O CONTEUDO ANTERIOR
   tabListHeader.empty();
   tabContents.empty();
 
-  
+  //LOOP DOS MOVIMENTOS
   $.each(response.movimentos, function(index, movimento) {
     var movimentoId = movimento.id;
     var movimentoNome = movimento.nome;
@@ -53,6 +66,7 @@ function processJSONResponse(response) {
     var movimentoParImper = movimento.parImper;
     var movimentoCreatedAt = movimento.created_at;    
 
+    //LISTA DO MOVIMENTOS (HEADER)
     var liHtml = 
     `
       <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
@@ -65,6 +79,7 @@ function processJSONResponse(response) {
 
     tabListHeader.append(liHtml);
 
+    //CONTEUDO DO MOVIMENTO (CONTENT)
     var conHtml = 
     `
       <div class="hidden" id="${movimentoId}">
@@ -111,6 +126,7 @@ function processJSONResponse(response) {
 
     var tab2Contents = $("#form" + movimentoId);
 
+    //LOOP PARA PEGAR OS CONSUMOS DO MOVIMENTO
     $.each(movimento.consumos, function(index, consumo) {
 
       
@@ -131,16 +147,17 @@ function processJSONResponse(response) {
 
     });
 
+    //BOTÃO ADD MAIS CONSUMO
     var conConsumosAddHtml = 
     `
-      <button class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onclick="AddMoreConsumos(event, ${movimentoId})">
+      <button class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onclick="AddMoreConsumos(event, ${movimentoId})" id="buttonAddConsumos${movimentoId}">
                   ADD + consumos
       </button> 
     `
 
     tab2Contents.append(conConsumosAddHtml);
 
-
+    //BOTÕES SALVAR E FECHAR MODEL
     var footer = 
       `
         <!-- Footer -->
@@ -161,12 +178,11 @@ function processJSONResponse(response) {
     tab2Contents.append(footer);
 
     
-        
   });
 
+  //------------------PARTE PARA ADICIONAR MAIS MOVIMENTOS------------------\\
 
-  //----------------------------------------Add more movimentos
-
+  //BOTÃO PARA ADD O MOVIMENTO NO (HEADER)
   var listPlusHtml = 
   `
     <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
@@ -179,6 +195,7 @@ function processJSONResponse(response) {
 
   tabListHeader.append(listPlusHtml);
 
+  //CONTEUDO DO NOVO MOVIMENTO
   var conPlusHtml = 
     `
       <div class="hidden" id="addMovimento">
@@ -222,6 +239,7 @@ function processJSONResponse(response) {
 
     tabContents.append(conPlusHtml);
 
+    //ADD MAIS CONSUMOS PARA O MOVIMENTO NOVO
     tabAddContentsForm = $("#formAddMovimento");
 
     var conConsumosAddHtml = 
@@ -233,6 +251,7 @@ function processJSONResponse(response) {
 
     tabAddContentsForm.append(conConsumosAddHtml);
 
+    //SALVAR E FECHAR PARA O MOVIMENTO NOVO
     var footer = 
       `
         <!-- Footer -->
@@ -254,15 +273,12 @@ function processJSONResponse(response) {
 
 }
 
-function closeModal(modalID) {
-  $("#" + modalID).toggleClass("hidden flex");
-  $("#" + modalID + "-backdrop").toggleClass("hidden flex");
-}
+//--------------------ADD MAIS CONSUMOS (dinamico)--------------------\\
 
 function AddMoreConsumos(event, movimentoId) {
   event.preventDefault();
 
-  var tab2Contents = $("#form" + movimentoId);
+  var tab2Contents = $("#buttonAddConsumos" + movimentoId);
 
   var conConsumosHtml = 
       `
@@ -277,8 +293,10 @@ function AddMoreConsumos(event, movimentoId) {
       
       `
 
-  tab2Contents.append(conConsumosHtml);
+  tab2Contents.before(conConsumosHtml);
 }
+
+//--------------------ADD MAIS CONSUMOS NO MOVIEMTNO NOVO (dinamico)--------------------\\
 
 function AddMoreConsumosOnTheAddMovimentos(event) {
   event.preventDefault();
@@ -302,6 +320,8 @@ function AddMoreConsumosOnTheAddMovimentos(event) {
 
 }
 
+//--------------------AJAX PARA MANDAR PARA O SERVIDOR O MOVIMENTO NOVO--------------------\\
+
 function addEncaixeMovimento(event) {
 
   event.preventDefault();
@@ -317,27 +337,25 @@ function addEncaixeMovimento(event) {
     },
     success: function (response) {
 
-        // Display success message
-        $('#successMessage').removeClass('hidden'); // Show the success div
+        $('#successMessage').removeClass('hidden'); 
 
-        // Hide the modal
         closeModal('modal-id');
 
-        // Optional: You can clear the form inputs if needed
         $('#formAddMovimento')[0].reset();
     },
     error: function (error) {
-        // Handle error here
         console.log(error);
-        $('#errorMessage').removeClass('hidden'); // Show the success div
+        $('#errorMessage').removeClass('hidden'); 
         
     }
 });
 
 }
 
+//--------------------ATUALIZAR OS MOVIMENTOS EXISTENTES--------------------\\
+
 function updateEncaixeMovimento(event, movimentoId) {
-  // Prevent the default form submission behavior
+
   event.preventDefault();
 
   var formData = $('#form' + movimentoId).serialize();
@@ -351,19 +369,15 @@ function updateEncaixeMovimento(event, movimentoId) {
       },
       success: function (response) {
   
-          // Display success message
-          $('#successMessage').removeClass('hidden'); // Show the success div
-
-          // Hide the modal
+          $('#successMessage').removeClass('hidden'); 
+     
           closeModal('modal-id');
 
-          // Optional: You can clear the form inputs if needed
           $('#form' + movimentoId)[0].reset();
       },
       error: function (error) {
-          // Handle error here
           console.log(error);
-          $('#errorMessage').removeClass('hidden'); // Show the success div
+          $('#errorMessage').removeClass('hidden'); 
           
       }
   });
