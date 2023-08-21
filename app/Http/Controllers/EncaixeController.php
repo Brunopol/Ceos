@@ -41,7 +41,7 @@ class EncaixeController extends Controller
 
         $encaixe = Encaixe::find($validatedData['encaixeID']);
 
-        $encaixe->movimentos()->create([
+        $encaixeMovimento = $encaixe->movimentos()->create([
             'nome' => $validatedData['nome'],
             'largura' => $validatedData['largura'],
             'tecido' => $validatedData['tecido'],
@@ -50,7 +50,22 @@ class EncaixeController extends Controller
             'notas' => 'TODO',
         ]);
 
-        return response()->json($encaixe);
+        if (isset($validatedData['consumo_nome']) && is_array($validatedData['consumo_nome'])) {
+            $consumos = [];
+            foreach ($validatedData['consumo_nome'] as $index => $consumoNome) {
+                $consumos[] = [
+                    'nome' => $consumoNome,
+                    'valor' => $validatedData['consumo_valor'][$index],
+                ];
+            }
+    
+            // Delete existing consumos and create new ones
+            $encaixeMovimento->consumos()->delete(); 
+            $encaixeMovimento->consumos()->createMany($consumos);
+        }
+        
+
+        return response()->json('ADD com sucesso');
 
     }
 

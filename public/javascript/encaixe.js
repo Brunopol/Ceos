@@ -131,6 +131,16 @@ function processJSONResponse(response) {
 
     });
 
+    var conConsumosAddHtml = 
+    `
+      <button class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onclick="AddMoreConsumos(event, ${movimentoId})">
+                  ADD + consumos
+      </button> 
+    `
+
+    tab2Contents.append(conConsumosAddHtml);
+
+
     var footer = 
       `
         <!-- Footer -->
@@ -203,7 +213,6 @@ function processJSONResponse(response) {
                   <input type="text" id="created_at" name="created_at" class="form-control" value="">
               </div>
               
-              
           </div>
 
       </form>
@@ -214,6 +223,15 @@ function processJSONResponse(response) {
     tabContents.append(conPlusHtml);
 
     tabAddContentsForm = $("#formAddMovimento");
+
+    var conConsumosAddHtml = 
+    `
+      <button class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onclick="AddMoreConsumosOnTheAddMovimentos(event)">
+                  ADD + consumos
+      </button> 
+    `
+
+    tabAddContentsForm.append(conConsumosAddHtml);
 
     var footer = 
       `
@@ -239,6 +257,49 @@ function processJSONResponse(response) {
 function closeModal(modalID) {
   $("#" + modalID).toggleClass("hidden flex");
   $("#" + modalID + "-backdrop").toggleClass("hidden flex");
+}
+
+function AddMoreConsumos(event, movimentoId) {
+  event.preventDefault();
+
+  var tab2Contents = $("#form" + movimentoId);
+
+  var conConsumosHtml = 
+      `
+        <div>
+          <label for="consumo_nome" class="block text-sm font-medium text-gray-700">consumo_nome</label>
+          <input type="text" id="consumo_nome" name="consumo_nome[]" class="form-control" >
+        </div>
+        <div>
+          <label for="consumo_valor" class="block text-sm font-medium text-gray-700">consumo_valor</label>
+          <input type="text" id="consumo_valor" name="consumo_valor[]" class="form-control" >
+        </div>
+      
+      `
+
+  tab2Contents.append(conConsumosHtml);
+}
+
+function AddMoreConsumosOnTheAddMovimentos(event) {
+  event.preventDefault();
+
+  tabAddContentsForm = $("#formAddMovimento");
+
+  var conConsumosHtml = 
+      `
+        <div>
+          <label for="consumo_nome" class="block text-sm font-medium text-gray-700">consumo_nome</label>
+          <input type="text" id="consumo_nome" name="consumo_nome[]" class="form-control" >
+        </div>
+        <div>
+          <label for="consumo_valor" class="block text-sm font-medium text-gray-700">consumo_valor</label>
+          <input type="text" id="consumo_valor" name="consumo_valor[]" class="form-control" >
+        </div>
+      
+      `
+
+  tabAddContentsForm.append(conConsumosHtml);
+
 }
 
 function addEncaixeMovimento(event) {
