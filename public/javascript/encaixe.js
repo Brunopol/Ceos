@@ -1,87 +1,85 @@
-
 //--------------------TROCA TABS--------------------\\
 
-function changeAtiveTab(event,tabID){
-  let element = event.target;
-  while(element.nodeName !== "A"){
-    element = element.parentNode;
-  }
-  ulElement = element.parentNode.parentNode;
-  aElements = ulElement.querySelectorAll("li > a");
-  tabContents = document.getElementById("tabs-id").querySelectorAll(".tab-content > div");
-  for(let i = 0 ; i < aElements.length; i++){
-    aElements[i].classList.remove("text-white");
-    aElements[i].classList.remove("bg-blue-500");
-    aElements[i].classList.add("text-pink-600");
-    aElements[i].classList.add("bg-white");
-    tabContents[i].classList.add("hidden");
-    tabContents[i].classList.remove("block");
-  }
-  element.classList.remove("text-pink-600");
-  element.classList.remove("bg-white");
-  element.classList.add("text-white");
-  element.classList.add("bg-blue-500");
-  document.getElementById(tabID).classList.remove("hidden");
-  document.getElementById(tabID).classList.add("block");
+function changeAtiveTab (event, tabID) {
+    let element = event.target
+    while (element.nodeName !== 'A') {
+        element = element.parentNode
+    }
+    ulElement = element.parentNode.parentNode
+    aElements = ulElement.querySelectorAll('li > a')
+    tabContents = document
+        .getElementById('tabs-id')
+        .querySelectorAll('.tab-content > div')
+    for (let i = 0; i < aElements.length; i++) {
+        aElements[i].classList.remove('text-white')
+        aElements[i].classList.remove('bg-blue-500')
+        aElements[i].classList.add('text-pink-600')
+        aElements[i].classList.add('bg-white')
+        tabContents[i].classList.add('hidden')
+        tabContents[i].classList.remove('block')
+    }
+    element.classList.remove('text-pink-600')
+    element.classList.remove('bg-white')
+    element.classList.add('text-white')
+    element.classList.add('bg-blue-500')
+    document.getElementById(tabID).classList.remove('hidden')
+    document.getElementById(tabID).classList.add('block')
 }
 
 //--------------------CHAMA O MODEL--------------------\\
 
-function toggleModal(modalID, userURL, referencia) {
-  $.get(userURL, function(response) {
-      $("#" + modalID).toggleClass("hidden flex");
-      $("#" + modalID + "-backdrop").toggleClass("hidden flex");
+function toggleModal (modalID, userURL, referencia) {
+    $.get(userURL, function (response) {
+        $('#' + modalID).toggleClass('hidden flex')
+        $('#' + modalID + '-backdrop').toggleClass('hidden flex')
 
-      $("#tituloEncaixeRef").text("Ref: " + referencia);
-    
-      processJSONResponse(response);
-  });
+        $('#tituloEncaixeRef').text('Ref: ' + referencia)
+
+        processJSONResponse(response)
+    })
 }
 
 //--------------------FECHA O MODEL--------------------\\
 
-function closeModal(modalID) {
-  $("#" + modalID).toggleClass("hidden flex");
-  $("#" + modalID + "-backdrop").toggleClass("hidden flex");
+function closeModal (modalID) {
+    $('#' + modalID).toggleClass('hidden flex')
+    $('#' + modalID + '-backdrop').toggleClass('hidden flex')
 }
 
 //--------------------PROCESSAR A RESPOSTA DO SERVIDOR E MANIPULAR O DOM--------------------\\
 
-function processJSONResponse(response) {
+function processJSONResponse (response) {
+    var tabListHeader = $('#tabs-id ul')
+    var tabContents = $('#tabs-id .tab-content')
 
-  var tabListHeader = $("#tabs-id ul");
-  var tabContents = $("#tabs-id .tab-content");
+    //LIMPA O CONTEUDO ANTERIOR
+    tabListHeader.empty()
+    tabContents.empty()
 
-  //LIMPA O CONTEUDO ANTERIOR
-  tabListHeader.empty();
-  tabContents.empty();
+    //LOOP DOS MOVIMENTOS
+    $.each(response.movimentos, function (index, movimento) {
+        var movimentoId = movimento.id
+        var movimentoNome = movimento.nome
+        var movimentoLargura = movimento.largura
+        var movimentoTecido = movimento.tecido
+        var movimentoQuantidade = movimento.quantidade
+        var movimentoParImper = movimento.parImper
+        var movimentoCreatedAt = movimento.created_at
 
-  //LOOP DOS MOVIMENTOS
-  $.each(response.movimentos, function(index, movimento) {
-    var movimentoId = movimento.id;
-    var movimentoNome = movimento.nome;
-    var movimentoLargura = movimento.largura;
-    var movimentoTecido = movimento.tecido;
-    var movimentoQuantidade = movimento.quantidade;
-    var movimentoParImper = movimento.parImper;
-    var movimentoCreatedAt = movimento.created_at;    
-
-    //LISTA DO MOVIMENTOS (HEADER)
-    var liHtml = 
-    `
+        //LISTA DO MOVIMENTOS (HEADER)
+        var liHtml = `
       <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
         <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-pink-600 bg-white"
           onclick="changeAtiveTab(event,'${movimentoId}')">
           <i class="fas fa-space-shuttle text-base mr-1"></i> ${movimentoNome}
         </a>
       </li>
-    `;
-
-    tabListHeader.append(liHtml);
-
-    //CONTEUDO DO MOVIMENTO (CONTENT)
-    var conHtml = 
     `
+
+        tabListHeader.append(liHtml)
+
+        //CONTEUDO DO MOVIMENTO (CONTENT)
+        var conHtml = `
       <div class="hidden" id="${movimentoId}">
        
         <form id="form${movimentoId}">
@@ -122,16 +120,13 @@ function processJSONResponse(response) {
       </div>
     `
 
-    tabContents.append(conHtml);
+        tabContents.append(conHtml)
 
-    var tab2Contents = $("#form" + movimentoId);
+        var tab2Contents = $('#form' + movimentoId)
 
-    //LOOP PARA PEGAR OS CONSUMOS DO MOVIMENTO
-    $.each(movimento.consumos, function(index, consumo) {
-
-      
-      var conConsumosHtml = 
-      `
+        //LOOP PARA PEGAR OS CONSUMOS DO MOVIMENTO
+        $.each(movimento.consumos, function (index, consumo) {
+            var conConsumosHtml = `
         <div>
           <label for="consumo_nome" class="block text-sm font-medium text-gray-700">consumo_nome</label>
           <input type="text" id="consumo_nome" name="consumo_nome[]" class="form-control" value="${consumo.nome}">
@@ -143,23 +138,20 @@ function processJSONResponse(response) {
       
       `
 
-      tab2Contents.append(conConsumosHtml);
+            tab2Contents.append(conConsumosHtml)
+        })
 
-    });
-
-    //BOTÃO ADD MAIS CONSUMO
-    var conConsumosAddHtml = 
-    `
+        //BOTÃO ADD MAIS CONSUMO
+        var conConsumosAddHtml = `
       <button class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onclick="AddMoreConsumos(event, ${movimentoId})" id="buttonAddConsumos${movimentoId}">
                   ADD + consumos
       </button> 
     `
 
-    tab2Contents.append(conConsumosAddHtml);
+        tab2Contents.append(conConsumosAddHtml)
 
-    //BOTÕES SALVAR E FECHAR MODEL
-    var footer = 
-      `
+        //BOTÕES SALVAR E FECHAR MODEL
+        var footer = `
         <!-- Footer -->
         <div id="errorMessage" class="hidden mt-1 bg-red-500 text-white p-1 rounded-b shadow-md items-center border-t border-solid border-slate-200">
             <span>Error, prencha corretamente todos os campos</span>
@@ -175,29 +167,25 @@ function processJSONResponse(response) {
       
       `
 
-    tab2Contents.append(footer);
+        tab2Contents.append(footer)
+    })
 
-    
-  });
+    //------------------PARTE PARA ADICIONAR MAIS MOVIMENTOS------------------\\
 
-  //------------------PARTE PARA ADICIONAR MAIS MOVIMENTOS------------------\\
-
-  //BOTÃO PARA ADD O MOVIMENTO NO (HEADER)
-  var listPlusHtml = 
-  `
+    //BOTÃO PARA ADD O MOVIMENTO NO (HEADER)
+    var listPlusHtml = `
     <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
       <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-pink-600 bg-white"
         onclick="changeAtiveTab(event,'addMovimento')">
         <i class="fas fa-space-shuttle text-base mr-1"></i> Add+
       </a>
     </li>
-  `;
+  `
 
-  tabListHeader.append(listPlusHtml);
+    tabListHeader.append(listPlusHtml)
 
-  //CONTEUDO DO NOVO MOVIMENTO
-  var conPlusHtml = 
-    `
+    //CONTEUDO DO NOVO MOVIMENTO
+    var conPlusHtml = `
       <div class="hidden" id="addMovimento">
        
         <form id="formAddMovimento">
@@ -237,23 +225,21 @@ function processJSONResponse(response) {
       </div>
     `
 
-    tabContents.append(conPlusHtml);
+    tabContents.append(conPlusHtml)
 
     //ADD MAIS CONSUMOS PARA O MOVIMENTO NOVO
-    tabAddContentsForm = $("#formAddMovimento");
+    tabAddContentsForm = $('#formAddMovimento')
 
-    var conConsumosAddHtml = 
-    `
+    var conConsumosAddHtml = `
       <button class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onclick="AddMoreConsumosOnTheAddMovimentos(event)">
                   ADD + consumos
       </button> 
     `
 
-    tabAddContentsForm.append(conConsumosAddHtml);
+    tabAddContentsForm.append(conConsumosAddHtml)
 
     //SALVAR E FECHAR PARA O MOVIMENTO NOVO
-    var footer = 
-      `
+    var footer = `
         <!-- Footer -->
         <div id="errorMessage" class="hidden mt-1 bg-red-500 text-white p-1 rounded-b shadow-md items-center border-t border-solid border-slate-200">
             <span>Error, prencha corretamente todos os campos</span>
@@ -269,19 +255,17 @@ function processJSONResponse(response) {
       
       `
 
-    tabAddContentsForm.append(footer);
-
+    tabAddContentsForm.append(footer)
 }
 
 //--------------------ADD MAIS CONSUMOS (dinamico)--------------------\\
 
-function AddMoreConsumos(event, movimentoId) {
-  event.preventDefault();
+function AddMoreConsumos (event, movimentoId) {
+    event.preventDefault()
 
-  var tab2Contents = $("#buttonAddConsumos" + movimentoId);
+    var tab2Contents = $('#buttonAddConsumos' + movimentoId)
 
-  var conConsumosHtml = 
-      `
+    var conConsumosHtml = `
         <div>
           <label for="consumo_nome" class="block text-sm font-medium text-gray-700">consumo_nome</label>
           <input type="text" id="consumo_nome" name="consumo_nome[]" class="form-control" >
@@ -293,18 +277,17 @@ function AddMoreConsumos(event, movimentoId) {
       
       `
 
-  tab2Contents.before(conConsumosHtml);
+    tab2Contents.before(conConsumosHtml)
 }
 
 //--------------------ADD MAIS CONSUMOS NO MOVIEMTNO NOVO (dinamico)--------------------\\
 
-function AddMoreConsumosOnTheAddMovimentos(event) {
-  event.preventDefault();
+function AddMoreConsumosOnTheAddMovimentos (event) {
+    event.preventDefault()
 
-  tabAddContentsForm = $("#formAddMovimento");
+    tabAddContentsForm = $('#formAddMovimento')
 
-  var conConsumosHtml = 
-      `
+    var conConsumosHtml = `
         <div>
           <label for="consumo_nome" class="block text-sm font-medium text-gray-700">consumo_nome</label>
           <input type="text" id="consumo_nome" name="consumo_nome[]" class="form-control" >
@@ -316,69 +299,61 @@ function AddMoreConsumosOnTheAddMovimentos(event) {
       
       `
 
-  tabAddContentsForm.append(conConsumosHtml);
-
+    tabAddContentsForm.append(conConsumosHtml)
 }
 
 //--------------------AJAX PARA MANDAR PARA O SERVIDOR O MOVIMENTO NOVO--------------------\\
 
-function addEncaixeMovimento(event) {
+function addEncaixeMovimento (event) {
+    event.preventDefault()
 
-  event.preventDefault();
+    var formData = $('#formAddMovimento').serialize()
 
-  var formData = $('#formAddMovimento').serialize();
+    $.ajax({
+        url: '/encaixeMovimento',
+        type: 'POST',
+        data: formData,
+        headers: {
+            'X-CSRF-TOKEN': csrfToken
+        },
+        success: function (response) {
+            $('#successMessage').removeClass('hidden')
 
-  $.ajax({
-    url: '/encaixeMovimento',
-    type: 'POST',
-    data: formData,
-    headers: {
-      'X-CSRF-TOKEN': csrfToken 
-    },
-    success: function (response) {
+            closeModal('modal-id')
 
-        $('#successMessage').removeClass('hidden'); 
-
-        closeModal('modal-id');
-
-        $('#formAddMovimento')[0].reset();
-    },
-    error: function (error) {
-        console.log(error);
-        $('#errorMessage').removeClass('hidden'); 
-        
-    }
-});
-
+            $('#formAddMovimento')[0].reset()
+        },
+        error: function (error) {
+            console.log(error)
+            $('#errorMessage').removeClass('hidden')
+        }
+    })
 }
 
 //--------------------ATUALIZAR OS MOVIMENTOS EXISTENTES--------------------\\
 
-function updateEncaixeMovimento(event, movimentoId) {
+function updateEncaixeMovimento (event, movimentoId) {
+    event.preventDefault()
 
-  event.preventDefault();
+    var formData = $('#form' + movimentoId).serialize()
 
-  var formData = $('#form' + movimentoId).serialize();
+    $.ajax({
+        url: '/encaixes/' + movimentoId,
+        type: 'PUT',
+        data: formData,
+        headers: {
+            'X-CSRF-TOKEN': csrfToken
+        },
+        success: function (response) {
+            $('#successMessage').removeClass('hidden')
 
-  $.ajax({
-      url: '/encaixes/' + movimentoId,
-      type: 'PUT',
-      data: formData,
-      headers: {
-        'X-CSRF-TOKEN': csrfToken 
-      },
-      success: function (response) {
-  
-          $('#successMessage').removeClass('hidden'); 
-     
-          closeModal('modal-id');
+            closeModal('modal-id')
 
-          $('#form' + movimentoId)[0].reset();
-      },
-      error: function (error) {
-          console.log(error);
-          $('#errorMessage').removeClass('hidden'); 
-          
-      }
-  });
+            $('#form' + movimentoId)[0].reset()
+        },
+        error: function (error) {
+            console.log(error)
+            $('#errorMessage').removeClass('hidden')
+        }
+    })
 }
