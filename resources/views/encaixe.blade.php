@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Encaixe testando') }}
+            {{ __('Módulo Encaixe') }}
         </h2>
     </x-slot>
 
@@ -19,6 +19,14 @@
                             <span class="sr-only">Loading...</span>
                         </div>
                     </div>
+
+
+                    <button
+                        class="bg-blue-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                        type="button"
+                        onclick="toggleModal('modal-id-add', $(this).data('url'), $(this).data('referencia'))">
+                        Adicionar 
+                    </button>
 
                     <table id="myTable" class="table table-striped nowrap cell-border hover stripe"
                         style="width:100%">
@@ -47,8 +55,59 @@
                         </tbody>
                     </table>
 
+                    <!-- Model Adicionar Encaixe -->
+                    <div class="hidden overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center"
+                        id="modal-id-add">
+                        <div class="relative w-2/5 h-1/3 my-6 mx-auto">
+                            <div
+                                class="border-0 rounded-lg shadow-lg relative flex flex-col w-full h-full bg-white outline-none focus:outline-none">
 
-                    <!-- Model -->
+                                <div
+                                    class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                                    <h3 class="text-3xl font-semibold">
+                                        Adicionar Encaixe
+                                    </h3>
+                                </div>
+
+                                <form id="formAddEncaixe">
+
+                                    <div
+                                        class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                                        <label class="block text-sm font-medium text-gray-700">
+                                            Referencia
+                                        </label>
+                                        <input type="text" id="referencia" name="referencia">
+                                    </div>
+
+                                    <!-- Footer -->
+                                    <div id="errorMessage"
+                                        class="hidden mt-1 bg-red-500 text-white p-1 rounded-b shadow-md items-center border-t border-solid border-slate-200">
+                                        <span>Error, prencha corretamente todos os campos</span>
+                                    </div>
+                                    <div
+                                        class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                                        <button
+                                            class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                            type="button" onclick="closeModal('modal-id-add')">
+                                            Fechar
+                                        </button>
+                                        <button
+                                            class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                            onclick="adicionarEncaixe(event)">
+                                            Salvar
+                                        </button>
+                                    </div>
+
+                                </form>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hidden opacity-25 fixed inset-0 z-40 bg-black" id="modal-id-add-backdrop"></div>
+
+
+                    <!-- Model Para editar encaixe-->
                     <div class="hidden overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center"
                         id="modal-id">
                         <div class="relative w-2/5 h-1/2 my-6 mx-auto">

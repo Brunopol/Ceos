@@ -382,3 +382,29 @@ function updateInputValue(editableSpan, hiddenInputId) {
     var hiddenInput = $("#" + hiddenInputId);
     hiddenInput.val(inputValue);
 }
+
+function adicionarEncaixe(event) {
+    event.preventDefault();
+    formData = $("#formAddEncaixe").serialize();
+
+    $.ajax({
+        url: '/encaixe/',
+        type: 'POST',
+        data: formData,
+        headers: {
+            'X-CSRF-TOKEN': csrfToken
+        },
+        success: function (response) {
+            $('#successMessage').removeClass('hidden')
+
+            closeModal('modal-id-add')
+
+            $("#formAddEncaixe")[0].reset()
+        },
+        error: function (error) {
+            console.log(error)
+            $('#errorMessage').removeClass('hidden')
+        }
+    })
+    
+}

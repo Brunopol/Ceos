@@ -9,7 +9,7 @@ use Illuminate\View\View;
 
 class EncaixeController extends Controller
 {
-    
+
     public function index(Request $request): View
     {
         $encaixes = Encaixe::all();
@@ -18,11 +18,24 @@ class EncaixeController extends Controller
         ]);
     }
 
-    public function show($id) 
+    public function show($id)
     {
         $encaixe = Encaixe::with(['movimentos', 'movimentos.consumos'])->find($id);
 
         return response()->json($encaixe);
+    }
+
+    public function addEncaixe(Request $request)
+    {
+        $validatedData = $request->validate([
+            'referencia' => 'required',
+        ]);
+
+        Encaixe::create([
+            'referencia' => $validatedData['referencia'],
+        ]);
+
+        return response()->json("criado com sucesso");
     }
 
     public function addMovimento(Request $request)
@@ -58,20 +71,19 @@ class EncaixeController extends Controller
                     'valor' => $validatedData['consumo_valor'][$index],
                 ];
             }
-    
+
             // Delete existing consumos and create new ones
-            $encaixeMovimento->consumos()->delete(); 
+            $encaixeMovimento->consumos()->delete();
             $encaixeMovimento->consumos()->createMany($consumos);
         }
-        
+
 
         return response()->json('ADD com sucesso');
-
     }
 
     public function updateMovimento(Request $request, $id)
     {
-        
+
         $validatedData = $request->validate([
             'nome' => 'required',
             'largura' => 'required',
@@ -81,9 +93,9 @@ class EncaixeController extends Controller
             'consumo_nome' => 'array',
             'consumo_valor' => 'array',
         ]);
-    
+
         $encaixeMovimento = Encaixe_movimento::find($id);
-    
+
         $encaixeMovimento->update([
             'nome' => $validatedData['nome'],
             'largura' => $validatedData['largura'],
@@ -91,7 +103,7 @@ class EncaixeController extends Controller
             'quantidade' => $validatedData['quantidade'],
             'parImper' => $validatedData['parImper'],
         ]);
-    
+
         if (isset($validatedData['consumo_nome']) && is_array($validatedData['consumo_nome'])) {
             $consumos = [];
             foreach ($validatedData['consumo_nome'] as $index => $consumoNome) {
@@ -100,14 +112,12 @@ class EncaixeController extends Controller
                     'valor' => $validatedData['consumo_valor'][$index],
                 ];
             }
-    
+
             // Delete existing consumos and create new ones
-            $encaixeMovimento->consumos()->delete(); 
+            $encaixeMovimento->consumos()->delete();
             $encaixeMovimento->consumos()->createMany($consumos);
         }
-    
+
         return response()->json(['message' => 'Encaixe movimento updated successfully']);
     }
-    
-
 }

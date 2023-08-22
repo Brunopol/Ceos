@@ -14,4 +14,8 @@ class Encaixe extends Model
     {
         return $this->hasMany(Encaixe_movimento::class);
     }
+
+    protected $fillable = [
+        'referencia',
+    ];
 }
