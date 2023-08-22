@@ -127,15 +127,13 @@ function processJSONResponse (response) {
         //LOOP PARA PEGAR OS CONSUMOS DO MOVIMENTO
         $.each(movimento.consumos, function (index, consumo) {
             var conConsumosHtml = `
-        <div>
-          <label for="consumo_nome" class="block text-sm font-medium text-gray-700">consumo_nome</label>
-          <input type="text" id="consumo_nome" name="consumo_nome[]" class="form-control" value="${consumo.nome}">
-        </div>
-        <div>
-          <label for="consumo_valor" class="block text-sm font-medium text-gray-700">consumo_valor</label>
-          <input type="text" id="consumo_valor" name="consumo_valor[]" class="form-control" value="${consumo.valor}">
-        </div>
-      
+            <div>
+                <label for="consumo_nome" class="block text-sm font-medium text-gray-700">
+                    <span contenteditable="true" oninput="updateInputValue(this, '${movimento.id}${consumo.id}')">${consumo.nome}</span>
+                </label>
+                <input type="hidden" id="${movimento.id}${consumo.id}" name="consumo_nome[]" value="${consumo.nome}">
+                <input type="text" name="consumo_valor[]" class="form-control" value="${consumo.valor}">
+            </div>
       `
 
             tab2Contents.append(conConsumosHtml)
@@ -268,19 +266,23 @@ function AddMoreConsumos (event, movimentoId) {
 
     var tab2Contents = $('#buttonAddConsumos' + movimentoId)
 
-    var conConsumosHtml = `
-        <div>
-          <label for="consumo_nome" class="block text-sm font-medium text-gray-700">consumo_nome</label>
-          <input type="text" id="consumo_nome" name="consumo_nome[]" class="form-control" >
-        </div>
-        <div>
-          <label for="consumo_valor" class="block text-sm font-medium text-gray-700">consumo_valor</label>
-          <input type="text" id="consumo_valor" name="consumo_valor[]" class="form-control" >
-        </div>
-      
-      `
+    randomNumForId = Math.floor(Math.random() * (100 - 1)) + 1;
+    randomNumForId2 = Math.floor(Math.random() * (100 - 1)) + 1;
 
-    tab2Contents.before(conConsumosHtml)
+    var conConsumosAddHtml = `
+    
+    <div>
+        <label for="consumo_nome" class="block text-sm font-medium text-gray-700">
+            <span contenteditable="true" oninput="updateInputValue(this, '${randomNumForId + randomNumForId2}')">#</span>
+        </label>
+        <input type="hidden" id="${randomNumForId + randomNumForId2}" name="consumo_nome[]" value="">
+        <input type="text" name="consumo_valor[]" class="form-control" value="">
+    </div>
+    
+    
+    `
+
+    tab2Contents.before(conConsumosAddHtml);
 }
 
 //--------------------ADD MAIS CONSUMOS NO MOVIEMTNO NOVO (dinamico)--------------------\\
@@ -359,4 +361,18 @@ function updateEncaixeMovimento (event, movimentoId) {
             $('#errorMessage').removeClass('hidden')
         }
     })
+}
+
+//--------------------NÃO DEIXA QUE O LABEL DO CONSUMOS FICA EM BRANCO--------------------\\
+
+function updateInputValue(editableSpan, hiddenInputId) {
+    var inputValue = editableSpan.textContent;
+
+      // PARA NÃO REMOVER TODO O LABEL
+      if (inputValue.trim() === "") {
+        editableSpan.textContent = '#';
+    }
+
+    var hiddenInput = $("#" + hiddenInputId);
+    hiddenInput.val(inputValue);
 }
