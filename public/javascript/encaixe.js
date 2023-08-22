@@ -191,7 +191,7 @@ function processJSONResponse (response) {
        
         <form id="formAddMovimento">
           
-              <div class="relative p-6 flex-auto grid grid-cols-2 gap-4">
+              <div class="relative p-6 flex-auto grid grid-cols-2 gap-4" id="conteudoAddMovimento">
               <!-- Form inputs -->
               <input type="hidden" id="encaixeID" name="encaixeID" value="${response.id}">
               <div>
@@ -229,13 +229,16 @@ function processJSONResponse (response) {
     tabContents.append(conPlusHtml)
 
     //ADD MAIS CONSUMOS PARA O MOVIMENTO NOVO
-    tabAddContentsForm = $('#formAddMovimento')
+    tabAddContentsForm = $('#conteudoAddMovimento')
 
     var conConsumosAddHtml = `
-      <button class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onclick="AddMoreConsumosOnTheAddMovimentos(event)">
-                  ADD + consumos
-      </button> 
-    `
+        <button class="col-span-2 bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            onclick="AddMoreConsumosOnTheAddMovimentos(event)"
+            id="buttonAddConsumosMovimentoNovo"
+            style="width: 200px; height: 30px; padding: 6px;">
+            ADD + consumos
+            </button>
+        `
 
     tabAddContentsForm.append(conConsumosAddHtml)
 
@@ -279,7 +282,6 @@ function AddMoreConsumos (event, movimentoId) {
         <input type="text" name="consumo_valor[]" class="form-control" value="">
     </div>
     
-    
     `
 
     tab2Contents.before(conConsumosAddHtml);
@@ -290,21 +292,25 @@ function AddMoreConsumos (event, movimentoId) {
 function AddMoreConsumosOnTheAddMovimentos (event) {
     event.preventDefault()
 
-    tabAddContentsForm = $('#formAddMovimento')
+    var tabAddContentsForm = $('#buttonAddConsumosMovimentoNovo')
 
-    var conConsumosHtml = `
-        <div>
-          <label for="consumo_nome" class="block text-sm font-medium text-gray-700">consumo_nome</label>
-          <input type="text" id="consumo_nome" name="consumo_nome[]" class="form-control" >
-        </div>
-        <div>
-          <label for="consumo_valor" class="block text-sm font-medium text-gray-700">consumo_valor</label>
-          <input type="text" id="consumo_valor" name="consumo_valor[]" class="form-control" >
-        </div>
-      
-      `
+    randomNumForId = Math.floor(Math.random() * (100 - 1)) + 1;
+    randomNumForId2 = Math.floor(Math.random() * (100 - 1)) + 1;
 
-    tabAddContentsForm.append(conConsumosHtml)
+
+    var conConsumosAddHtml = `
+    
+    <div>
+        <label for="consumo_nome" class="block text-sm font-medium text-gray-700">
+            <span contenteditable="true" oninput="updateInputValue(this, '${randomNumForId + randomNumForId2}')">#</span>
+        </label>
+        <input type="hidden" id="${randomNumForId + randomNumForId2}" name="consumo_nome[]" value="">
+        <input type="text" name="consumo_valor[]" class="form-control" value="">
+    </div>
+    
+    `
+
+    tabAddContentsForm.before(conConsumosAddHtml)
 }
 
 //--------------------AJAX PARA MANDAR PARA O SERVIDOR O MOVIMENTO NOVO--------------------\\
