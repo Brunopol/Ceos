@@ -28,12 +28,13 @@ function changeAtiveTab (event, tabID) {
 
 //--------------------CHAMA O MODEL--------------------\\
 
-function toggleModal (modalID, userURL, referencia) {
+function toggleModal (modalID, userURL, referencia, date) {
     $.get(userURL, function (response) {
         $('#' + modalID).toggleClass('hidden flex')
         $('#' + modalID + '-backdrop').toggleClass('hidden flex')
 
         $('#tituloEncaixeRef').text('Ref: ' + referencia)
+        console.log(date);
 
         processJSONResponse(response)
     })

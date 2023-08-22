@@ -19,13 +19,12 @@
                             <span class="sr-only">Loading...</span>
                         </div>
                     </div>
-
-
+                    
                     <button
                         class="bg-blue-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="button"
                         onclick="toggleModal('modal-id-add', $(this).data('url'), $(this).data('referencia'))">
-                        Adicionar 
+                        Novo 
                     </button>
 
                     <table id="myTable" class="table table-striped nowrap cell-border hover stripe"
@@ -45,8 +44,9 @@
                                             class="bg-blue-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                             type="button" data-url="{{ route('encaixes.show', $encaixe->id) }}"
                                             data-referencia="{{ $encaixe->referencia }}"
-                                            onclick="toggleModal('modal-id', $(this).data('url'), $(this).data('referencia'))">
-                                            editar
+                                            data-date="{{ $encaixe->created_at }}"
+                                            onclick="toggleModal('modal-id', $(this).data('url'), $(this).data('referencia'), $(this).data('date'))">
+                                            Mostrar
                                         </button>
                                     </td>
                                 </tr>
