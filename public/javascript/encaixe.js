@@ -33,8 +33,7 @@ function toggleModal (modalID, userURL, referencia, date) {
         $('#' + modalID).toggleClass('hidden flex')
         $('#' + modalID + '-backdrop').toggleClass('hidden flex')
 
-        $('#tituloEncaixeRef').text('Ref: ' + referencia)
-        console.log(date);
+        $('#tituloEncaixeRef').text('Ref: ' + referencia + ' Data: ' + formatDate(date))
 
         processJSONResponse(response)
     })
@@ -59,13 +58,13 @@ function processJSONResponse (response) {
 
     //LOOP DOS MOVIMENTOS
     $.each(response.movimentos, function (index, movimento) {
-        var movimentoId = movimento.id
-        var movimentoNome = movimento.nome
-        var movimentoLargura = movimento.largura
-        var movimentoTecido = movimento.tecido
-        var movimentoQuantidade = movimento.quantidade
-        var movimentoParImper = movimento.parImper
-        var movimentoCreatedAt = movimento.formatted_created_at
+        var movimentoId = movimento.id;
+        var movimentoNome = movimento.nome;
+        var movimentoLargura = movimento.largura;
+        var movimentoTecido = movimento.tecido;
+        var movimentoQuantidade = movimento.quantidade;
+        var movimentoParImper = movimento.parImper;
+        var movimentoCreatedAt = formatDate(movimento.created_at);
 
         //LISTA DO MOVIMENTOS (HEADER)
         var liHtml = `
@@ -110,7 +109,7 @@ function processJSONResponse (response) {
               </div>
               <div>
                   <label for="created_at" class="block text-sm font-medium text-gray-700">Data</label>
-                  <input type="text" id="created_at" name="created_at" class="form-control" value="${movimentoCreatedAt}">
+                  <input type="text" id="created_at" name="created_at" class="form-control" value="${movimentoCreatedAt}" readonly>
               </div>
 
               
@@ -384,7 +383,11 @@ function updateInputValue(editableSpan, hiddenInputId) {
     hiddenInput.val(inputValue);
 }
 
-function adicionarEncaixe(event) {
+//--------------------ADICIONAR ENCAIXE NOVO--------------------\\
+
+function adicionarEncaixe(event, referencia ,urlId) {
+
+    urlId = urlId + '/encaixes/'
     event.preventDefault();
     formData = $("#formAddEncaixe").serialize();
 
@@ -398,7 +401,8 @@ function adicionarEncaixe(event) {
         success: function (response) {
             $('#successMessage').removeClass('hidden')
 
-            closeModal('modal-id-add')
+            closeModal('modal-id-add');
+            toggleModal('modal-id', urlId + response.id, referencia, response.created_at );
 
             $("#formAddEncaixe")[0].reset()
         },
@@ -408,4 +412,22 @@ function adicionarEncaixe(event) {
         }
     })
     
+}
+
+
+//--------------------FORMATAR AS DATAS--------------------\\
+
+function formatDate(inputDate) {
+    const date = new Date(inputDate);
+
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+
+    const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+    return formattedDate;
 }

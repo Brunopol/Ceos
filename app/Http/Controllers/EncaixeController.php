@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Encaixe;
 use App\Models\Encaixe_movimento;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
 class EncaixeController extends Controller
@@ -12,10 +13,7 @@ class EncaixeController extends Controller
 
     public function index(Request $request): View
     {
-        $encaixes = Encaixe::all()->map(function ($encaixe) {
-            $encaixe->formatted_created_at = $encaixe->created_at->format('d/m/Y H:i:s'); 
-            return $encaixe;
-        });
+        $encaixes = Encaixe::all();
 
         return view('encaixe', [
             "encaixes" => $encaixes,
@@ -27,10 +25,7 @@ class EncaixeController extends Controller
     {
         $encaixe = Encaixe::with(['movimentos', 'movimentos.consumos'])->find($id);
 
-        $encaixe = $encaixe->movimentos()->map(function ($movimento) {
-            $movimento->formatted_created_at = $movimento->created_at->format('d/m/Y H:i:s'); 
-            return $movimento;
-        });
+
         return response()->json($encaixe);
     }
 
@@ -40,11 +35,14 @@ class EncaixeController extends Controller
             'referencia' => 'required',
         ]);
 
-        Encaixe::create([
+        $encaixe = Encaixe::create([
             'referencia' => $validatedData['referencia'],
         ]);
-
-        return response()->json("criado com sucesso");
+        
+        return response()->json([
+            'id' => $encaixe->id,
+            'created_at' => $encaixe->created_at
+        ]);
     }
 
     public function addMovimento(Request $request)
