@@ -12,16 +12,25 @@ class EncaixeController extends Controller
 
     public function index(Request $request): View
     {
-        $encaixes = Encaixe::all();
+        $encaixes = Encaixe::all()->map(function ($encaixe) {
+            $encaixe->formatted_created_at = $encaixe->created_at->format('d/m/Y H:i:s'); 
+            return $encaixe;
+        });
+
         return view('encaixe', [
             "encaixes" => $encaixes,
         ]);
     }
 
+
     public function show($id)
     {
         $encaixe = Encaixe::with(['movimentos', 'movimentos.consumos'])->find($id);
 
+        $encaixe = $encaixe->movimentos()->map(function ($movimento) {
+            $movimento->formatted_created_at = $movimento->created_at->format('d/m/Y H:i:s'); 
+            return $movimento;
+        });
         return response()->json($encaixe);
     }
 

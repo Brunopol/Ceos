@@ -65,7 +65,7 @@ function processJSONResponse (response) {
         var movimentoTecido = movimento.tecido
         var movimentoQuantidade = movimento.quantidade
         var movimentoParImper = movimento.parImper
-        var movimentoCreatedAt = movimento.created_at
+        var movimentoCreatedAt = movimento.formatted_created_at
 
         //LISTA DO MOVIMENTOS (HEADER)
         var liHtml = `
