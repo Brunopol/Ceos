@@ -135,6 +135,11 @@ function processJSONResponse (response) {
                 </label>
                 <input type="hidden" id="${movimento.id}${consumo.id}" name="consumo_nome[]" value="${consumo.nome}">
                 <input type="text" name="consumo_valor[]" class="form-control" value="${consumo.valor}">
+                <button class="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-2 rounded transition duration-300 ease-in-out focus:outline-none text-xs" type="button"
+                    onclick=""
+                >
+                    x
+                </button>
             </div>
       `
 
