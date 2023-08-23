@@ -501,3 +501,28 @@ function deletarMovimento(event, movimentoId) {
     })
 
 }
+
+function deletarEncaixeConfirmar(encaixeNome, url) {
+    if (confirm("Tem certeza que você quer deletar o encaixe (" + encaixeNome + ")?")) {
+        deletarEncaixe(url);
+    }
+}
+
+function deletarEncaixe(url) {
+
+    $.ajax({
+        url: url,
+        type: 'DELETE',
+        headers: {
+            'X-CSRF-TOKEN': csrfToken
+        },
+        success: function (response) {
+            $('#successMessage').removeClass('hidden')
+        },
+        error: function (error) {
+            console.log(error)
+            $('#errorMessage').removeClass('hidden')
+        }
+    })
+
+}

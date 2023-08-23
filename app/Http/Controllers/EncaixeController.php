@@ -29,6 +29,14 @@ class EncaixeController extends Controller
         return response()->json($encaixe);
     }
 
+    public function delete($id) {
+
+        $encaixe = Encaixe::find($id);
+        $encaixe->delete();
+
+        return response()->json('deletado');
+    }
+
     public function addEncaixe(Request $request)
     {
         $validatedData = $request->validate([
