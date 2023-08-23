@@ -38,7 +38,7 @@ class EncaixeController extends Controller
         $encaixe = Encaixe::create([
             'referencia' => $validatedData['referencia'],
         ]);
-        
+
         return response()->json([
             'id' => $encaixe->id,
             'created_at' => $encaixe->created_at
@@ -125,6 +125,13 @@ class EncaixeController extends Controller
             $encaixeMovimento->consumos()->createMany($consumos);
         }
 
-        return response()->json(['message' => 'Encaixe movimento updated successfully']);
+        return response()->json(['message' => 'Encaixe movimento atualizou']);
+    }
+
+    public function deletarMovimento($id) 
+    {
+        $movimento = Encaixe_movimento::find($id);
+        $movimento->delete();
+        return response()->json(['message' => 'Encaixe movimento deletado']);
     }
 }

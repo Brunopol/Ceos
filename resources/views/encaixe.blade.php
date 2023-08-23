@@ -110,7 +110,7 @@
                     <!-- Model Para editar encaixe-->
                     <div class="hidden overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center"
                         id="modal-id">
-                        <div class="relative w-2/5 h-1/2 my-6 mx-auto">
+                        <div class="relative w-3/7 h-1/2 my-6 mx-auto">
                             <!-- Content -->
                             <div
                                 class="border-0 rounded-lg shadow-lg relative flex flex-col w-full h-full bg-white outline-none focus:outline-none">

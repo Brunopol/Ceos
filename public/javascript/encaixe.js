@@ -33,7 +33,9 @@ function toggleModal (modalID, userURL, referencia, date) {
         $('#' + modalID).toggleClass('hidden flex')
         $('#' + modalID + '-backdrop').toggleClass('hidden flex')
 
-        $('#tituloEncaixeRef').text('Ref: ' + referencia + ' Data: ' + formatDate(date))
+        $('#tituloEncaixeRef').text(
+            'Ref: ' + referencia + ' Data: ' + formatDate(date)
+        )
 
         processJSONResponse(response)
     })
@@ -58,13 +60,13 @@ function processJSONResponse (response) {
 
     //LOOP DOS MOVIMENTOS
     $.each(response.movimentos, function (index, movimento) {
-        var movimentoId = movimento.id;
-        var movimentoNome = movimento.nome;
-        var movimentoLargura = movimento.largura;
-        var movimentoTecido = movimento.tecido;
-        var movimentoQuantidade = movimento.quantidade;
-        var movimentoParImper = movimento.parImper;
-        var movimentoCreatedAt = formatDate(movimento.created_at);
+        var movimentoId = movimento.id
+        var movimentoNome = movimento.nome
+        var movimentoLargura = movimento.largura
+        var movimentoTecido = movimento.tecido
+        var movimentoQuantidade = movimento.quantidade
+        var movimentoParImper = movimento.parImper
+        var movimentoCreatedAt = formatDate(movimento.created_at)
 
         //LISTA DO MOVIMENTOS (HEADER)
         var liHtml = `
@@ -150,6 +152,21 @@ function processJSONResponse (response) {
         `
 
         tab2Contents.append(conConsumosAddHtml)
+
+        //BOTÃO PARA DELETAR MOVIMENTO
+
+        var deleteMovimento = `
+        <!-- Footer -->
+       
+        <div class="flex items-start justify-start p-6 border-t border-solid border-slate-200 rounded-b">
+        <button class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded transition duration-300 ease-in-out focus:outline-none" type="button" onclick="confirmarDeletar(event, ${movimentoId}, '${movimentoNome}')">
+            Deletar Movimento
+        </button>
+        </div>
+    
+      
+      `
+        tab2Contents.append(deleteMovimento)
 
         //BOTÕES SALVAR E FECHAR MODEL
         var footer = `
@@ -242,6 +259,18 @@ function processJSONResponse (response) {
 
     tabAddContentsForm.append(conConsumosAddHtml)
 
+    //SÓ PARA ARRUMAR O FRONTEND COLOCAR PARA ESQUERDA
+    var blankSpace = `
+       
+        <div  class="hidden mt-1 bg-red-500 text-white p-1 rounded-b shadow-md items-center border-t border-solid border-slate-200">
+        </div>
+        <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+        </div>
+        
+      `
+
+    tabAddContentsForm.append(blankSpace)
+
     //SALVAR E FECHAR PARA O MOVIMENTO NOVO
     var footer = `
         <!-- Footer -->
@@ -269,22 +298,26 @@ function AddMoreConsumos (event, movimentoId) {
 
     var tab2Contents = $('#buttonAddConsumos' + movimentoId)
 
-    randomNumForId = Math.floor(Math.random() * (100 - 1)) + 1;
-    randomNumForId2 = Math.floor(Math.random() * (100 - 1)) + 1;
+    randomNumForId = Math.floor(Math.random() * (100 - 1)) + 1
+    randomNumForId2 = Math.floor(Math.random() * (100 - 1)) + 1
 
     var conConsumosAddHtml = `
     
     <div>
         <label for="consumo_nome" class="block text-sm font-medium text-gray-700">
-            <span contenteditable="true" oninput="updateInputValue(this, '${randomNumForId + randomNumForId2}')">#</span>
+            <span contenteditable="true" oninput="updateInputValue(this, '${
+                randomNumForId + randomNumForId2
+            }')">Consumo</span>
         </label>
-        <input type="hidden" id="${randomNumForId + randomNumForId2}" name="consumo_nome[]" value="">
+        <input type="hidden" id="${
+            randomNumForId + randomNumForId2
+        }" name="consumo_nome[]" value="">
         <input type="text" name="consumo_valor[]" class="form-control" value="">
     </div>
     
     `
 
-    tab2Contents.before(conConsumosAddHtml);
+    tab2Contents.before(conConsumosAddHtml)
 }
 
 //--------------------ADD MAIS CONSUMOS NO MOVIEMTNO NOVO (dinamico)--------------------\\
@@ -294,17 +327,20 @@ function AddMoreConsumosOnTheAddMovimentos (event) {
 
     var tabAddContentsForm = $('#buttonAddConsumosMovimentoNovo')
 
-    randomNumForId = Math.floor(Math.random() * (100 - 1)) + 1;
-    randomNumForId2 = Math.floor(Math.random() * (100 - 1)) + 1;
-
+    randomNumForId = Math.floor(Math.random() * (100 - 1)) + 1
+    randomNumForId2 = Math.floor(Math.random() * (100 - 1)) + 1
 
     var conConsumosAddHtml = `
     
     <div>
         <label for="consumo_nome" class="block text-sm font-medium text-gray-700">
-            <span contenteditable="true" oninput="updateInputValue(this, '${randomNumForId + randomNumForId2}')">#</span>
+            <span contenteditable="true" oninput="updateInputValue(this, '${
+                randomNumForId + randomNumForId2
+            }')">Consumo</span>
         </label>
-        <input type="hidden" id="${randomNumForId + randomNumForId2}" name="consumo_nome[]" value="">
+        <input type="hidden" id="${
+            randomNumForId + randomNumForId2
+        }" name="consumo_nome[]" value="">
         <input type="text" name="consumo_valor[]" class="form-control" value="">
     </div>
     
@@ -371,25 +407,24 @@ function updateEncaixeMovimento (event, movimentoId) {
 
 //--------------------NÃO DEIXA QUE O LABEL DO CONSUMOS FICA EM BRANCO--------------------\\
 
-function updateInputValue(editableSpan, hiddenInputId) {
-    var inputValue = editableSpan.textContent;
+function updateInputValue (editableSpan, hiddenInputId) {
+    var inputValue = editableSpan.textContent
 
-      // PARA NÃO REMOVER TODO O LABEL
-      if (inputValue.trim() === "") {
-        editableSpan.textContent = '#';
+    // PARA NÃO REMOVER TODO O LABEL
+    if (inputValue.trim() === '') {
+        editableSpan.textContent = 'Consumo'
     }
 
-    var hiddenInput = $("#" + hiddenInputId);
-    hiddenInput.val(inputValue);
+    var hiddenInput = $('#' + hiddenInputId)
+    hiddenInput.val(inputValue)
 }
 
 //--------------------ADICIONAR ENCAIXE NOVO--------------------\\
 
-function adicionarEncaixe(event, referencia ,urlId) {
-
+function adicionarEncaixe (event, referencia, urlId) {
     urlId = urlId + '/encaixes/'
-    event.preventDefault();
-    formData = $("#formAddEncaixe").serialize();
+    event.preventDefault()
+    formData = $('#formAddEncaixe').serialize()
 
     $.ajax({
         url: '/encaixe/',
@@ -401,33 +436,68 @@ function adicionarEncaixe(event, referencia ,urlId) {
         success: function (response) {
             $('#successMessage').removeClass('hidden')
 
-            closeModal('modal-id-add');
-            toggleModal('modal-id', urlId + response.id, referencia, response.created_at );
+            closeModal('modal-id-add')
+            toggleModal(
+                'modal-id',
+                urlId + response.id,
+                referencia,
+                response.created_at
+            )
 
-            $("#formAddEncaixe")[0].reset()
+            $('#formAddEncaixe')[0].reset()
         },
         error: function (error) {
             console.log(error)
             $('#errorMessage').removeClass('hidden')
         }
     })
-    
 }
-
 
 //--------------------FORMATAR AS DATAS--------------------\\
 
-function formatDate(inputDate) {
-    const date = new Date(inputDate);
+function formatDate (inputDate) {
+    const date = new Date(inputDate)
 
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
+    const day = String(date.getDate()).padStart(2, '0')
+    const month = String(date.getMonth() + 1).padStart(2, '0')
+    const year = date.getFullYear()
 
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const seconds = String(date.getSeconds()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0')
+    const minutes = String(date.getMinutes()).padStart(2, '0')
+    const seconds = String(date.getSeconds()).padStart(2, '0')
 
-    const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
-    return formattedDate;
+    const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`
+    return formattedDate
+}
+
+//--------------------DELETAR MOVIMENTO--------------------\\
+
+function confirmarDeletar(event, movimentoId, movimentoNome) {
+    event.preventDefault();
+    if (confirm("Tem certeza que você quer deletar o movimento (" + movimentoNome + ")?")) {
+
+        deletarMovimento(event, movimentoId);
+    }
+}
+
+function deletarMovimento(event, movimentoId) {
+    event.preventDefault();
+
+    $.ajax({
+        url: '/encaixeMovimento/' + movimentoId,
+        type: 'DELETE',
+        headers: {
+            'X-CSRF-TOKEN': csrfToken
+        },
+        success: function (response) {
+            $('#successMessage').removeClass('hidden')
+
+            closeModal('modal-id')
+        },
+        error: function (error) {
+            console.log(error)
+            $('#errorMessage').removeClass('hidden')
+        }
+    })
+
 }
