@@ -373,8 +373,7 @@ function addEncaixeMovimento (event) {
             $('#formAddMovimento')[0].reset()
         },
         error: function (error) {
-            console.log(error)
-            $('#errorMessage').removeClass('hidden')
+            showNotification(error.responseJSON.message);
         }
     })
 }
@@ -402,8 +401,7 @@ function updateEncaixeMovimento (event, movimentoId) {
             $('#form' + movimentoId)[0].reset()
         },
         error: function (error) {
-            console.log(error)
-            $('#errorMessage').removeClass('hidden')
+            showNotification(error.responseJSON.message);
         }
     })
 }
@@ -451,8 +449,7 @@ function adicionarEncaixe (event, referencia, urlId) {
             $('#formAddEncaixe')[0].reset()
         },
         error: function (error) {
-            console.log(error)
-            $('#errorMessage').removeClass('hidden')
+            showNotification(error.responseJSON.message);
         }
     })
 }
@@ -499,8 +496,7 @@ function deletarMovimento(event, movimentoId) {
             closeModal('modal-id')
         },
         error: function (error) {
-            console.log(error)
-            $('#errorMessage').removeClass('hidden')
+            showNotification(error.responseJSON.message);
         }
     })
 
@@ -526,8 +522,7 @@ function deletarEncaixe(url) {
             showNotification(response.message);
         },
         error: function (error) {
-            console.log(error)
-            $('#errorMessage').removeClass('hidden')
+            showNotification(error.responseJSON.message);
         }
     })
 
@@ -550,8 +545,7 @@ function deletarConsumo(event, consumoID, url) {
             showNotification(response.message);
         },
         error: function (error) {
-            console.log(error)
-            $('#errorMessage').removeClass('hidden')
+            showNotification(error.responseJSON.message);
         }
     })
    
