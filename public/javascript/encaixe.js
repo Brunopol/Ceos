@@ -316,7 +316,7 @@ function AddMoreConsumos (event, movimentoId) {
         </label>
         <input type="hidden" id="${
             randomNumForId + randomNumForId2
-        }" name="consumo_nome[]" value="">
+        }" name="consumo_nome[]" value="Consumo">
         <input type="text" name="consumo_valor[]" class="form-control" value="">
     </div>
     
@@ -345,8 +345,8 @@ function AddMoreConsumosOnTheAddMovimentos (event) {
         </label>
         <input type="hidden" id="${
             randomNumForId + randomNumForId2
-        }" name="consumo_nome[]" value="">
-        <input type="text" name="consumo_valor[]" class="form-control" value="Consumo">
+        }" name="consumo_nome[]" value="Consumo">
+        <input type="text" name="consumo_valor[]" class="form-control" value="">
     </div>
     
     `
