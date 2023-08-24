@@ -136,7 +136,12 @@ class EncaixeController extends Controller
             $encaixeMovimento->consumos()->createMany($consumos);
         }
 
-        return response()->json(['message' => "Encaixe movimento '$encaixeMovimento->nome' atualizado com sucesso"]);
+        return response()->json([
+            'message' => "Encaixe movimento '$encaixeMovimento->nome' atualizado com sucesso",
+            'referencia' => $encaixeMovimento->encaixe->referencia,
+            'url' => route('encaixe.show', ['id' => $encaixeMovimento->encaixe->id]),
+            'created_at' => $encaixeMovimento->created_at,
+        ]);        
     }
 
     public function deletarMovimento($id)

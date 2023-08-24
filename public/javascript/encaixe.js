@@ -198,10 +198,10 @@ function processJSONResponse (response) {
     //BOTÃO PARA ADD O MOVIMENTO NO (HEADER)
     var listPlusHtml = `
     <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-      <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-pink-600 bg-white"
-        onclick="changeAtiveTab(event,'addMovimento')">
-        <i class="fas fa-space-shuttle text-base mr-1"></i> Add+
-      </a>
+        <a class="text-xs font-semibold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-white bg-emerald-500 hover:bg-green-600"
+            onclick="changeAtiveTab(event,'addMovimento')">
+            <i class="fas fa-space-shuttle text-base mr-1"></i> ADD+
+        </a>
     </li>
   `
 
@@ -397,8 +397,16 @@ function updateEncaixeMovimento (event, movimentoId) {
             showNotification(response.message);
 
             closeModal('modal-id')
-
+            
             $('#form' + movimentoId)[0].reset()
+
+            toggleModal(
+                'modal-id',
+                response.url,
+                response.referencia,
+                response.created_at
+            )
+            
         },
         error: function (error) {
             showNotification(error.responseJSON.message);
