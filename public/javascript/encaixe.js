@@ -236,10 +236,6 @@ function processJSONResponse (response) {
                   <label for="parImper" class="block text-sm font-medium text-gray-700">ParImpar</label>
                   <input type="text" id="parImper" name="parImper" class="form-control" value="">
               </div>
-              <div>
-                  <label for="created_at" class="block text-sm font-medium text-gray-700">Data</label>
-                  <input type="text" id="created_at" name="created_at" class="form-control" value="">
-              </div>
               
           </div>
 
