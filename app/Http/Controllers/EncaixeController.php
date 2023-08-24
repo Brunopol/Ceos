@@ -36,7 +36,7 @@ class EncaixeController extends Controller
         $encaixe = Encaixe::find($id);
         $encaixe->delete();
 
-        return response()->json('deletado');
+        return response()->json(['message' => "Encaixe '$encaixe->referencia' deletado com sucesso"]);
     }
 
     public function addEncaixe(Request $request)
@@ -50,6 +50,7 @@ class EncaixeController extends Controller
         ]);
 
         return response()->json([
+            'message' => "Encaixe '$encaixe->referencia' foi adicionando com sucesso",
             'id' => $encaixe->id,
             'created_at' => $encaixe->created_at
         ]);
@@ -95,7 +96,7 @@ class EncaixeController extends Controller
         }
 
 
-        return response()->json('ADD com sucesso');
+        return response()->json(['message' => "Encaixe '$encaixe->referencia' movimento '$encaixeMovimento->nome' adicionado com sucesso"]);
     }
 
     public function updateMovimento(Request $request, $id)
@@ -135,20 +136,20 @@ class EncaixeController extends Controller
             $encaixeMovimento->consumos()->createMany($consumos);
         }
 
-        return response()->json(['message' => 'Encaixe movimento atualizou']);
+        return response()->json(['message' => "Encaixe movimento '$encaixeMovimento->nome' atualizado com sucesso"]);
     }
 
     public function deletarMovimento($id)
     {
         $movimento = Encaixe_movimento::find($id);
         $movimento->delete();
-        return response()->json(['message' => 'Encaixe movimento deletado']);
+        return response()->json(['message' => "Encaixe movimento '$movimento->nome' deletado com sucesso"]);
     }
 
     public function deletarConsumo($id)
     {
         $consumo = Encaixe_movimento_consumo::find($id);
         $consumo->delete();
-        return response()->json(['message' => 'Consumo deletado']);
+        return response()->json(['message' => "Consumo '$consumo->nome' deletado com sucesso"]);
     }
 }

@@ -369,7 +369,8 @@ function addEncaixeMovimento (event) {
             'X-CSRF-TOKEN': csrfToken
         },
         success: function (response) {
-            $('#successMessage').removeClass('hidden')
+            
+            showNotification(response.message);
 
             closeModal('modal-id')
 
@@ -397,7 +398,8 @@ function updateEncaixeMovimento (event, movimentoId) {
             'X-CSRF-TOKEN': csrfToken
         },
         success: function (response) {
-            $('#successMessage').removeClass('hidden')
+           
+            showNotification(response.message);
 
             closeModal('modal-id')
 
@@ -439,7 +441,8 @@ function adicionarEncaixe (event, referencia, urlId) {
             'X-CSRF-TOKEN': csrfToken
         },
         success: function (response) {
-            $('#successMessage').removeClass('hidden')
+            
+            showNotification(response.message);
 
             closeModal('modal-id-add')
             toggleModal(
@@ -495,7 +498,7 @@ function deletarMovimento(event, movimentoId) {
             'X-CSRF-TOKEN': csrfToken
         },
         success: function (response) {
-            $('#successMessage').removeClass('hidden')
+            showNotification(response.message);
 
             closeModal('modal-id')
         },
@@ -524,7 +527,7 @@ function deletarEncaixe(url) {
             'X-CSRF-TOKEN': csrfToken
         },
         success: function (response) {
-            $('#successMessage').removeClass('hidden')
+            showNotification(response.message);
         },
         error: function (error) {
             console.log(error)
@@ -548,7 +551,7 @@ function deletarConsumo(event, consumoID, url) {
             'X-CSRF-TOKEN': csrfToken
         },
         success: function (response) {
-            $('#successMessage').removeClass('hidden')
+            showNotification(response.message);
         },
         error: function (error) {
             console.log(error)
@@ -557,4 +560,19 @@ function deletarConsumo(event, consumoID, url) {
     })
    
 
+}
+
+//--------------------NOTIFICAÇÕES--------------------\\
+
+function showNotification(message) {
+    var notification = $('<div>', {
+        'class': 'fixed bottom-4 left-4 bg-gray-800 text-white px-4 py-2 rounded-md shadow-md',
+        'text': message
+    }).appendTo('body');
+    
+    setTimeout(function() {
+        notification.fadeOut(300, function() {
+            $(this).remove();
+        });
+    }, 5000);
 }

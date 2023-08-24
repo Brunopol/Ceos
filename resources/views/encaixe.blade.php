@@ -149,12 +149,14 @@
                         </div>
                     </div>
                     <div class="hidden opacity-25 fixed inset-0 z-40 bg-black" id="modal-id-backdrop"></div>
-
+                    
 
                 </div>
             </div>
         </div>
     </div>
+    
+    
 </x-app-layout>
 
 <script type="module">
