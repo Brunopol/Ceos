@@ -35,6 +35,7 @@ Route::put('/encaixes/{id}', [EncaixeController::class, 'updateMovimento'])->mid
 Route::post('/encaixe', [EncaixeController::class, 'addEncaixe'])->middleware(['auth', 'verified','permission:encaixe'])->name('encaixe.add');
 Route::post('/encaixeMovimento', [EncaixeController::class, 'addMovimento'])->middleware(['auth', 'verified','permission:encaixe'])->name('encaixeMovimento.add');
 Route::delete('/encaixeMovimento/{id}', [EncaixeController::class, 'deletarMovimento'])->middleware(['auth', 'verified','permission:encaixe'])->name('encaixeMovimento.delete');
+Route::delete('/encaixeConsumo/{id}', [EncaixeController::class, 'deletarConsumo'])->middleware(['auth', 'verified','permission:encaixe'])->name('encaixeConsumo.delete');
 
 
 

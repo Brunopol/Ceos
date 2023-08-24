@@ -136,7 +136,7 @@ function processJSONResponse (response) {
                 <input type="hidden" id="${movimento.id}${consumo.id}" name="consumo_nome[]" value="${consumo.nome}">
                 <input type="text" name="consumo_valor[]" class="form-control" value="${consumo.valor}">
                 <button class="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-2 rounded transition duration-300 ease-in-out focus:outline-none text-xs" type="button"
-                    onclick=""
+                    onclick="deletarConsumo(event, ${consumo.id}, '${window.location.origin}')"
                 >
                     x
                 </button>
@@ -507,6 +507,8 @@ function deletarMovimento(event, movimentoId) {
 
 }
 
+//--------------------DELETAR ENCAIXE--------------------\\
+
 function deletarEncaixeConfirmar(encaixeNome, url) {
     if (confirm("Tem certeza que você quer deletar o encaixe (" + encaixeNome + ")?")) {
         deletarEncaixe(url);
@@ -529,5 +531,30 @@ function deletarEncaixe(url) {
             $('#errorMessage').removeClass('hidden')
         }
     })
+
+}
+
+//--------------------DELETAR CONSUMO--------------------\\
+
+function deletarConsumo(event, consumoID, url) {
+    event.preventDefault();
+
+    url = url + '/encaixeConsumo/' + consumoID;
+
+    $.ajax({
+        url: url,
+        type: 'DELETE',
+        headers: {
+            'X-CSRF-TOKEN': csrfToken
+        },
+        success: function (response) {
+            $('#successMessage').removeClass('hidden')
+        },
+        error: function (error) {
+            console.log(error)
+            $('#errorMessage').removeClass('hidden')
+        }
+    })
+   
 
 }

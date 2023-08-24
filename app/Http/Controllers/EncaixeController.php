@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Encaixe;
 use App\Models\Encaixe_movimento;
+use App\Models\Encaixe_movimento_consumo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
@@ -29,7 +30,8 @@ class EncaixeController extends Controller
         return response()->json($encaixe);
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
 
         $encaixe = Encaixe::find($id);
         $encaixe->delete();
@@ -136,10 +138,17 @@ class EncaixeController extends Controller
         return response()->json(['message' => 'Encaixe movimento atualizou']);
     }
 
-    public function deletarMovimento($id) 
+    public function deletarMovimento($id)
     {
         $movimento = Encaixe_movimento::find($id);
         $movimento->delete();
         return response()->json(['message' => 'Encaixe movimento deletado']);
+    }
+
+    public function deletarConsumo($id)
+    {
+        $consumo = Encaixe_movimento_consumo::find($id);
+        $consumo->delete();
+        return response()->json(['message' => 'Consumo deletado']);
     }
 }
