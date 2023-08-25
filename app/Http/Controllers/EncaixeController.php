@@ -151,9 +151,14 @@ class EncaixeController extends Controller
 
     public function deletarMovimento($id)
     {
-        $movimento = Encaixe_movimento::find($id);
-        $movimento->delete();
-        return response()->json(['message' => "Encaixe movimento '$movimento->nome' deletado com sucesso"]);
+        $encaixeMovimento = Encaixe_movimento::find($id);
+        $encaixeMovimento->delete();
+        return response()->json([
+            'message' => "Encaixe movimento '$encaixeMovimento->nome' deletado com sucesso",
+            'referencia' => $encaixeMovimento->encaixe->referencia,
+            'url' => route('encaixe.show', ['id' => $encaixeMovimento->encaixe->id]),
+            'created_at' => $encaixeMovimento->created_at,
+        ]);
     }
 
     public function deletarConsumo($id)
