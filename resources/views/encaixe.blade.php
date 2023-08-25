@@ -77,36 +77,34 @@
                                     </h3>
                                 </div>
 
-                                <form id="formAddEncaixe">
+                                <form id="formAddEncaixe" class="bg-white p-4 rounded-lg shadow-md">
 
-                                    <div
-                                        class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                                        <label class="block text-sm font-medium text-gray-700">
+                                    <div class="mb-4">
+                                        <label for="referencia" class="block text-sm font-medium text-gray-700">
                                             Referencia
                                         </label>
-                                        <input type="text" id="referencia" name="referencia">
+                                        <input type="text" id="referencia" name="referencia" class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
                                     </div>
-
-                                    <!-- Footer -->
-                                    <div id="errorMessage"
-                                        class="hidden mt-1 bg-red-500 text-white p-1 rounded-b shadow-md items-center border-t border-solid border-slate-200">
-                                        <span>Error, prencha corretamente todos os campos</span>
+                                
+                                    <!-- Error Message -->
+                                    <div id="errorMessage" class="bg-red-500 text-white p-2 rounded-md mb-4 hidden">
+                                        <span>Error, preencha corretamente todos os campos</span>
                                     </div>
-                                    <div
-                                        class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-                                        <button
-                                            class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                
+                                    <!-- Buttons -->
+                                    <div class="flex justify-end space-x-3">
+                                        <button class="text-red-500 font-bold text-sm outline-none hover:text-red-700 transition-colors duration-300"
                                             type="button" onclick="closeModal('modal-id-add')">
                                             Fechar
                                         </button>
-                                        <button
-                                            class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                        <button class="bg-emerald-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
                                             onclick="adicionarEncaixe(event, document.getElementById('referencia').value, '{{ url('') }}')">
                                             Salvar
                                         </button>
                                     </div>
-
+                                
                                 </form>
+                                
 
 
                             </div>
