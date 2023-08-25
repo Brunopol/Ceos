@@ -70,7 +70,7 @@ function processJSONResponse (response) {
 
         //LISTA DO MOVIMENTOS (HEADER)
         var liHtml = `
-      <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+      <li class="-mb-px last:mr-0 flex-auto text-center p-1">
         <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-pink-600 bg-white"
           onclick="changeAtiveTab(event,'${movimentoId}')">
           <i class="fas fa-space-shuttle text-base mr-1"></i> ${movimentoNome}
@@ -89,27 +89,27 @@ function processJSONResponse (response) {
               <div class="relative p-6 flex-auto grid grid-cols-2 gap-4" id="conteudo">
               <!-- Form inputs -->
               <input type="hidden" id="encaixeID">
-              <div>
+              <div class="flex flex-col">
                   <label for="nome" class="block text-sm font-medium text-gray-700">Movimento</label>
                   <input type="text" id="nome" name="nome" class="form-control" value="${movimentoNome}">
               </div>
-              <div>
+              <div class="flex flex-col">
                   <label for="largura" class="block text-sm font-medium text-gray-700">Largura</label>
                   <input type="text" id="largura" name="largura" class="form-control" value="${movimentoLargura}">
               </div>
-              <div>
+              <div class="flex flex-col">
                   <label for="tecido" class="block text-sm font-medium text-gray-700">Tecido</label>
                   <input type="text" id="tecido" name="tecido" class="form-control" value="${movimentoTecido}">
               </div>
-              <div>
+              <div class="flex flex-col">
                   <label for="quantidade" class="block text-sm font-medium text-gray-700">Quantidade</label>
                   <input type="number" id="quantidade" name="quantidade" class="form-control" value="${movimentoQuantidade}">
               </div>
-              <div>
+              <div class="flex flex-col">
                   <label for="parImper" class="block text-sm font-medium text-gray-700">ParImpar</label>
                   <input type="text" id="parImper" name="parImper" class="form-control" value="${movimentoParImper}">
               </div>
-              <div>
+              <div class="flex flex-col">
                   <label for="created_at" class="block text-sm font-medium text-gray-700">Data</label>
                   <input type="text" id="created_at" name="created_at" class="form-control" value="${movimentoCreatedAt}" readonly>
               </div>
@@ -129,26 +129,25 @@ function processJSONResponse (response) {
         //LOOP PARA PEGAR OS CONSUMOS DO MOVIMENTO
         $.each(movimento.consumos, function (index, consumo) {
             var conConsumosHtml = `
-            <div>
+            <div class="flex flex-col">
                 <label for="consumo_nome" class="block text-sm font-medium text-gray-700">
                     <span contenteditable="true" oninput="updateInputValue(this, '${movimento.id}${consumo.id}')">${consumo.nome}</span>
                 </label>
                 <input type="hidden" id="${movimento.id}${consumo.id}" name="consumo_nome[]" value="${consumo.nome}">
                 <input type="text" name="consumo_valor[]" class="form-control" value="${consumo.valor}">
-                <button class="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-2 rounded transition duration-300 ease-in-out focus:outline-none text-xs" type="button"
+                <button class="bg-red-100 hover:bg-red-600 text-white font-semibold py-1 px-2 rounded transition duration-300 ease-in-out focus:outline-none text-xs" type="button"
                     onclick="deletarConsumo(event, ${consumo.id}, '${window.location.origin}')"
                 >
-                    x
+                    deletar
                 </button>
             </div>
       `
 
             tab2Contents.append(conConsumosHtml)
         })
-
         //BOTÃO ADD MAIS CONSUMO
         var conConsumosAddHtml = `
-        <button class="col-span-2 bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+        <button class="col-span-2 bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 "
             onclick="AddMoreConsumos(event, ${movimentoId})"
             id="buttonAddConsumos${movimentoId}"
             style="width: 200px; height: 30px; padding: 6px;">
@@ -197,7 +196,7 @@ function processJSONResponse (response) {
 
     //BOTÃO PARA ADD O MOVIMENTO NO (HEADER)
     var listPlusHtml = `
-    <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+    <li class="-mb-px last:mr-0 flex-auto text-center p-1">
         <a class="text-xs font-semibold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-white bg-emerald-500 hover:bg-green-600"
             onclick="changeAtiveTab(event,'addMovimento')">
             <i class="fas fa-space-shuttle text-base mr-1"></i> ADD+
@@ -205,35 +204,35 @@ function processJSONResponse (response) {
     </li>
   `
 
-    tabListHeader.append(listPlusHtml)
+    tabListHeader.prepend(listPlusHtml)
 
     //CONTEUDO DO NOVO MOVIMENTO
     var conPlusHtml = `
-      <div class="hidden" id="addMovimento">
+      <div class="" id="addMovimento">
        
         <form id="formAddMovimento">
           
               <div class="relative p-6 flex-auto grid grid-cols-2 gap-4" id="conteudoAddMovimento">
               <!-- Form inputs -->
               <input type="hidden" id="encaixeID" name="encaixeID" value="${response.id}">
-              <div>
+              <div class="flex flex-col">
                   <label for="nome" class="block text-sm font-medium text-gray-700">Movimento</label>
                   <input type="text" id="nome" name="nome" class="form-control" value="">
               </div>
-              <div>
+              <div class="flex flex-col">
                   <label for="largura" class="block text-sm font-medium text-gray-700">Largura</label>
                   <input type="text" id="largura" name="largura" class="form-control" value="">
               </div>
-              <div>
+              <div class="flex flex-col">
                   <label for="tecido" class="block text-sm font-medium text-gray-700">Tecido</label>
                   <input type="text" id="tecido" name="tecido" class="form-control" value="">
               </div>
-              <div>
+              <div class="flex flex-col">
                   <label for="quantidade" class="block text-sm font-medium text-gray-700">Quantidade</label>
                   <input type="number" id="quantidade" name="quantidade" class="form-control" value="">
               </div>
-              <div>
-                  <label for="parImper" class="block text-sm font-medium text-gray-700">ParImpar</label>
+              <div class="flex flex-col">
+                  <label for="parImper" class="block text-sm font-medium text-gray-700">Par/Impar</label>
                   <input type="text" id="parImper" name="parImper" class="form-control" value="">
               </div>
               
@@ -304,7 +303,7 @@ function AddMoreConsumos (event, movimentoId) {
 
     var conConsumosAddHtml = `
     
-    <div>
+    <div class="flex flex-col">
         <label for="consumo_nome" class="block text-sm font-medium text-gray-700">
             <span contenteditable="true" oninput="updateInputValue(this, '${
                 randomNumForId + randomNumForId2
@@ -333,7 +332,7 @@ function AddMoreConsumosOnTheAddMovimentos (event) {
 
     var conConsumosAddHtml = `
     
-    <div>
+    <div class="flex flex-col">
         <label for="consumo_nome" class="block text-sm font-medium text-gray-700">
             <span contenteditable="true" oninput="updateInputValue(this, '${
                 randomNumForId + randomNumForId2
