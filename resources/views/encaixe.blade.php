@@ -126,7 +126,8 @@
                                 <div
                                     class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                                     <h3 class="text-3xl font-semibold" id="tituloEncaixeRef">
-                                        Editar Encaixe
+                                        <span id="referenceBox" class="inline-block rounded-md px-3 py-1 bg-blue-500 text-white mr-2"></span>
+                                        <span id="dateBox" class="inline-block rounded-md px-3 py-1 bg-emerald-500 text-white"></span>
                                     </h3>
                                 </div>
                                 <!-- Body -->
@@ -156,7 +157,9 @@
         </div>
     </div>
     
-    
+    <div class="hidden fixed bottom-4 left-4 bg-gray-800 text-white px-4 py-2 rounded-md shadow-md">
+        
+    </div>
 </x-app-layout>
 
 <script type="module">

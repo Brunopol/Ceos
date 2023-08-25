@@ -33,9 +33,12 @@ function toggleModal (modalID, userURL, referencia, date) {
         $('#' + modalID).toggleClass('hidden flex')
         $('#' + modalID + '-backdrop').toggleClass('hidden flex')
 
-        $('#tituloEncaixeRef').text(
-            'Ref: ' + referencia + ' Data: ' + formatDate(date)
-        )
+        const referenceBox = document.getElementById('referenceBox');
+        const dateBox = document.getElementById('dateBox');
+
+        referenceBox.textContent = 'Ref: ' + referencia;
+        dateBox.textContent = 'Data: ' + formatDate(date);
+
 
         processJSONResponse(response)
     })
@@ -147,11 +150,11 @@ function processJSONResponse (response) {
         })
         //BOTÃO ADD MAIS CONSUMO
         var conConsumosAddHtml = `
-        <button class="col-span-2 bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 "
-            onclick="AddMoreConsumos(event, ${movimentoId})"
-            id="buttonAddConsumos${movimentoId}"
-            style="width: 200px; height: 30px; padding: 6px;">
-            ADD + consumos
+            <button class="items-center col-span-2 bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                onclick="AddMoreConsumos(event, ${movimentoId})"
+                id="buttonAddConsumos${movimentoId}"
+                style="width: 263px; height: 30px;">
+                ADD + consumos
             </button>
         `
 
@@ -162,7 +165,7 @@ function processJSONResponse (response) {
         var deleteMovimento = `
         <!-- Footer -->
        
-        <div class="flex items-start justify-start p-6 border-t border-solid border-slate-200 rounded-b">
+        <div class="flex items-center justify-center p-6 border-t border-solid border-slate-200 rounded-b">
         <button class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded transition duration-300 ease-in-out focus:outline-none" type="button" onclick="confirmarDeletar(event, ${movimentoId}, '${movimentoNome}')">
             Deletar Movimento
         </button>
@@ -249,11 +252,11 @@ function processJSONResponse (response) {
     tabAddContentsForm = $('#conteudoAddMovimento')
 
     var conConsumosAddHtml = `
-        <button class="col-span-2 bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-            onclick="AddMoreConsumosOnTheAddMovimentos(event)"
-            id="buttonAddConsumosMovimentoNovo"
-            style="width: 200px; height: 30px; padding: 6px;">
-            ADD + consumos
+            <button class="items-center col-span-2 bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                onclick="AddMoreConsumosOnTheAddMovimentos(event)"
+                id="buttonAddConsumosMovimentoNovo"
+                style="width: 263px; height: 30px;">
+                ADD + consumos
             </button>
         `
 
