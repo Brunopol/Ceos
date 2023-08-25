@@ -373,6 +373,14 @@ function addEncaixeMovimento (event) {
             closeModal('modal-id')
 
             $('#formAddMovimento')[0].reset()
+
+            toggleModal(
+                'modal-id',
+                response.url,
+                response.referencia,
+                response.created_at
+            )
+
         },
         error: function (error) {
             showNotification(error.responseJSON.message);

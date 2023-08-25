@@ -96,7 +96,12 @@ class EncaixeController extends Controller
         }
 
 
-        return response()->json(['message' => "Encaixe '$encaixe->referencia' movimento '$encaixeMovimento->nome' adicionado com sucesso"]);
+        return response()->json([
+            'message' => "Encaixe '$encaixe->referencia' movimento '$encaixeMovimento->nome' adicionado com sucesso",
+            'referencia' => $encaixeMovimento->encaixe->referencia,
+            'url' => route('encaixe.show', ['id' => $encaixeMovimento->encaixe->id]),
+            'created_at' => $encaixeMovimento->created_at,
+        ]);
     }
 
     public function updateMovimento(Request $request, $id)
