@@ -64,8 +64,9 @@ class EncaixeController extends Controller
             'nome' => 'required',
             'largura' => 'required',
             'tecido' => 'required',
-            'quantidade' => 'required',
+            'quantidade' => 'nullable',
             'parImper' => 'required',
+            'notas' => 'nullable',
             'consumo_nome' => ['nullable', 'array'],
             'consumo_valor' => ['nullable', 'array'],
         ]);
@@ -78,7 +79,7 @@ class EncaixeController extends Controller
             'tecido' => $validatedData['tecido'],
             'quantidade' => $validatedData['quantidade'],
             'parImper' => $validatedData['parImper'],
-            'notas' => 'TODO',
+            'notas' => $validatedData['notas'],
         ]);
 
         if (isset($validatedData['consumo_nome']) && is_array($validatedData['consumo_nome'])) {
@@ -111,9 +112,10 @@ class EncaixeController extends Controller
             'nome' => 'required',
             'largura' => 'required',
             'tecido' => 'required',
-            'quantidade' => 'required',
+            'quantidade' => 'nullable',
             'parImper' => 'required',
             'consumo_nome' => 'array',
+            'notas' => 'nullable',
             'consumo_valor' => 'array',
         ]);
 
@@ -125,6 +127,7 @@ class EncaixeController extends Controller
             'tecido' => $validatedData['tecido'],
             'quantidade' => $validatedData['quantidade'],
             'parImper' => $validatedData['parImper'],
+            'notas' => $validatedData['notas'],
         ]);
 
         if (isset($validatedData['consumo_nome']) && is_array($validatedData['consumo_nome'])) {

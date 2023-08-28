@@ -70,6 +70,7 @@ function processJSONResponse (response) {
         var movimentoQuantidade = movimento.quantidade
         var movimentoParImper = movimento.parImper
         var movimentoCreatedAt = formatDate(movimento.created_at)
+        var movimentoNotas = movimento.notas
 
         //LISTA DO MOVIMENTOS (HEADER)
         var liHtml = `
@@ -116,8 +117,7 @@ function processJSONResponse (response) {
                   <label for="created_at" class="block text-sm font-medium text-gray-700">Data</label>
                   <input type="text" id="created_at" name="created_at" class="form-control" value="${movimentoCreatedAt}" readonly>
               </div>
-
-              
+             
           </div>
 
       </form>
@@ -148,6 +148,19 @@ function processJSONResponse (response) {
 
             tab2Contents.append(conConsumosHtml)
         })
+
+        if (movimentoNotas != null) {
+
+            var conNotasHtml = `
+            <div class="flex flex-col col-span-2">
+                <label for="notas" class="block text-sm font-medium text-gray-700">Notas</label>
+                <textarea id="notas" name="notas" class="form-control" rows="4">${movimentoNotas}</textarea>
+            </div>
+            `
+
+            tab2Contents.append(conNotasHtml)
+        }
+
         //BOTÃO ADD MAIS CONSUMO
         var conConsumosAddHtml = `
             <button class="items-center col-span-2 bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -238,6 +251,11 @@ function processJSONResponse (response) {
                   <label for="parImper" class="block text-sm font-medium text-gray-700">Par/Impar</label>
                   <input type="text" id="parImper" name="parImper" class="form-control" value="">
               </div>
+
+              <div class="flex flex-col col-span-2">
+              <label for="notas" class="block text-sm font-medium text-gray-700">Notas</label>
+              <textarea id="notas" name="notas" class="form-control" rows="4"></textarea>
+             </div>
               
           </div>
 

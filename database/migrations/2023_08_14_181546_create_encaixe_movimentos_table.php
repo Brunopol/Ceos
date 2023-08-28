@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('nome');
             $table->string('largura');
             $table->string('tecido');
-            $table->integer('quantidade');
+            $table->integer('quantidade')->nullable();
             $table->string('parImper');
-            $table->text('notas');
+            $table->text('notas')->nullable();
             $table->timestamps();
         });
     }
