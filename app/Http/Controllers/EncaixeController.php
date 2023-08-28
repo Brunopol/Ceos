@@ -66,8 +66,8 @@ class EncaixeController extends Controller
             'tecido' => 'required',
             'quantidade' => 'required',
             'parImper' => 'required',
-            'consumo_nome' => 'array',
-            'consumo_valor' => 'array',
+            'consumo_nome' => ['nullable', 'array'],
+            'consumo_valor' => ['nullable', 'array'],
         ]);
 
         $encaixe = Encaixe::find($validatedData['encaixeID']);

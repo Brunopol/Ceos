@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('encaixe_movimento_consumos', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
-            $table->string('valor');
+            $table->string('valor')->nullable();
             $table->foreignId('encaixe_movimento_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
