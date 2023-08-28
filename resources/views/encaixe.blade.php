@@ -156,7 +156,9 @@
     </div>
     
     <div class="hidden fixed bottom-4 left-4 bg-gray-800 text-white px-4 py-2 rounded-md shadow-md">
-        
+        <button class="hidden bg-red-100 hover:bg-red-600 text-white font-semibold py-1 px-2 rounded transition duration-300 ease-in-out focus:outline-none text-xs" type="button"
+                    onclick=""
+                >
     </div>
 </x-app-layout>
 

@@ -165,6 +165,13 @@ class EncaixeController extends Controller
     {
         $consumo = Encaixe_movimento_consumo::find($id);
         $consumo->delete();
-        return response()->json(['message' => "Consumo '$consumo->nome' deletado com sucesso"]);
+        return response()->json([
+            'message' => "Consumo '$consumo->nome' deletado com sucesso",
+            'referencia' => $consumo->encaixe_movimento->encaixe->referencia,
+            'url' => route('encaixe.show', ['id' => $consumo->encaixe_movimento->encaixe->id]),
+            'created_at' => $consumo->created_at,
+
+        
+        ]);
     }
 }

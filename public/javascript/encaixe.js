@@ -567,6 +567,13 @@ function deletarConsumo(event, consumoID, url) {
         },
         success: function (response) {
             showNotification(response.message);
+            closeModal('modal-id')
+            toggleModal(
+                'modal-id',
+                response.url,
+                response.referencia,
+                response.created_at
+            )
         },
         error: function (error) {
             showNotification(error.responseJSON.message);
