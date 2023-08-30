@@ -37,7 +37,7 @@ function toggleModal (modalID, userURL, referencia, date) {
         const dateBox = document.getElementById('dateBox');
 
         referenceBox.textContent = 'Ref: ' + referencia;
-        dateBox.textContent = 'Data: ' + formatDate(date);
+        dateBox.textContent = formatDate(date);
 
 
         processJSONResponse(response)

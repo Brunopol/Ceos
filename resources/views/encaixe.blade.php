@@ -19,12 +19,12 @@
                             <span class="sr-only">Loading...</span>
                         </div>
                     </div>
-                    
+
                     <button
                         class="bg-blue-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="button"
                         onclick="toggleModal('modal-id-add', $(this).data('url'), $(this).data('referencia'))">
-                        Novo 
+                        Novo
                     </button>
 
                     <table id="myTable" class="table table-striped nowrap cell-border hover stripe"
@@ -52,8 +52,7 @@
                                         </button>
                                         <button
                                             class="bg-red-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                            type="button"
-                                            data-url="{{ route('encaixe.delete', $encaixe->id) }}"
+                                            type="button" data-url="{{ route('encaixe.delete', $encaixe->id) }}"
                                             data-referencia="{{ $encaixe->referencia }}"
                                             onclick="deletarEncaixeConfirmar($(this).data('referencia'), $(this).data('url'))">
                                             Deletar
@@ -85,28 +84,31 @@
                                         <label for="referencia" class="block text-sm font-medium text-gray-700">
                                             Referencia
                                         </label>
-                                        <input type="text" id="referencia" name="referencia" class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                        <input type="text" id="referencia" name="referencia"
+                                            class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
                                     </div>
-                                
+
                                     <!-- Error Message -->
                                     <div id="errorMessage" class="bg-red-500 text-white p-2 rounded-md mb-4 hidden">
                                         <span>Error, preencha corretamente todos os campos</span>
                                     </div>
-                                
+
                                     <!-- Buttons -->
                                     <div class="flex justify-end space-x-3">
-                                        <button class="text-red-500 font-bold text-sm outline-none hover:text-red-700 transition-colors duration-300"
+                                        <button
+                                            class="text-red-500 font-bold text-sm outline-none hover:text-red-700 transition-colors duration-300"
                                             type="button" onclick="closeModal('modal-id-add')">
                                             Fechar
                                         </button>
-                                        <button class="bg-emerald-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
+                                        <button
+                                            class="bg-emerald-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
                                             onclick="adicionarEncaixe(event, document.getElementById('referencia').value, '{{ url('') }}')">
                                             Salvar
                                         </button>
                                     </div>
-                                
+
                                 </form>
-                                
+
 
 
                             </div>
@@ -124,16 +126,28 @@
                                 class="border-0 rounded-lg shadow-lg relative flex flex-col w-full h-full bg-white outline-none focus:outline-none">
                                 <!-- Header -->
                                 <div
-                                    class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                                    <h3 class="text-3xl font-semibold" id="tituloEncaixeRef">
-                                        <span id="referenceBox" class="inline-block rounded-md px-3 py-1 bg-blue-500 text-white mr-2"></span>
-                                        <span id="dateBox" class="inline-block rounded-md px-3 py-1 bg-emerald-500 text-white"></span>
-                                    </h3>
+                                    class="flex items-center justify-between p-4 border-b border-solid border-gray-300 rounded-t bg-gray-800">
+                                    <div class="flex items-center">
+                                        <h3 class="text-2xl font-semibold text-white" id="tituloEncaixeRef">
+                                            <span id="referenceBox"
+                                                class="inline-block px-2 py-1 rounded-md bg-indigo-500 text-white">Reference</span>
+                                        </h3>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <h3 class="text-2xl font-semibold text-white">
+                                            <span id="dateBox" class="inline-block">
+                                                <span
+                                                    class="inline-block px-3 py-1 rounded-md bg-green-500 text-white">Date</span>
+                                            </span>
+                                        </h3>
+                                    </div>
                                 </div>
+
+
                                 <!-- Body -->
                                 <div class="flex flex-wrap justify-center items-center h-full" id="tabs-id">
                                     <div class="w-full">
-                                        <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
+                                        <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row bg-slate-400">
                                             <!-- Tab items -->
                                         </ul>
                                         <div
@@ -150,17 +164,17 @@
                         </div>
                     </div>
                     <div class="hidden opacity-25 fixed inset-0 z-40 bg-black" id="modal-id-backdrop"></div>
-                    
+
 
                 </div>
             </div>
         </div>
     </div>
-    
+
     <div class="hidden fixed bottom-4 left-4 bg-gray-800 text-white px-4 py-2 rounded-md shadow-md">
-        <button class="hidden bg-red-100 hover:bg-red-600 text-white font-semibold py-1 px-2 rounded transition duration-300 ease-in-out focus:outline-none text-xs" type="button"
-                    onclick=""
-                >
+        <button
+            class="hidden bg-red-100 hover:bg-red-600 text-white font-semibold py-1 px-2 rounded transition duration-300 ease-in-out focus:outline-none text-xs"
+            type="button" onclick="">
     </div>
 </x-app-layout>
 
