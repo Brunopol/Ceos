@@ -493,6 +493,7 @@ function adicionarEncaixe (event, referencia, urlId) {
 //--------------------FORMATAR AS DATAS--------------------\\
 
 function formatDate (inputDate) {
+
     const date = new Date(inputDate)
 
     const day = String(date.getDate()).padStart(2, '0')
