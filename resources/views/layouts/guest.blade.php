@@ -13,10 +13,8 @@
 
         <!-- Prod -->
 
-        <!-- <link rel="stylesheet" href="http://localhost/build/assets/app-9aec0e09.css" /> -->
+         <link rel="stylesheet" href="https://dev.ufoway.com.br/v6/build/assets/app-e221511c.css" /> 
 
-        <!-- Vite -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans text-gray-900 antialiased">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
@@ -33,6 +31,6 @@
 
         <!-- Prod -->
 
-        <!-- <script src="http://localhost/build/assets/app-1cfa0830.js" ></script> -->
+        <script src="https://dev.ufoway.com.br/v6/build/assets/app-1cfa0830.js" ></script> 
     </body>
 </html>

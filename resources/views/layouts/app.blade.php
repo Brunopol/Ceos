@@ -13,10 +13,7 @@
 
         <!-- Prod -->
 
-        <!-- <link rel="stylesheet" href="http://localhost/build/assets/app-9aec0e09.css" /> -->
-        
-        <!-- vite -->
-        @vite(['resources/css/app.scss', 'resources/js/app.js']) 
+        <link rel="stylesheet" href="https://dev.ufoway.com.br/v6/build/assets/app-e221511c.css" />  
         
         
         
@@ -42,6 +39,6 @@
         
         <!-- Prod -->
 
-       <!-- <script src="http://localhost/build/assets/app-1cfa0830.js" ></script> -->
+        <script src="https://dev.ufoway.com.br/v6/build/assets/app-1cfa0830.js" ></script> 
     </body>
 </html>
