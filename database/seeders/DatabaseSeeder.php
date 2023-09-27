@@ -35,6 +35,7 @@ class DatabaseSeeder extends Seeder
         ]);
         
         $user->givePermissionTo('users');
+	$user->givePermissionTo('encaixe');
 //
        // $encaixe =  Encaixe::factory()->create();
         

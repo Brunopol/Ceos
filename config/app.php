@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'https://dev.ufoway.com.br/v4'),
 
     'asset_url' => env('ASSET_URL'),
 

@@ -41,6 +41,7 @@ class EncaixeController extends Controller
 
     public function addEncaixe(Request $request)
     {
+
         $validatedData = $request->validate([
             'referencia' => 'required',
         ]);

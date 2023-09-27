@@ -13,7 +13,7 @@
 
         <!-- Prod -->
 
-         <link rel="stylesheet" href="https://dev.ufoway.com.br/v6/build/assets/app-e221511c.css" /> 
+         <link rel="stylesheet" href="https://dev.ufoway.com.br/v4/build/assets/app-e221511c.css" /> 
 
     </head>
     <body class="font-sans text-gray-900 antialiased">
@@ -31,6 +31,6 @@
 
         <!-- Prod -->
 
-        <script src="https://dev.ufoway.com.br/v6/build/assets/app-1cfa0830.js" ></script> 
+        <script src="https://dev.ufoway.com.br/v4/build/assets/app-1cfa0830.js" ></script> 
     </body>
 </html>

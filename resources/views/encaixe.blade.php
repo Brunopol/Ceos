@@ -217,4 +217,4 @@
     });
 </script>
 
-<script src="http://localhost/javascript/encaixe.js" type="text/javascript"></script>
+<script src="https://dev.ufoway.com.br/v4/javascript/encaixe.js" type="text/javascript"></script>

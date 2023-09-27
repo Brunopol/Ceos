@@ -378,7 +378,7 @@ function addEncaixeMovimento (event) {
     var formData = $('#formAddMovimento').serialize()
 
     $.ajax({
-        url: '/encaixeMovimento',
+        url: '/v4/encaixeMovimento',
         type: 'POST',
         data: formData,
         headers: {
@@ -414,7 +414,7 @@ function updateEncaixeMovimento (event, movimentoId) {
     var formData = $('#form' + movimentoId).serialize()
 
     $.ajax({
-        url: '/encaixes/' + movimentoId,
+        url: '/v4/encaixes/' + movimentoId,
         type: 'PUT',
         data: formData,
         headers: {
@@ -464,7 +464,7 @@ function adicionarEncaixe (event, referencia, urlId) {
     formData = $('#formAddEncaixe').serialize()
 
     $.ajax({
-        url: '/encaixe/',
+        url: '/v4/encaixe',
         type: 'POST',
         data: formData,
         headers: {
@@ -522,7 +522,7 @@ function deletarMovimento(event, movimentoId) {
     event.preventDefault();
 
     $.ajax({
-        url: '/encaixeMovimento/' + movimentoId,
+        url: '/v4/encaixeMovimento/' + movimentoId,
         type: 'DELETE',
         headers: {
             'X-CSRF-TOKEN': csrfToken
@@ -576,7 +576,7 @@ function deletarEncaixe(url) {
 function deletarConsumo(event, consumoID, url) {
     event.preventDefault();
 
-    url = url + '/encaixeConsumo/' + consumoID;
+    url = url + '/v4/encaixeConsumo/' + consumoID;
 
     $.ajax({
         url: url,
@@ -616,3 +616,5 @@ function showNotification(message) {
         });
     }, 5000);
 }
+
+console.log('testando');
