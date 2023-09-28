@@ -8,6 +8,7 @@ use App\Models\Encaixe_movimento_consumo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Http;
 
 class EncaixeController extends Controller
 {
@@ -25,6 +26,12 @@ class EncaixeController extends Controller
     public function show($id)
     {
         $encaixe = Encaixe::with(['movimentos', 'movimentos.consumos'])->find($id);
+
+        $responseAPIMOD = Http::get("https://mod.ufoway.com.br/api.php?ref2=$encaixe->referencia");
+    
+        $responseAPIMODjson = $responseAPIMOD->json();
+
+        $encaixe->modelagemData = $responseAPIMODjson;
 
 
         return response()->json($encaixe);

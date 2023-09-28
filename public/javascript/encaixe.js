@@ -12,13 +12,14 @@ function changeAtiveTab (event, tabID) {
         .querySelectorAll('.tab-content > div')
     for (let i = 0; i < aElements.length; i++) {
         aElements[i].classList.remove('text-white')
+        aElements[i].classList.remove('text-black')
         aElements[i].classList.remove('bg-blue-500')
-        aElements[i].classList.add('text-pink-600')
+        aElements[i].classList.add('bg-black')
         aElements[i].classList.add('bg-white')
         tabContents[i].classList.add('hidden')
         tabContents[i].classList.remove('block')
     }
-    element.classList.remove('text-pink-600')
+    element.classList.remove('bg-black')
     element.classList.remove('bg-white')
     element.classList.add('text-white')
     element.classList.add('bg-blue-500')
@@ -33,12 +34,11 @@ function toggleModal (modalID, userURL, referencia, date) {
         $('#' + modalID).toggleClass('hidden flex')
         $('#' + modalID + '-backdrop').toggleClass('hidden flex')
 
-        const referenceBox = document.getElementById('referenceBox');
-        const dateBox = document.getElementById('dateBox');
+        const referenceBox = document.getElementById('referenceBox')
+        const dateBox = document.getElementById('dateBox')
 
-        referenceBox.textContent = 'Ref: ' + referencia;
-        dateBox.textContent = formatDate(date);
-
+        referenceBox.textContent = 'Ref: ' + referencia
+        dateBox.textContent = formatDate(date)
 
         processJSONResponse(response)
     })
@@ -61,6 +61,76 @@ function processJSONResponse (response) {
     tabListHeader.empty()
     tabContents.empty()
 
+    // MODELAGEM ABBA
+
+    var liHtml = `
+    <li class="-mb-px last:mr-0 flex-auto text-center p-1">
+      <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-black bg-white"
+        onclick="changeAtiveTab(event,'modelagem')">
+        <i class="fas fa-space-shuttle text-base mr-1"></i> Modelagem
+      </a>
+    </li>
+  `
+
+    tabListHeader.append(liHtml)
+
+
+    var conHtml = `
+      <div class="hidden" id="modelagem">
+
+      
+
+        <table id="modelagemTable" class="w-full sm:max-w-xs mx-auto table-auto text-sm">
+        <thead>
+            <tr>
+                <th class="border px-4 py-2">#ID</th>
+                <th class="border px-4 py-2">REF</th>
+                <th class="border px-4 py-2">CLIENTE</th>
+                <th class="border px-4 py-2">DATA</th>
+                <th class="border px-4 py-2">DESEN</th>
+                <th class="border px-4 py-2">TIPO PEÇA</th>
+                <th class="border px-4 py-2">QTD</th>
+                <th class="border px-4 py-2">MODELISTA</th>
+                <th class="border px-4 py-2">TECIDO</th>
+                <th class="border px-4 py-2">LAVANDERIA</th>
+                <th class="border px-4 py-2">OBS</th>
+            </tr>
+        </thead>
+        
+
+        </table>
+
+        
+      
+      </div>
+    `
+
+    tabContents.append(conHtml)
+
+    $.each(response.modelagemData, function (index, mod) {
+        
+        var conteudoModelagem = `
+
+            <tr>
+                <td class="border px-4 py-2"> ${mod.id} </td>
+                <td class="border px-4 py-2"> ${mod.referencia} </td>
+                <td class="border px-4 py-2"> ${mod.cliente} </td>
+                <td class="border px-4 py-2"> ${mod.datacad} </td>
+                <td class="border px-4 py-2"> ${mod.desen} </td>
+                <td class="border px-4 py-2"> ${mod.tipopeca} </td>
+                <td class="border px-4 py-2"> ${mod.quantidade} </td>
+                <td class="border px-4 py-2"> ${mod.modelista} </td>
+                <td class="border px-4 py-2"> ${mod.tecido} </td>
+                <td class="border px-4 py-2"> ${mod.lavanderia} </td>
+                <td class="border px-4 py-2"> ${mod.observacoes} </td>
+            </tr>
+        
+        `
+
+        $('#modelagemTable').append(conteudoModelagem)
+
+    })
+
     //LOOP DOS MOVIMENTOS
     $.each(response.movimentos, function (index, movimento) {
         var movimentoId = movimento.id
@@ -75,7 +145,7 @@ function processJSONResponse (response) {
         //LISTA DO MOVIMENTOS (HEADER)
         var liHtml = `
       <li class="-mb-px last:mr-0 flex-auto text-center p-1">
-        <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-pink-600 bg-white"
+        <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-black bg-white"
           onclick="changeAtiveTab(event,'${movimentoId}')">
           <i class="fas fa-space-shuttle text-base mr-1"></i> ${movimentoNome}
         </a>
@@ -150,7 +220,6 @@ function processJSONResponse (response) {
         })
 
         if (movimentoNotas != null) {
-
             var conNotasHtml = `
             <div class="flex flex-col col-span-2">
                 <label for="notas" class="block text-sm font-medium text-gray-700">Notas</label>
@@ -213,7 +282,7 @@ function processJSONResponse (response) {
     //BOTÃO PARA ADD O MOVIMENTO NO (HEADER)
     var listPlusHtml = `
     <li class="-mb-px last:mr-0 flex-auto text-center p-1">
-        <a class="text-xs font-semibold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-white bg-emerald-500 hover:bg-green-600"
+        <a class="text-xs font-semibold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-white bg-blue-500 hover:shadow-lg"
             onclick="changeAtiveTab(event,'addMovimento')">
             <i class="fas fa-space-shuttle text-base mr-1"></i> ADD+
         </a>
@@ -385,8 +454,7 @@ function addEncaixeMovimento (event) {
             'X-CSRF-TOKEN': csrfToken
         },
         success: function (response) {
-            
-            showNotification(response.message);
+            showNotification(response.message)
 
             closeModal('modal-id')
 
@@ -398,10 +466,9 @@ function addEncaixeMovimento (event) {
                 response.referencia,
                 response.created_at
             )
-
         },
         error: function (error) {
-            showNotification(error.responseJSON.message);
+            showNotification(error.responseJSON.message)
         }
     })
 }
@@ -421,11 +488,10 @@ function updateEncaixeMovimento (event, movimentoId) {
             'X-CSRF-TOKEN': csrfToken
         },
         success: function (response) {
-           
-            showNotification(response.message);
+            showNotification(response.message)
 
             closeModal('modal-id')
-            
+
             $('#form' + movimentoId)[0].reset()
 
             toggleModal(
@@ -434,10 +500,9 @@ function updateEncaixeMovimento (event, movimentoId) {
                 response.referencia,
                 response.created_at
             )
-            
         },
         error: function (error) {
-            showNotification(error.responseJSON.message);
+            showNotification(error.responseJSON.message)
         }
     })
 }
@@ -471,8 +536,7 @@ function adicionarEncaixe (event, referencia, urlId) {
             'X-CSRF-TOKEN': csrfToken
         },
         success: function (response) {
-            
-            showNotification(response.message);
+            showNotification(response.message)
 
             closeModal('modal-id-add')
             toggleModal(
@@ -485,7 +549,7 @@ function adicionarEncaixe (event, referencia, urlId) {
             $('#formAddEncaixe')[0].reset()
         },
         error: function (error) {
-            showNotification(error.responseJSON.message);
+            showNotification(error.responseJSON.message)
         }
     })
 }
@@ -493,7 +557,6 @@ function adicionarEncaixe (event, referencia, urlId) {
 //--------------------FORMATAR AS DATAS--------------------\\
 
 function formatDate (inputDate) {
-
     const date = new Date(inputDate)
 
     const day = String(date.getDate()).padStart(2, '0')
@@ -510,16 +573,21 @@ function formatDate (inputDate) {
 
 //--------------------DELETAR MOVIMENTO--------------------\\
 
-function confirmarDeletar(event, movimentoId, movimentoNome) {
-    event.preventDefault();
-    if (confirm("Tem certeza que você quer deletar o movimento (" + movimentoNome + ")?")) {
-
-        deletarMovimento(event, movimentoId);
+function confirmarDeletar (event, movimentoId, movimentoNome) {
+    event.preventDefault()
+    if (
+        confirm(
+            'Tem certeza que você quer deletar o movimento (' +
+                movimentoNome +
+                ')?'
+        )
+    ) {
+        deletarMovimento(event, movimentoId)
     }
 }
 
-function deletarMovimento(event, movimentoId) {
-    event.preventDefault();
+function deletarMovimento (event, movimentoId) {
+    event.preventDefault()
 
     $.ajax({
         url: '/encaixeMovimento/' + movimentoId,
@@ -528,7 +596,7 @@ function deletarMovimento(event, movimentoId) {
             'X-CSRF-TOKEN': csrfToken
         },
         success: function (response) {
-            showNotification(response.message);
+            showNotification(response.message)
 
             closeModal('modal-id')
             toggleModal(
@@ -539,22 +607,24 @@ function deletarMovimento(event, movimentoId) {
             )
         },
         error: function (error) {
-            showNotification(error.responseJSON.message);
+            showNotification(error.responseJSON.message)
         }
     })
-
 }
 
 //--------------------DELETAR ENCAIXE--------------------\\
 
-function deletarEncaixeConfirmar(encaixeNome, url) {
-    if (confirm("Tem certeza que você quer deletar o encaixe (" + encaixeNome + ")?")) {
-        deletarEncaixe(url);
+function deletarEncaixeConfirmar (encaixeNome, url) {
+    if (
+        confirm(
+            'Tem certeza que você quer deletar o encaixe (' + encaixeNome + ')?'
+        )
+    ) {
+        deletarEncaixe(url)
     }
 }
 
-function deletarEncaixe(url) {
-
+function deletarEncaixe (url) {
     $.ajax({
         url: url,
         type: 'DELETE',
@@ -562,21 +632,20 @@ function deletarEncaixe(url) {
             'X-CSRF-TOKEN': csrfToken
         },
         success: function (response) {
-            showNotification(response.message);
+            showNotification(response.message)
         },
         error: function (error) {
-            showNotification(error.responseJSON.message);
+            showNotification(error.responseJSON.message)
         }
     })
-
 }
 
 //--------------------DELETAR CONSUMO--------------------\\
 
-function deletarConsumo(event, consumoID, url) {
-    event.preventDefault();
+function deletarConsumo (event, consumoID, url) {
+    event.preventDefault()
 
-    url = url + '/encaixeConsumo/' + consumoID;
+    url = url + '/encaixeConsumo/' + consumoID
 
     $.ajax({
         url: url,
@@ -585,7 +654,7 @@ function deletarConsumo(event, consumoID, url) {
             'X-CSRF-TOKEN': csrfToken
         },
         success: function (response) {
-            showNotification(response.message);
+            showNotification(response.message)
             closeModal('modal-id')
             toggleModal(
                 'modal-id',
@@ -595,24 +664,22 @@ function deletarConsumo(event, consumoID, url) {
             )
         },
         error: function (error) {
-            showNotification(error.responseJSON.message);
+            showNotification(error.responseJSON.message)
         }
     })
-   
-
 }
 
 //--------------------NOTIFICAÇÕES--------------------\\
 
-function showNotification(message) {
+function showNotification (message) {
     var notification = $('<div>', {
-        'class': 'fixed bottom-4 left-4 bg-gray-800 text-white px-4 py-2 rounded-md shadow-md',
-        'text': message
-    }).appendTo('body');
-    
-    setTimeout(function() {
-        notification.fadeOut(300, function() {
-            $(this).remove();
-        });
-    }, 5000);
+        class: 'fixed bottom-4 left-4 bg-gray-800 text-white px-4 py-2 rounded-md shadow-md',
+        text: message
+    }).appendTo('body')
+
+    setTimeout(function () {
+        notification.fadeOut(300, function () {
+            $(this).remove()
+        })
+    }, 5000)
 }
