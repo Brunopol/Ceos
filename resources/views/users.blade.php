@@ -168,7 +168,7 @@
         console.log(formData);
 
         $.ajax({
-            url: '/users/' + userId,
+            url: '/v4/users/' + userId,
             type: 'PUT',
             data: formData,
             success: function (response) {

@@ -27,15 +27,15 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        $user = User::factory()->create([
-          'name' => 'admin',
-            'last_name' => 'admin',
-           'email' => 'admin@123.com',
-            'password' => '123',
-        ]);
+        //$user = User::factory()->create([
+        //  'name' => 'admin',
+        //    'last_name' => 'admin',
+        //   'email' => 'admin@123.com',
+        //    'password' => '123',
+        //]);
         
-        $user->givePermissionTo('users');
-	$user->givePermissionTo('encaixe');
+        //$user->givePermissionTo('users');
+	//$user->givePermissionTo('encaixe');
 //
        // $encaixe =  Encaixe::factory()->create();
         
