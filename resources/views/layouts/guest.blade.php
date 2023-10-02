@@ -20,7 +20,7 @@
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
             <div>
                 <a href="/">
-                    <img src="/img/logo-no-background.png" width="300" height="300">
+                    <img src="/v4/img/logo-no-background.png" width="300" height="300">
                 </a>
             </div>
 

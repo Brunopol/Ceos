@@ -29,49 +29,54 @@
                         </div>
                     </div>
 
-                    <button
-                        class="bg-blue-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                        type="button"
-                        onclick="toggleModal('modal-id-add', $(this).data('url'), $(this).data('referencia'))">
-                        Novo
-                    </button>
 
-                    <table id="myTable" class="table table-striped nowrap cell-border hover stripe"
-                        style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>ref</th>
-                                <th>data</th>
-                                <th>editar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php $__currentLoopData = $encaixes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $encaixe): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div class="flex flex-col">
+                        <button
+                            class="self-start bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300 mb-4"
+                            type="button"
+                            onclick="toggleModal('modal-id-add', $(this).data('url'), $(this).data('referencia'))">
+                            Novo
+                        </button>
+
+
+                        <table id="myTable" class="table table-striped nowrap cell-border hover stripe"
+                            style="width:100%">
+                            <thead>
                                 <tr>
-                                    <td><?php echo e($encaixe->referencia); ?></td>
-                                    <td><?php echo e($encaixe->created_at->format('d/m/Y H:i:s')); ?></td>
-                                    <td>
-                                        <button
-                                            class="bg-blue-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                            type="button" data-url="<?php echo e(route('encaixe.show', $encaixe->id)); ?>"
-                                            data-referencia="<?php echo e($encaixe->referencia); ?>"
-                                            data-date="<?php echo e($encaixe->created_at); ?>"
-                                            onclick="toggleModal('modal-id', $(this).data('url'), $(this).data('referencia'), $(this).data('date'))">
-                                            Mostrar
-                                        </button>
-                                        <button
-                                            class="bg-red-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                            type="button" data-url="<?php echo e(route('encaixe.delete', $encaixe->id)); ?>"
-                                            data-referencia="<?php echo e($encaixe->referencia); ?>"
-                                            onclick="deletarEncaixeConfirmar($(this).data('referencia'), $(this).data('url'))">
-                                            Deletar
-                                        </button>
-                                    </td>
+                                    <th>ref</th>
+                                    <th>data</th>
+                                    <th>editar</th>
                                 </tr>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </thead>
+                            <tbody>
+                                <?php $__currentLoopData = $encaixes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $encaixe): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <tr>
+                                        <td><?php echo e($encaixe->referencia); ?></td>
+                                        <td><?php echo e($encaixe->created_at); ?></td>
+                                        <td>
+                                            <button
+                                                class="bg-blue-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                                type="button" data-url="<?php echo e(route('encaixe.show', $encaixe->id)); ?>"
+                                                data-referencia="<?php echo e($encaixe->referencia); ?>"
+                                                data-date="<?php echo e($encaixe->created_at); ?>"
+                                                onclick="toggleModal('modal-id', $(this).data('url'), $(this).data('referencia'), $(this).data('date'))">
+                                                Mostrar
+                                            </button>
+                                            <button
+                                                class="bg-red-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                                type="button" data-url="<?php echo e(route('encaixe.delete', $encaixe->id)); ?>"
+                                                data-referencia="<?php echo e($encaixe->referencia); ?>"
+                                                onclick="deletarEncaixeConfirmar($(this).data('referencia'), $(this).data('url'))">
+                                                Deletar
+                                            </button>
 
-                        </tbody>
-                    </table>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+                            </tbody>
+                        </table>
+                    </div>
 
                     <!-- Model Adicionar Encaixe -->
                     <div class="hidden overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center"
@@ -195,6 +200,30 @@
 <script type="module">
     $('document').ready(function() {
         $('#myTable').DataTable({
+            columns: [{
+                    data: 'referencia'
+                }, // Use the actual name of your reference column
+                {
+                    data: 'created_at', // Use the actual name of your date column
+                    render: function(data, type, row) {
+                        if (type === 'display' && data) {
+                            var date = new Date(data);
+                            return date.toLocaleString('pt-BR', {
+                                day: '2-digit',
+                                month: '2-digit',
+                                year: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit',
+                            });
+                        }
+                        return data;
+                    },
+                },
+
+                null,
+
+            ],
+
             fixedHeader: true,
             responsive: true,
             "lengthChange": true,
