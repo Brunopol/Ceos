@@ -34,15 +34,23 @@
                             style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>ref</th>
-                                    <th>data</th>
-                                    <th>editar</th>
+                                    <th>REF</th>
+                                    <th>TECIDOS</th>
+                                    <th>DATA</th>
+                                    <th>AÇÕES</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($encaixes as $encaixe)
                                     <tr>
                                         <td>{{ $encaixe->referencia }}</td>
+                                        <td>
+                                            @foreach ($encaixe->tecidos() as $tecido)
+                                                
+                                                {{ $tecido . ', ' }}
+
+                                            @endforeach
+                                        </td>
                                         <td>{{ $encaixe->created_at }}</td>
                                         <td>
                                             <button
@@ -189,6 +197,7 @@
             columns: [{
                     data: 'referencia'
                 }, // Use the actual name of your reference column
+                null,
                 {
                     data: 'created_at', // Use the actual name of your date column
                     render: function(data, type, row) {

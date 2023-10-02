@@ -13,9 +13,12 @@ use Illuminate\Support\Facades\Http;
 class EncaixeController extends Controller
 {
 
-    public function index(Request $request): View
+    public function index(Request $request)
     {
-        $encaixes = Encaixe::all();
+
+        
+
+        $encaixes = Encaixe::with(['movimentos'])->get();
 
         return view('encaixe', [
             "encaixes" => $encaixes,
