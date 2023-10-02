@@ -15,6 +15,16 @@ class Encaixe extends Model
         return $this->hasMany(Encaixe_movimento::class);
     }
 
+    public function tecidos()
+    {
+        $tecidosArray = $this->movimentos->pluck('tecido')->toArray();
+        $tecidosSemRepeticao = array_unique($tecidosArray);
+
+        return $tecidosSemRepeticao;
+    }
+
+
+
     protected $fillable = [
         'referencia',
     ];
