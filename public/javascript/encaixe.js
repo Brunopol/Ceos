@@ -152,48 +152,62 @@ function processJSONResponse (response) {
 
         //CONTEUDO DO MOVIMENTO (CONTENT)
         var conHtml = `
-      <div class="hidden" id="${movimentoId}">
-       
-        <form id="form${movimentoId}">
-          
-              <div class="relative p-6 flex-auto grid grid-cols-2 gap-4" id="conteudo">
-              <!-- Form inputs -->
-              <input type="hidden" id="encaixeID">
-              <div class="flex flex-col">
-                  <label for="nome" class="block text-sm font-medium text-gray-700">Movimento</label>
-                  <input type="text" id="nome" name="nome" class="form-control" value="${movimentoNome}">
-              </div>
-              <div class="flex flex-col">
-                  <label for="largura" class="block text-sm font-medium text-gray-700">Largura</label>
-                  <input type="text" id="largura" name="largura" class="form-control" value="${movimentoLargura}">
-              </div>
-              <div class="flex flex-col">
-                  <label for="tecido" class="block text-sm font-medium text-gray-700">Tecido</label>
-                  <input type="text" id="tecido" name="tecido" class="form-control" value="${movimentoTecido}">
-              </div>
-              <div class="flex flex-col">
-                  <label for="parImper" class="block text-sm font-medium text-gray-700">ParImpar</label>
-                  <input type="text" id="parImper" name="parImper" class="form-control" value="${movimentoParImper}">
-              </div>
-              <div class="flex flex-col col-span-2">
-                <label for="notas" class="block text-sm font-medium text-gray-700">Notas</label>
-                <textarea id="notas" name="notas" class="form-control" rows="4">${movimentoNotas}</textarea>
-            </div>
-              <div class="flex flex-col">
-                  <label for="created_at" class="block text-sm font-medium text-gray-700">Data</label>
-                  <input type="text" id="created_at" name="created_at" class="form-control" value="${movimentoCreatedAt}" readonly>
-              </div>
-             
-          </div>
+        <div class="hidden" id="${movimentoId}">
+            <form id="form${movimentoId}">
+                <!-- Form inputs -->
+                <input type="hidden" id="encaixeID">
 
-      </form>
-      
-      </div>
+                <div class="p-6 flex-auto grid grid-cols-2 gap-4">
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex flex-col">
+                            <label for="nome" class="block text-sm font-medium text-gray-700">Movimento</label>
+                            <input type="text" id="nome" name="nome" class="form-control" value="${movimentoNome}">
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label for="largura" class="block text-sm font-medium text-gray-700">Largura</label>
+                            <input type="text" id="largura" name="largura" class="form-control" value="${movimentoLargura}">
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label for="tecido" class="block text-sm font-medium text-gray-700">Tecido</label>
+                            <input type="text" id="tecido" name="tecido" class="form-control" value="${movimentoTecido}">
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label for="parImper" class="block text-sm font-medium text-gray-700">ParImpar</label>
+                            <input type="text" id="parImper" name="parImper" class="form-control" value="${movimentoParImper}">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex flex-col col-span-2">
+                            <label for="notas" class="block text-sm font-medium text-gray-700">Notas</label>
+                            <textarea id="notas" name="notas" class="form-control" rows="4">${movimentoNotas}</textarea>
+                        </div>
+                    </div>
+                
+                </div>
+
+                <div class="p-6 flex-auto grid grid-cols-4 gap-4" id="conteudo${movimentoId}">
+                
+                </div>
+
+                <div class="p-6 flex-auto grid grid-cols-2 gap-4" id="conteudoFooter">
+                
+                </div>
+            </form>
+        </div>
+
+    
     `
 
         tabContents.append(conHtml)
 
-        var tab2Contents = $('#form' + movimentoId + ' #conteudo')
+        var tab2Contents = $('#form' + movimentoId + ' #conteudo' + movimentoId)
+        var tab2ContentsFooter = $('#form' + movimentoId + ' #conteudoFooter')
+
 
         //LOOP PARA PEGAR OS CONSUMOS DO MOVIMENTO
         $.each(movimento.consumos, function (index, consumo) {
@@ -217,15 +231,25 @@ function processJSONResponse (response) {
 
         //BOTÃO ADD MAIS CONSUMO
         var conConsumosAddHtml = `
-            <button class="items-center col-span-2 bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            
+        <div class="flex flex-col justify-center items-center">
+            <button class="bg-emerald-200 text-white font-bold uppercase text-xs rounded-md shadow-sm outline-none focus:outline-none mb-1 transition-all duration-150 hover:bg-emerald-500 hover:shadow-md hover:text-white"
                 onclick="AddMoreConsumos(event, ${movimentoId})"
                 id="buttonAddConsumos${movimentoId}"
-                style="width: 263px; height: 30px;">
-                ADD + consumos
+                style="width: 120px; height: 30px;">
+                ADD + Consumos
             </button>
-        `
+            <div class="flex items-center justify-center p-6 border-t border-solid border-slate-200 rounded-b">
+            <button class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded transition duration-300 ease-in-out focus:outline-none" type="button" onclick="confirmarDeletar(event, ${movimentoId}, '${movimentoNome}')">
+                Deletar Movimento
+            </button>
+             </div>
+        </div>
 
-        tab2Contents.append(conConsumosAddHtml)
+
+        `
+            
+        tab2ContentsFooter.append(conConsumosAddHtml)
 
         //BOTÃO PARA DELETAR MOVIMENTO
 
@@ -240,7 +264,7 @@ function processJSONResponse (response) {
     
       
       `
-        tab2Contents.append(deleteMovimento)
+      //tab2ContentsFooter.append(deleteMovimento)
 
         //BOTÕES SALVAR E FECHAR MODEL
         var footer = `
@@ -259,7 +283,7 @@ function processJSONResponse (response) {
       
       `
 
-        tab2Contents.append(footer)
+      tab2ContentsFooter.append(footer)
     })
 
     //------------------PARTE PARA ADICIONAR MAIS MOVIMENTOS------------------\\
@@ -367,7 +391,8 @@ function processJSONResponse (response) {
 function AddMoreConsumos (event, movimentoId) {
     event.preventDefault()
 
-    var tab2Contents = $('#buttonAddConsumos' + movimentoId)
+    var tab2Contents = $('#conteudo' + movimentoId)
+
 
     randomNumForId = Math.floor(Math.random() * (100 - 1)) + 1
     randomNumForId2 = Math.floor(Math.random() * (100 - 1)) + 1
@@ -388,7 +413,7 @@ function AddMoreConsumos (event, movimentoId) {
     
     `
 
-    tab2Contents.before(conConsumosAddHtml)
+    tab2Contents.append(conConsumosAddHtml)
 }
 
 //--------------------ADD MAIS CONSUMOS NO MOVIEMTNO NOVO (dinamico)--------------------\\

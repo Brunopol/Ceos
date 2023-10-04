@@ -46,9 +46,7 @@
                                         <td>{{ $encaixe->referencia }}</td>
                                         <td>
                                             @foreach ($encaixe->tecidos() as $tecido)
-                                                
                                                 {{ $tecido . ', ' }}
-
                                             @endforeach
                                         </td>
                                         <td>{{ $encaixe->created_at }}</td>
@@ -131,15 +129,15 @@
 
 
                     <!-- Model Para editar encaixe-->
-                    <div class="hidden overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center"
+                    <div class="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-25 hidden"
+                        id="modal-id-backdrop"></div>
+                    <div class="fixed inset-0 z-50 flex justify-center items-center hidden overflow-x-hidden overflow-y-auto outline-none focus:outline-none"
                         id="modal-id">
-                        <div class="relative w-3/7 h-1/2 my-6 mx-auto">
-                            <!-- Content -->
+                        <div class="w-4/5 h-3/5 my-6 mx-auto relative">
                             <div
-                                class="border-0 rounded-lg shadow-lg relative flex flex-col w-full h-full bg-white outline-none focus:outline-none">
-                                <!-- Header -->
+                                class="bg-white w-full h-full flex flex-col rounded-lg shadow-lg relative outline-none focus:outline-none border-0">
                                 <div
-                                    class="flex items-center justify-between p-4 border-b border-solid border-gray-300 rounded-t bg-gray-800">
+                                    class="bg-gray-800 flex items-center justify-between p-4 rounded-t border-b border-solid border-gray-300">
                                     <div class="flex items-center">
                                         <h3 class="text-2xl font-semibold text-white" id="tituloEncaixeRef">
                                             <span id="referenceBox"
@@ -155,9 +153,6 @@
                                         </h3>
                                     </div>
                                 </div>
-
-
-                                <!-- Body -->
                                 <div class="flex flex-wrap justify-center items-center h-full" id="tabs-id">
                                     <div class="w-full">
                                         <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row bg-slate-400">
@@ -176,7 +171,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="hidden opacity-25 fixed inset-0 z-40 bg-black" id="modal-id-backdrop"></div>
+
+
 
 
                 </div>
