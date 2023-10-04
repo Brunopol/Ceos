@@ -74,7 +74,6 @@ function processJSONResponse (response) {
 
     tabListHeader.append(liHtml)
 
-
     var conHtml = `
       <div class="hidden" id="modelagem">
 
@@ -108,7 +107,6 @@ function processJSONResponse (response) {
     tabContents.append(conHtml)
 
     $.each(response.modelagemData, function (index, mod) {
-        
         var conteudoModelagem = `
 
             <tr>
@@ -128,7 +126,6 @@ function processJSONResponse (response) {
         `
 
         $('#modelagemTable').append(conteudoModelagem)
-
     })
 
     //LOOP DOS MOVIMENTOS
@@ -137,7 +134,6 @@ function processJSONResponse (response) {
         var movimentoNome = movimento.nome
         var movimentoLargura = movimento.largura
         var movimentoTecido = movimento.tecido
-        var movimentoQuantidade = movimento.quantidade
         var movimentoParImper = movimento.parImper
         var movimentoCreatedAt = formatDate(movimento.created_at)
         var movimentoNotas = movimento.notas
@@ -176,13 +172,13 @@ function processJSONResponse (response) {
                   <input type="text" id="tecido" name="tecido" class="form-control" value="${movimentoTecido}">
               </div>
               <div class="flex flex-col">
-                  <label for="quantidade" class="block text-sm font-medium text-gray-700">Quantidade</label>
-                  <input type="number" id="quantidade" name="quantidade" class="form-control" value="${movimentoQuantidade}">
-              </div>
-              <div class="flex flex-col">
                   <label for="parImper" class="block text-sm font-medium text-gray-700">ParImpar</label>
                   <input type="text" id="parImper" name="parImper" class="form-control" value="${movimentoParImper}">
               </div>
+              <div class="flex flex-col col-span-2">
+                <label for="notas" class="block text-sm font-medium text-gray-700">Notas</label>
+                <textarea id="notas" name="notas" class="form-control" rows="4">${movimentoNotas}</textarea>
+            </div>
               <div class="flex flex-col">
                   <label for="created_at" class="block text-sm font-medium text-gray-700">Data</label>
                   <input type="text" id="created_at" name="created_at" class="form-control" value="${movimentoCreatedAt}" readonly>
@@ -218,17 +214,6 @@ function processJSONResponse (response) {
 
             tab2Contents.append(conConsumosHtml)
         })
-
-        if (movimentoNotas != null) {
-            var conNotasHtml = `
-            <div class="flex flex-col col-span-2">
-                <label for="notas" class="block text-sm font-medium text-gray-700">Notas</label>
-                <textarea id="notas" name="notas" class="form-control" rows="4">${movimentoNotas}</textarea>
-            </div>
-            `
-
-            tab2Contents.append(conNotasHtml)
-        }
 
         //BOTÃO ADD MAIS CONSUMO
         var conConsumosAddHtml = `
@@ -311,10 +296,6 @@ function processJSONResponse (response) {
               <div class="flex flex-col">
                   <label for="tecido" class="block text-sm font-medium text-gray-700">Tecido</label>
                   <input type="text" id="tecido" name="tecido" class="form-control" value="">
-              </div>
-              <div class="flex flex-col">
-                  <label for="quantidade" class="block text-sm font-medium text-gray-700">Quantidade</label>
-                  <input type="number" id="quantidade" name="quantidade" class="form-control" value="">
               </div>
               <div class="flex flex-col">
                   <label for="parImper" class="block text-sm font-medium text-gray-700">Par/Impar</label>

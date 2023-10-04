@@ -75,7 +75,6 @@ class EncaixeController extends Controller
             'nome' => 'required',
             'largura' => 'required',
             'tecido' => 'required',
-            'quantidade' => 'nullable',
             'parImper' => 'required',
             'notas' => 'nullable',
             'consumo_nome' => ['nullable', 'array'],
@@ -88,7 +87,6 @@ class EncaixeController extends Controller
             'nome' => $validatedData['nome'],
             'largura' => $validatedData['largura'],
             'tecido' => $validatedData['tecido'],
-            'quantidade' => $validatedData['quantidade'],
             'parImper' => $validatedData['parImper'],
             'notas' => $validatedData['notas'],
         ]);
@@ -123,7 +121,6 @@ class EncaixeController extends Controller
             'nome' => 'required',
             'largura' => 'required',
             'tecido' => 'required',
-            'quantidade' => 'nullable',
             'parImper' => 'required',
             'consumo_nome' => 'array',
             'notas' => 'nullable',
@@ -136,7 +133,6 @@ class EncaixeController extends Controller
             'nome' => $validatedData['nome'],
             'largura' => $validatedData['largura'],
             'tecido' => $validatedData['tecido'],
-            'quantidade' => $validatedData['quantidade'],
             'parImper' => $validatedData['parImper'],
             'notas' => $validatedData['notas'],
         ]);
