@@ -140,15 +140,14 @@ function processJSONResponse (response) {
 
         //LISTA DO MOVIMENTOS (HEADER)
         var liHtml = `
-        <li class="-mb-px last:mr-0 flex-auto text-center p-1">
+        <li class="-mb-px last:mr-0 flex-auto text-center p-1" id="tabMovimento${movimentoId}">
         <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-black bg-white"
           onclick="changeAtiveTab(event,'${movimentoId}')">
           <i class="fas fa-space-shuttle text-base mr-1"></i> ${movimentoNome}
         </a>
+        
       </li>
-      <div id="tabMovimento${movimentoId}" class="flex flex-col items-center justify-center p-6 border-t border-solid border-slate-200 rounded-b">
-       
-      </div>
+      
     `
 
         tabListHeader.append(liHtml)
@@ -238,7 +237,10 @@ function processJSONResponse (response) {
                 <button class="bg-red-100 hover:bg-red-600 text-white font-semibold py-1 px-2 rounded transition duration-300 ease-in-out focus:outline-none text-xs" type="button"
                     onclick="deletarConsumo(event, ${consumo.id}, '${window.location.origin}')"
                 >
-                    deletar
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+              
                 </button>
             </div>
       `
@@ -269,13 +271,14 @@ function processJSONResponse (response) {
         var deleteMovimento = `
         <!-- Footer -->
        
-        <button class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded transition duration-300 ease-in-out focus:outline-none mb-2" type="button" onclick="confirmarDeletar(event, ${movimentoId}, '${movimentoNome}')">
-        Deletar Movimento
-      </button>
-    
-      
+        <button class="bg-red-100 hover:bg-red-600 text-white font-semibold py-1 px-2 rounded transition duration-300 ease-in-out focus:outline-none text-xs" type="button" onclick="confirmarDeletar(event, ${movimentoId}, '${movimentoNome}')">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+
       `
-        $('#tabMovimento' + movimentoId).append(deleteMovimento)
+        $('#tabMovimento' + movimentoId).prepend(deleteMovimento)
         //tab2ContentsFooter.append(deleteMovimento)
 
         //BOTÕES SALVAR E FECHAR MODEL
@@ -420,7 +423,10 @@ function AddMoreConsumos (event, movimentoId) {
         <button class="bg-red-100 hover:bg-red-600 text-white font-semibold py-1 px-2 rounded transition duration-300 ease-in-out focus:outline-none text-xs" type="button" onclick="deletarConsumoNovo(${
             randomNumForId + randomNumForId2
         })"">
-            deletar
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+      
         </button>
     </div>
     
