@@ -211,7 +211,12 @@ function processJSONResponse (response) {
                 
                 </div>
 
-                <div class="p-6 flex-auto grid grid-cols-2 gap-4 bg-slate-400" id="conteudoFooter">
+                <div class="p-6 flex-auto grid grid-cols-2 gap-4 " id="conteudoFooter">
+
+                    <div class="flex flex-col">
+                        <label for="parImper" class="block text-sm font-medium text-gray-700">Data Criação</label>
+                        <input type="text" id="parImper" name="" class="form-control" value="${movimentoCreatedAt}">
+                    </div>
                 
                 </div>
             </form>
@@ -255,9 +260,11 @@ function processJSONResponse (response) {
         <div class="flex flex-col justify-center items-center">
             <button class="bg-emerald-200 text-white font-bold uppercase text-xs rounded-md shadow-sm outline-none focus:outline-none mb-1 transition-all duration-150 hover:bg-emerald-500 hover:shadow-md hover:text-white"
                 onclick="AddMoreConsumos(event, ${movimentoId})"
-                id="buttonAddConsumos${movimentoId}"
-                style="width: 120px; height: 30px;">
-                ADD + Consumos
+                id="buttonAddConsumos${movimentoId}">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+
             </button>
         </div>
 

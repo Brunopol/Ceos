@@ -135,9 +135,16 @@
                     <div class="fixed inset-0 z-50 flex justify-center items-center hidden overflow-x-hidden overflow-y-auto outline-none focus:outline-none"
                         id="modal-id">
                         <div class="w-4/5 h-3/5 my-6 mx-auto relative">
-                            <button class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onclick="closeModal('modal-id')">
-                                Fechar
+                            <button class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-xl outline-none focus:outline-none absolute z-10" style="top: -20px; right: -35px;" type="button" onclick="closeModal('modal-id')">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                  </svg>
+                                  
+                                  
                             </button>
+                            
+                            
+                            
                             <div
                                 class="bg-white w-full h-full flex flex-col rounded-lg shadow-lg relative outline-none focus:outline-none border-0">
                                 <div
