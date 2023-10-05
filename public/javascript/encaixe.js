@@ -228,22 +228,23 @@ function processJSONResponse (response) {
         //LOOP PARA PEGAR OS CONSUMOS DO MOVIMENTO
         $.each(movimento.consumos, function (index, consumo) {
             var conConsumosHtml = `
-            <div class="flex flex-col">
+            <div class="flex flex-col relative" >
+
+            <button class="bg-red-100 hover:bg-red-500 text-red-700 font-semibold py-1 px-2 rounded-full transition duration-300 ease-in-out focus:outline-none text-xs absolute top-0 right-0 transform -translate-y-1/3" type="button" onclick="deletarConsumo(event, ${consumo.id}, '${window.location.origin}')">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            </button>
+
                 <label for="consumo_nome" class="block text-sm font-medium text-gray-700">
                     <span contenteditable="true" oninput="updateInputValue(this, '${movimento.id}${consumo.id}')">${consumo.nome}</span>
                 </label>
                 <input type="hidden" id="${movimento.id}${consumo.id}" name="consumo_nome[]" value="${consumo.nome}">
                 <input type="text" name="consumo_valor[]" class="form-control" value="${consumo.valor}">
-                <button class="bg-red-100 hover:bg-red-600 text-white font-semibold py-1 px-2 rounded transition duration-300 ease-in-out focus:outline-none text-xs" type="button"
-                    onclick="deletarConsumo(event, ${consumo.id}, '${window.location.origin}')"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-              
-                </button>
+                
             </div>
       `
+
 
             tab2Contents.append(conConsumosHtml)
         })
@@ -411,7 +412,15 @@ function AddMoreConsumos (event, movimentoId) {
 
     var conConsumosAddHtml = `
     
-    <div class="flex flex-col" id="consumo${randomNumForId + randomNumForId2}">
+    <div class="flex flex-col relative" id="consumo${randomNumForId + randomNumForId2}">
+
+        <button class="bg-red-100 hover:bg-red-500 text-red-700 font-semibold py-1 px-2 rounded-full transition duration-300 ease-in-out focus:outline-none text-xs absolute top-0 right-0 transform -translate-y-1/3" type="button" onclick="deletarConsumoNovo(${
+            randomNumForId + randomNumForId2})">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+        </button>
+
         <label for="consumo_nome" class="block text-sm font-medium text-gray-700">
             <span contenteditable="true" oninput="updateInputValue(this, '${
                 randomNumForId + randomNumForId2
@@ -421,14 +430,7 @@ function AddMoreConsumos (event, movimentoId) {
             randomNumForId + randomNumForId2
         }" name="consumo_nome[]" value="Consumo">
         <input type="text" name="consumo_valor[]" class="form-control" value="">
-        <button class="bg-red-100 hover:bg-red-600 text-white font-semibold py-1 px-2 rounded transition duration-300 ease-in-out focus:outline-none text-xs" type="button" onclick="deletarConsumoNovo(${
-            randomNumForId + randomNumForId2
-        })"">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-      
-        </button>
+        
     </div>
     
     `
