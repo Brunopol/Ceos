@@ -134,6 +134,9 @@
                     <div class="fixed inset-0 z-50 flex justify-center items-center hidden overflow-x-hidden overflow-y-auto outline-none focus:outline-none"
                         id="modal-id">
                         <div class="w-4/5 h-3/5 my-6 mx-auto relative">
+                            <button class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onclick="closeModal('modal-id')">
+                                Fechar
+                            </button>
                             <div
                                 class="bg-white w-full h-full flex flex-col rounded-lg shadow-lg relative outline-none focus:outline-none border-0">
                                 <div

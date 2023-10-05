@@ -140,12 +140,15 @@ function processJSONResponse (response) {
 
         //LISTA DO MOVIMENTOS (HEADER)
         var liHtml = `
-      <li class="-mb-px last:mr-0 flex-auto text-center p-1">
+        <li class="-mb-px last:mr-0 flex-auto text-center p-1">
         <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-black bg-white"
           onclick="changeAtiveTab(event,'${movimentoId}')">
           <i class="fas fa-space-shuttle text-base mr-1"></i> ${movimentoNome}
         </a>
       </li>
+      <div id="tabMovimento${movimentoId}" class="flex flex-col items-center justify-center p-6 border-t border-solid border-slate-200 rounded-b">
+       
+      </div>
     `
 
         tabListHeader.append(liHtml)
@@ -156,6 +159,12 @@ function processJSONResponse (response) {
             <form id="form${movimentoId}">
                 <!-- Form inputs -->
                 <input type="hidden" id="encaixeID">
+
+                <div class="text-left">
+                    <h2 class="text-2xl font-semibold mb-2">GERAL</h2>
+                    <div class="h-px bg-gray-500 mx-auto"></div>
+                </div>
+
 
                 <div class="p-6 flex-auto grid grid-cols-2 gap-4">
 
@@ -181,6 +190,8 @@ function processJSONResponse (response) {
                         </div>
                     </div>
 
+                    
+
                     <div class="grid grid-cols-2 gap-4">
                         <div class="flex flex-col col-span-2">
                             <label for="notas" class="block text-sm font-medium text-gray-700">Notas</label>
@@ -190,11 +201,18 @@ function processJSONResponse (response) {
                 
                 </div>
 
+                <div class="text-left">
+                    <div class="flex items-center gap-4" id="consumosTitle${movimentoId}">
+                    <h2 class="text-2xl font-semibold mb-2">CONSUMOS</h2>
+                    </div>
+                    <div class="h-px bg-gray-500 mx-auto"></div>
+                </div>
+
                 <div class="p-6 flex-auto grid grid-cols-4 gap-4" id="conteudo${movimentoId}">
                 
                 </div>
 
-                <div class="p-6 flex-auto grid grid-cols-2 gap-4" id="conteudoFooter">
+                <div class="p-6 flex-auto grid grid-cols-2 gap-4 bg-slate-400" id="conteudoFooter">
                 
                 </div>
             </form>
@@ -207,7 +225,6 @@ function processJSONResponse (response) {
 
         var tab2Contents = $('#form' + movimentoId + ' #conteudo' + movimentoId)
         var tab2ContentsFooter = $('#form' + movimentoId + ' #conteudoFooter')
-
 
         //LOOP PARA PEGAR OS CONSUMOS DO MOVIMENTO
         $.each(movimento.consumos, function (index, consumo) {
@@ -239,32 +256,27 @@ function processJSONResponse (response) {
                 style="width: 120px; height: 30px;">
                 ADD + Consumos
             </button>
-            <div class="flex items-center justify-center p-6 border-t border-solid border-slate-200 rounded-b">
-            <button class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded transition duration-300 ease-in-out focus:outline-none" type="button" onclick="confirmarDeletar(event, ${movimentoId}, '${movimentoNome}')">
-                Deletar Movimento
-            </button>
-             </div>
         </div>
 
 
         `
-            
-        tab2ContentsFooter.append(conConsumosAddHtml)
+
+        $('#consumosTitle' + movimentoId).append(conConsumosAddHtml)
+        // tab2ContentsFooter.append(conConsumosAddHtml)
 
         //BOTÃO PARA DELETAR MOVIMENTO
 
         var deleteMovimento = `
         <!-- Footer -->
        
-        <div class="flex items-center justify-center p-6 border-t border-solid border-slate-200 rounded-b">
-        <button class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded transition duration-300 ease-in-out focus:outline-none" type="button" onclick="confirmarDeletar(event, ${movimentoId}, '${movimentoNome}')">
-            Deletar Movimento
-        </button>
-        </div>
+        <button class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded transition duration-300 ease-in-out focus:outline-none mb-2" type="button" onclick="confirmarDeletar(event, ${movimentoId}, '${movimentoNome}')">
+        Deletar Movimento
+      </button>
     
       
       `
-      //tab2ContentsFooter.append(deleteMovimento)
+        $('#tabMovimento' + movimentoId).append(deleteMovimento)
+        //tab2ContentsFooter.append(deleteMovimento)
 
         //BOTÕES SALVAR E FECHAR MODEL
         var footer = `
@@ -272,18 +284,15 @@ function processJSONResponse (response) {
         <div id="errorMessage" class="hidden mt-1 bg-red-500 text-white p-1 rounded-b shadow-md items-center border-t border-solid border-slate-200">
             <span>Error, prencha corretamente todos os campos</span>
         </div>
-        <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-            <button class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onclick="closeModal('modal-id')">
-                Fechar
-            </button>
+        <div class="flex items-center justify-center p-6 border-t border-solid border-slate-200 rounded-b">
             <button class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onclick="updateEncaixeMovimento(event, ${movimentoId})">
-                Salvar
+                Salvar Movimento <p class="text-orange-300">${movimentoNome}</p>
             </button>    
         </div>
       
       `
 
-      tab2ContentsFooter.append(footer)
+        tab2ContentsFooter.append(footer)
     })
 
     //------------------PARTE PARA ADICIONAR MAIS MOVIMENTOS------------------\\
@@ -393,13 +402,12 @@ function AddMoreConsumos (event, movimentoId) {
 
     var tab2Contents = $('#conteudo' + movimentoId)
 
-
     randomNumForId = Math.floor(Math.random() * (100 - 1)) + 1
     randomNumForId2 = Math.floor(Math.random() * (100 - 1)) + 1
 
     var conConsumosAddHtml = `
     
-    <div class="flex flex-col">
+    <div class="flex flex-col" id="consumo${randomNumForId + randomNumForId2}">
         <label for="consumo_nome" class="block text-sm font-medium text-gray-700">
             <span contenteditable="true" oninput="updateInputValue(this, '${
                 randomNumForId + randomNumForId2
@@ -409,11 +417,23 @@ function AddMoreConsumos (event, movimentoId) {
             randomNumForId + randomNumForId2
         }" name="consumo_nome[]" value="Consumo">
         <input type="text" name="consumo_valor[]" class="form-control" value="">
+        <button class="bg-red-100 hover:bg-red-600 text-white font-semibold py-1 px-2 rounded transition duration-300 ease-in-out focus:outline-none text-xs" type="button" onclick="deletarConsumoNovo(${
+            randomNumForId + randomNumForId2
+        })"">
+            deletar
+        </button>
     </div>
     
     `
 
     tab2Contents.append(conConsumosAddHtml)
+}
+
+function deletarConsumoNovo (id) {
+    var element = document.getElementById('consumo' + id)
+    if (element) {
+        element.parentNode.removeChild(element)
+    }
 }
 
 //--------------------ADD MAIS CONSUMOS NO MOVIEMTNO NOVO (dinamico)--------------------\\
