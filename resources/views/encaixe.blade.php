@@ -2,6 +2,7 @@
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Módulo Encaixe') }}
+            
         </h2>
     </x-slot>
 
@@ -46,9 +47,7 @@
                                         <td>{{ $encaixe->referencia }}</td>
                                         <td>
                                             @foreach ($encaixe->tecidos() as $tecido)
-                                                
                                                 {{ $tecido . ', ' }}
-
                                             @endforeach
                                         </td>
                                         <td>{{ $encaixe->created_at }}</td>
@@ -131,33 +130,36 @@
 
 
                     <!-- Model Para editar encaixe-->
-                    <div class="hidden overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center"
+                    <div class="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-25 hidden"
+                        id="modal-id-backdrop"></div>
+                    <div class="fixed inset-0 z-50 flex justify-center items-center hidden overflow-x-hidden overflow-y-auto outline-none focus:outline-none"
                         id="modal-id">
-                        <div class="relative w-3/7 h-1/2 my-6 mx-auto">
-                            <!-- Content -->
+                        <div class="w-4/5 h-3/5 my-6 mx-auto relative">
+                            <button class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-3xl outline-none focus:outline-none absolute z-10" style="top: -20px; right: -35px;" type="button" onclick="closeModal('modal-id')">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-9 h-9">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                  </svg>
+                                  
+                            </button>
+                            
+                            
+                            
                             <div
-                                class="border-0 rounded-lg shadow-lg relative flex flex-col w-full h-full bg-white outline-none focus:outline-none">
-                                <!-- Header -->
+                                class="bg-white w-full h-full flex flex-col rounded-lg shadow-lg relative outline-none focus:outline-none border-0">
                                 <div
-                                    class="flex items-center justify-between p-4 border-b border-solid border-gray-300 rounded-t bg-gray-800">
+                                    class="bg-gray-800 flex items-center justify-between p-4 rounded-t border-b border-solid border-gray-300">
                                     <div class="flex items-center">
-                                        <h3 class="text-2xl font-semibold text-white" id="tituloEncaixeRef">
-                                            <span id="referenceBox"
-                                                class="inline-block px-2 py-1 rounded-md bg-indigo-500 text-white">Reference</span>
+                                        <h3 class="text-1xl font-bold " id="tituloEncaixeRef">
+                                            <input id="referenceBox"
+                                                class="inline-block rounded-md text-center" readonly>
                                         </h3>
                                     </div>
                                     <div class="flex items-center">
-                                        <h3 class="text-2xl font-semibold text-white">
-                                            <span id="dateBox" class="inline-block">
-                                                <span
-                                                    class="inline-block px-3 py-1 rounded-md bg-green-500 text-white">Date</span>
-                                            </span>
+                                        <h3 class="text-2xl font-bold">
+                                            <input id="dateBox" class="inline-block rounded-md text-center" readonly>
                                         </h3>
                                     </div>
                                 </div>
-
-
-                                <!-- Body -->
                                 <div class="flex flex-wrap justify-center items-center h-full" id="tabs-id">
                                     <div class="w-full">
                                         <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row bg-slate-400">
@@ -176,7 +178,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="hidden opacity-25 fixed inset-0 z-40 bg-black" id="modal-id-backdrop"></div>
+
+
 
 
                 </div>

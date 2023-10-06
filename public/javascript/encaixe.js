@@ -37,8 +37,8 @@ function toggleModal (modalID, userURL, referencia, date) {
         const referenceBox = document.getElementById('referenceBox')
         const dateBox = document.getElementById('dateBox')
 
-        referenceBox.textContent = 'Ref: ' + referencia
-        dateBox.textContent = formatDate(date)
+        referenceBox.value = referencia
+        dateBox.value = formatDate(date)
 
         processJSONResponse(response)
     })
@@ -65,9 +65,9 @@ function processJSONResponse (response) {
 
     var liHtml = `
     <li class="-mb-px last:mr-0 flex-auto text-center p-1">
-      <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-black bg-white"
+      <a class="text-xs font-bold uppercase px-2 py-2 shadow-lg rounded block leading-normal text-black bg-white"
         onclick="changeAtiveTab(event,'modelagem')">
-        <i class="fas fa-space-shuttle text-base mr-1"></i> Modelagem
+         Modelagem
       </a>
     </li>
   `
@@ -140,107 +140,161 @@ function processJSONResponse (response) {
 
         //LISTA DO MOVIMENTOS (HEADER)
         var liHtml = `
-      <li class="-mb-px last:mr-0 flex-auto text-center p-1">
-        <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-black bg-white"
-          onclick="changeAtiveTab(event,'${movimentoId}')">
-          <i class="fas fa-space-shuttle text-base mr-1"></i> ${movimentoNome}
-        </a>
-      </li>
+        <li class="-mb-px last:mr-0 flex-auto text-center p-1 relative" id="tabMovimento${movimentoId}">
+
+            <a class="text-xs font-bold uppercase px-2 py-2 shadow-lg rounded block leading-normal text-black bg-white" onclick="changeAtiveTab(event,'${movimentoId}')">
+                 ${movimentoNome}
+            </a>
+
+        </li>
+      
     `
 
         tabListHeader.append(liHtml)
 
         //CONTEUDO DO MOVIMENTO (CONTENT)
         var conHtml = `
-      <div class="hidden" id="${movimentoId}">
-       
-        <form id="form${movimentoId}">
-          
-              <div class="relative p-6 flex-auto grid grid-cols-2 gap-4" id="conteudo">
-              <!-- Form inputs -->
-              <input type="hidden" id="encaixeID">
-              <div class="flex flex-col">
-                  <label for="nome" class="block text-sm font-medium text-gray-700">Movimento</label>
-                  <input type="text" id="nome" name="nome" class="form-control" value="${movimentoNome}">
-              </div>
-              <div class="flex flex-col">
-                  <label for="largura" class="block text-sm font-medium text-gray-700">Largura</label>
-                  <input type="text" id="largura" name="largura" class="form-control" value="${movimentoLargura}">
-              </div>
-              <div class="flex flex-col">
-                  <label for="tecido" class="block text-sm font-medium text-gray-700">Tecido</label>
-                  <input type="text" id="tecido" name="tecido" class="form-control" value="${movimentoTecido}">
-              </div>
-              <div class="flex flex-col">
-                  <label for="parImper" class="block text-sm font-medium text-gray-700">ParImpar</label>
-                  <input type="text" id="parImper" name="parImper" class="form-control" value="${movimentoParImper}">
-              </div>
-              <div class="flex flex-col col-span-2">
-                <label for="notas" class="block text-sm font-medium text-gray-700">Notas</label>
-                <textarea id="notas" name="notas" class="form-control" rows="4">${movimentoNotas}</textarea>
-            </div>
-              <div class="flex flex-col">
-                  <label for="created_at" class="block text-sm font-medium text-gray-700">Data</label>
-                  <input type="text" id="created_at" name="created_at" class="form-control" value="${movimentoCreatedAt}" readonly>
-              </div>
-             
-          </div>
+        <div class="hidden" id="${movimentoId}">
+            <form id="form${movimentoId}">
+                <!-- Form inputs -->
+                <input type="hidden" id="encaixeID">
 
-      </form>
-      
-      </div>
+                <div class="text-left">
+                    <h2 class="text-1xl font-semibold mb-2">GERAL</h2>
+                    <div class="h-px bg-gray-500 mx-auto"></div>
+                </div>
+
+
+                <div class="p-6 flex-auto grid grid-cols-2 gap-4">
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex flex-col">
+                            <label for="nome" class="block text-sm font-medium text-gray-700">MOVIMENTO</label>
+                            <input type="text" id="nome" name="nome" class="form-control text-sm" value="${movimentoNome}">
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label for="largura" class="block text-sm font-medium text-gray-700">LARGURA</label>
+                            <input type="text" id="largura" name="largura" class="form-control text-sm" value="${movimentoLargura}">
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label for="tecido" class="block text-sm font-medium text-gray-700">TECIDO</label>
+                            <input type="text" id="tecido" name="tecido" class="form-control text-sm" value="${movimentoTecido}">
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label for="parImper" class="block text-sm font-medium text-gray-700">PAR/IMPAR</label>
+                            <select id="parImper" name="parImper" class="form-select text-sm">
+                                <option value="NÃO INFORMADO" ${movimentoParImper === 'NÃO INFORMADO' ? 'selected' : ''}>NÃO INFORMADO</option>
+                                <option value="PAR" ${movimentoParImper === 'PAR' ? 'selected' : ''}>PAR</option>
+                                <option value="IMPAR" ${movimentoParImper === 'IMPAR' ? 'selected' : ''}>IMPAR</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex flex-col col-span-2">
+                            <label for="notas" class="block text-sm font-medium text-gray-700">NOTAS</label>
+                            <textarea id="notas" name="notas" class="form-control text-sm" rows="4">${movimentoNotas}</textarea>
+                        </div>
+                    </div>
+                
+                </div>
+
+                <div class="text-left">
+                    <div class="flex items-center gap-4" id="consumosTitle${movimentoId}">
+                    <h2 class="text-1xl font-semibold">CONSUMOS</h2>
+                    </div>
+                    <div class="h-px bg-gray-500 mx-auto"></div>
+                </div>
+
+                <div class="p-6 flex-auto grid grid-cols-4 gap-4" id="conteudo${movimentoId}">
+                
+                </div>
+
+                <div class="p-6 mt-10 flex-auto grid grid-cols-2 gap-4 border-t-2 border-b-2 border-slate-500" id="conteudoFooter">
+
+                    <div class="flex flex-col justify-center justify-items-center">
+                        <label for="parImper" class="block text-sm font-medium text-gray-700">DATA CRIAÇÃO</label>
+                        <input type="text" id="parImper" name="" class="form-control text-sm bg-gray-200 text-gray-600 cursor-not-allowed" value="${movimentoCreatedAt}" readonly>
+                    </div>
+            
+                
+                </div>
+            </form>
+        </div>
+
+    
     `
 
         tabContents.append(conHtml)
 
-        var tab2Contents = $('#form' + movimentoId + ' #conteudo')
+        var tab2Contents = $('#form' + movimentoId + ' #conteudo' + movimentoId)
+        var tab2ContentsFooter = $('#form' + movimentoId + ' #conteudoFooter')
 
         //LOOP PARA PEGAR OS CONSUMOS DO MOVIMENTO
         $.each(movimento.consumos, function (index, consumo) {
             var conConsumosHtml = `
-            <div class="flex flex-col">
-                <label for="consumo_nome" class="block text-sm font-medium text-gray-700">
+            <div class="flex flex-col relative" >
+
+            <button class="bg-red-100 hover:bg-red-500 text-red-700 font-semibold py-1 px-2 rounded-full transition duration-300 ease-in-out focus:outline-none text-xs absolute top-0 right-0 transform -translate-y-1/3" type="button" onclick="deletarConsumo(event, ${consumo.id}, '${window.location.origin}')">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            </button>
+
+                <label for="consumo_nome" class="block text-sm font-medium text-blue-600">
                     <span contenteditable="true" oninput="updateInputValue(this, '${movimento.id}${consumo.id}')">${consumo.nome}</span>
                 </label>
                 <input type="hidden" id="${movimento.id}${consumo.id}" name="consumo_nome[]" value="${consumo.nome}">
-                <input type="text" name="consumo_valor[]" class="form-control" value="${consumo.valor}">
-                <button class="bg-red-100 hover:bg-red-600 text-white font-semibold py-1 px-2 rounded transition duration-300 ease-in-out focus:outline-none text-xs" type="button"
-                    onclick="deletarConsumo(event, ${consumo.id}, '${window.location.origin}')"
-                >
-                    deletar
-                </button>
+                <input type="text" name="consumo_valor[]" class="form-control text-sm" value="${consumo.valor}">
+                
             </div>
       `
+
 
             tab2Contents.append(conConsumosHtml)
         })
 
         //BOTÃO ADD MAIS CONSUMO
         var conConsumosAddHtml = `
-            <button class="items-center col-span-2 bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            
+        <div class="flex flex-col justify-center items-center">
+            <button class="bg-emerald-200 text-white font-bold uppercase text-xs rounded-md shadow-sm outline-none focus:outline-none mb-1 transition-all duration-150 hover:bg-emerald-500 hover:shadow-md hover:text-white"
                 onclick="AddMoreConsumos(event, ${movimentoId})"
-                id="buttonAddConsumos${movimentoId}"
-                style="width: 263px; height: 30px;">
-                ADD + consumos
+                id="buttonAddConsumos${movimentoId}">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+
             </button>
+        </div>
+
+
         `
 
-        tab2Contents.append(conConsumosAddHtml)
+        $('#consumosTitle' + movimentoId).append(conConsumosAddHtml)
+        // tab2ContentsFooter.append(conConsumosAddHtml)
 
         //BOTÃO PARA DELETAR MOVIMENTO
 
         var deleteMovimento = `
         <!-- Footer -->
        
-        <div class="flex items-center justify-center p-6 border-t border-solid border-slate-200 rounded-b">
-        <button class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded transition duration-300 ease-in-out focus:outline-none" type="button" onclick="confirmarDeletar(event, ${movimentoId}, '${movimentoNome}')">
-            Deletar Movimento
+        <button class="bg-red-100 hover:bg-red-500 text-red-700 font-semibold py-1 px-2 rounded-full transition duration-300 ease-in-out focus:outline-none text-xs absolute top-0 right-0 transform -translate-y-1/3" type="button" onclick="confirmarDeletar(event, ${movimentoId}, '${movimentoNome}')">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
         </button>
-        </div>
-    
-      
+
+
       `
-        tab2Contents.append(deleteMovimento)
+        $('#tabMovimento' + movimentoId).prepend(deleteMovimento)
+        //tab2ContentsFooter.append(deleteMovimento)
 
         //BOTÕES SALVAR E FECHAR MODEL
         var footer = `
@@ -248,18 +302,15 @@ function processJSONResponse (response) {
         <div id="errorMessage" class="hidden mt-1 bg-red-500 text-white p-1 rounded-b shadow-md items-center border-t border-solid border-slate-200">
             <span>Error, prencha corretamente todos os campos</span>
         </div>
-        <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-            <button class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onclick="closeModal('modal-id')">
-                Fechar
-            </button>
+        <div class="flex items-center justify-end p-6">
             <button class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onclick="updateEncaixeMovimento(event, ${movimentoId})">
-                Salvar
+                Salvar Movimento <p class="text-orange-300">${movimentoNome}</p>
             </button>    
         </div>
       
       `
 
-        tab2Contents.append(footer)
+        tab2ContentsFooter.append(footer)
     })
 
     //------------------PARTE PARA ADICIONAR MAIS MOVIMENTOS------------------\\
@@ -267,49 +318,92 @@ function processJSONResponse (response) {
     //BOTÃO PARA ADD O MOVIMENTO NO (HEADER)
     var listPlusHtml = `
     <li class="-mb-px last:mr-0 flex-auto text-center p-1">
-        <a class="text-xs font-semibold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-white bg-blue-500 hover:shadow-lg"
+        <a class="text-xs font-semibold uppercase px-2 py-2 shadow-lg rounded block leading-normal text-white bg-blue-500 hover:shadow-lg"
             onclick="changeAtiveTab(event,'addMovimento')">
-            <i class="fas fa-space-shuttle text-base mr-1"></i> ADD+
+             ADD+
         </a>
     </li>
   `
 
     tabListHeader.prepend(listPlusHtml)
-
+//
     //CONTEUDO DO NOVO MOVIMENTO
     var conPlusHtml = `
-      <div class="" id="addMovimento">
+    <div class="" id="addMovimento" style="height: 556px; width: 804px;">
+
        
         <form id="formAddMovimento">
           
-              <div class="relative p-6 flex-auto grid grid-cols-2 gap-4" id="conteudoAddMovimento">
-              <!-- Form inputs -->
-              <input type="hidden" id="encaixeID" name="encaixeID" value="${response.id}">
-              <div class="flex flex-col">
-                  <label for="nome" class="block text-sm font-medium text-gray-700">Movimento</label>
-                  <input type="text" id="nome" name="nome" class="form-control" value="">
-              </div>
-              <div class="flex flex-col">
-                  <label for="largura" class="block text-sm font-medium text-gray-700">Largura</label>
-                  <input type="text" id="largura" name="largura" class="form-control" value="">
-              </div>
-              <div class="flex flex-col">
-                  <label for="tecido" class="block text-sm font-medium text-gray-700">Tecido</label>
-                  <input type="text" id="tecido" name="tecido" class="form-control" value="">
-              </div>
-              <div class="flex flex-col">
-                  <label for="parImper" class="block text-sm font-medium text-gray-700">Par/Impar</label>
-                  <input type="text" id="parImper" name="parImper" class="form-control" value="">
-              </div>
+                <input type="hidden" id="encaixeID" name="encaixeID" value="${response.id}">
+                <div class="text-left">
+                    <h2 class="text-1xl font-semibold mb-2">GERAL</h2>
+                    <div class="h-px bg-gray-500 mx-auto"></div>
+                </div>
 
-              <div class="flex flex-col col-span-2">
-              <label for="notas" class="block text-sm font-medium text-gray-700">Notas</label>
-              <textarea id="notas" name="notas" class="form-control" rows="4"></textarea>
-             </div>
-              
-          </div>
 
-      </form>
+                <div class="p-6 flex-auto grid grid-cols-2 gap-4">
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex flex-col">
+                            <label for="nome" class="block text-sm font-medium text-gray-700">MOVIMENTO</label>
+                            <input type="text" id="nome" name="nome" class="form-control text-sm" value="">
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label for="largura" class="block text-sm font-medium text-gray-700">LARGURA</label>
+                            <input type="text" id="largura" name="largura" class="form-control text-sm" value="">
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label for="tecido" class="block text-sm font-medium text-gray-700">TECIDO</label>
+                            <input type="text" id="tecido" name="tecido" class="form-control text-sm" value="">
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label for="parImper" class="block text-sm font-medium text-gray-700">PAR/IMPAR</label>
+                            <select id="parImper" name="parImper" class="form-select text-sm">
+                                <option value="NÃO INFORMADO" >NÃO INFORMADO</option>
+                                <option value="PAR" >PAR</option>
+                                <option value="IMPAR">IMPAR</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex flex-col col-span-2">
+                            <label for="notas" class="block text-sm font-medium text-gray-700">NOTAS</label>
+                            <textarea id="notas" name="notas" class="form-control text-sm" rows="4"></textarea>
+                        </div>
+                    </div>
+                
+                </div>
+
+                <div class="text-left">
+                    <div class="flex items-center gap-4" id="consumoTitlenoAdd">
+                    <h2 class="text-1xl font-semibold">CONSUMOS</h2>
+                    </div>
+                    <div class="h-px bg-gray-500 mx-auto"></div>
+                </div>
+
+                <div class="p-6 flex-auto grid grid-cols-4 gap-4" id="conteudoAddMovimento">
+                
+                </div>
+
+                <div class="p-6 mt-10 flex-auto grid grid-cols-2 gap-4 border-t-2 border-b-2 border-slate-500" id="conteudoFooterAdd">
+
+                    
+            
+                
+                </div>
+
+
+
+
+
+        </form>
       
       </div>
     `
@@ -317,49 +411,42 @@ function processJSONResponse (response) {
     tabContents.append(conPlusHtml)
 
     //ADD MAIS CONSUMOS PARA O MOVIMENTO NOVO
-    tabAddContentsForm = $('#conteudoAddMovimento')
-
+    tabAddContentsForm = $('#consumoTitlenoAdd')
+    //
     var conConsumosAddHtml = `
-            <button class="items-center col-span-2 bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                onclick="AddMoreConsumosOnTheAddMovimentos(event)"
-                id="buttonAddConsumosMovimentoNovo"
-                style="width: 263px; height: 30px;">
-                ADD + consumos
-            </button>
+            <div class="flex flex-col justify-center items-center">
+                <button class="bg-emerald-200 text-white font-bold uppercase text-xs rounded-md shadow-sm outline-none focus:outline-none mb-1 transition-all duration-150 hover:bg-emerald-500 hover:shadow-md hover:text-white"
+                    onclick="AddMoreConsumosOnTheAddMovimentos(event)"
+                    id="buttonAddConsumosMovimentoNovo">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+
+                </button>
+            </div>
         `
 
-    tabAddContentsForm.append(conConsumosAddHtml)
-
-    //SÓ PARA ARRUMAR O FRONTEND COLOCAR PARA ESQUERDA
-    var blankSpace = `
-       
-        <div  class="hidden mt-1 bg-red-500 text-white p-1 rounded-b shadow-md items-center border-t border-solid border-slate-200">
-        </div>
-        <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-        </div>
         
-      `
 
-    tabAddContentsForm.append(blankSpace)
-
+    tabAddContentsForm.append(conConsumosAddHtml)
+    //
     //SALVAR E FECHAR PARA O MOVIMENTO NOVO
-    var footer = `
+
+      var footer = `
         <!-- Footer -->
+        <div></div>
         <div id="errorMessage" class="hidden mt-1 bg-red-500 text-white p-1 rounded-b shadow-md items-center border-t border-solid border-slate-200">
             <span>Error, prencha corretamente todos os campos</span>
         </div>
-        <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-            <button class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onclick="closeModal('modal-id')">
-                Fechar
-            </button>
+        <div class="flex items-center justify-end p-6">
             <button class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onclick="addEncaixeMovimento(event)">
-                Salvar
+                Salvar Movimento
             </button>    
         </div>
       
       `
 
-    tabAddContentsForm.append(footer)
+    $('#conteudoFooterAdd').append(footer)
 }
 
 //--------------------ADD MAIS CONSUMOS (dinamico)--------------------\\
@@ -367,57 +454,85 @@ function processJSONResponse (response) {
 function AddMoreConsumos (event, movimentoId) {
     event.preventDefault()
 
-    var tab2Contents = $('#buttonAddConsumos' + movimentoId)
+    var tab2Contents = $('#conteudo' + movimentoId)
 
     randomNumForId = Math.floor(Math.random() * (100 - 1)) + 1
     randomNumForId2 = Math.floor(Math.random() * (100 - 1)) + 1
 
     var conConsumosAddHtml = `
     
-    <div class="flex flex-col">
-        <label for="consumo_nome" class="block text-sm font-medium text-gray-700">
-            <span contenteditable="true" oninput="updateInputValue(this, '${
-                randomNumForId + randomNumForId2
-            }')">Consumo</span>
+    <div class="flex flex-col relative" id="consumo${randomNumForId + randomNumForId2}">
+
+        <button class="bg-red-100 hover:bg-red-500 text-red-700 font-semibold py-1 px-2 rounded-full transition duration-300 ease-in-out focus:outline-none text-xs absolute top-0 right-0 transform -translate-y-1/3" type="button" onclick="deletarConsumoNovo(${
+            randomNumForId + randomNumForId2})">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+        </button>
+
+        <label for="consumo_nome" class="block text-sm font-medium text-blue-600">
+            <span contenteditable="true" oninput="updateInputValue(this, '${randomNumForId + randomNumForId2}')"">
+                CONSUMO
+            </span>
         </label>
+
         <input type="hidden" id="${
             randomNumForId + randomNumForId2
-        }" name="consumo_nome[]" value="Consumo">
-        <input type="text" name="consumo_valor[]" class="form-control" value="">
+        }" name="consumo_nome[]" value="CONSUMO">
+        <input type="text" name="consumo_valor[]" class="form-control text-sm" value="">
+        
     </div>
     
     `
 
-    tab2Contents.before(conConsumosAddHtml)
+    tab2Contents.append(conConsumosAddHtml)
+}
+
+function deletarConsumoNovo (id) {
+    var element = document.getElementById('consumo' + id)
+    if (element) {
+        element.parentNode.removeChild(element)
+    }
 }
 
 //--------------------ADD MAIS CONSUMOS NO MOVIEMTNO NOVO (dinamico)--------------------\\
-
+//
 function AddMoreConsumosOnTheAddMovimentos (event) {
     event.preventDefault()
 
-    var tabAddContentsForm = $('#buttonAddConsumosMovimentoNovo')
+    var tabAddContentsForm = $('#conteudoAddMovimento')
 
     randomNumForId = Math.floor(Math.random() * (100 - 1)) + 1
     randomNumForId2 = Math.floor(Math.random() * (100 - 1)) + 1
 
     var conConsumosAddHtml = `
     
-    <div class="flex flex-col">
-        <label for="consumo_nome" class="block text-sm font-medium text-gray-700">
-            <span contenteditable="true" oninput="updateInputValue(this, '${
-                randomNumForId + randomNumForId2
-            }')">Consumo</span>
+    <div class="flex flex-col relative" id="consumo${randomNumForId + randomNumForId2}">
+
+        <button class="bg-red-100 hover:bg-red-500 text-red-700 font-semibold py-1 px-2 rounded-full transition duration-300 ease-in-out focus:outline-none text-xs absolute top-0 right-0 transform -translate-y-1/3" type="button" onclick="deletarConsumoNovo(${
+            randomNumForId + randomNumForId2})">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+        </button>
+
+        <label for="consumo_nome" class="block text-sm font-medium text-blue-600">
+            <span contenteditable="true" oninput="updateInputValue(this, '${randomNumForId + randomNumForId2}')"">
+                CONSUMO
+            </span>
         </label>
+
         <input type="hidden" id="${
             randomNumForId + randomNumForId2
-        }" name="consumo_nome[]" value="Consumo">
-        <input type="text" name="consumo_valor[]" class="form-control" value="">
+        }" name="consumo_nome[]" value="CONSUMO">
+        <input type="text" name="consumo_valor[]" class="form-control text-sm" value="">
+        
     </div>
     
     `
 
-    tabAddContentsForm.before(conConsumosAddHtml)
+
+    tabAddContentsForm.append(conConsumosAddHtml)
 }
 
 //--------------------AJAX PARA MANDAR PARA O SERVIDOR O MOVIMENTO NOVO--------------------\\
@@ -495,7 +610,7 @@ function updateInputValue (editableSpan, hiddenInputId) {
 
     // PARA NÃO REMOVER TODO O LABEL
     if (inputValue.trim() === '') {
-        editableSpan.textContent = 'Consumo'
+        editableSpan.textContent = 'CONSUMO'
     }
 
     var hiddenInput = $('#' + hiddenInputId)
