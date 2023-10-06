@@ -43,15 +43,24 @@
                             style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>ref</th>
-                                    <th>data</th>
-                                    <th>editar</th>
+                                    <th>REF</th>
+                                    <th>TECIDOS</th>
+                                    <th>DATA</th>
+                                    <th>AÇÕES</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $__currentLoopData = $encaixes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $encaixe): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr>
                                         <td><?php echo e($encaixe->referencia); ?></td>
+                                        <td>
+                                            <?php $__currentLoopData = $encaixe->tecidos(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tecido): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                
+                                                <?php echo e($tecido . ', '); ?>
+
+
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        </td>
                                         <td><?php echo e($encaixe->created_at); ?></td>
                                         <td>
                                             <button
@@ -203,6 +212,7 @@
             columns: [{
                     data: 'referencia'
                 }, // Use the actual name of your reference column
+                null,
                 {
                     data: 'created_at', // Use the actual name of your date column
                     render: function(data, type, row) {
