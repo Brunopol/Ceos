@@ -326,41 +326,84 @@ function processJSONResponse (response) {
   `
 
     tabListHeader.prepend(listPlusHtml)
-
+//
     //CONTEUDO DO NOVO MOVIMENTO
     var conPlusHtml = `
-      <div class="" id="addMovimento">
+    <div class="" id="addMovimento" style="height: 556px; width: 804px;">
+
        
         <form id="formAddMovimento">
           
-              <div class="relative p-6 flex-auto grid grid-cols-2 gap-4" id="conteudoAddMovimento">
-              <!-- Form inputs -->
-              <input type="hidden" id="encaixeID" name="encaixeID" value="${response.id}">
-              <div class="flex flex-col">
-                  <label for="nome" class="block text-sm font-medium text-gray-700">Movimento</label>
-                  <input type="text" id="nome" name="nome" class="form-control" value="">
-              </div>
-              <div class="flex flex-col">
-                  <label for="largura" class="block text-sm font-medium text-gray-700">Largura</label>
-                  <input type="text" id="largura" name="largura" class="form-control" value="">
-              </div>
-              <div class="flex flex-col">
-                  <label for="tecido" class="block text-sm font-medium text-gray-700">Tecido</label>
-                  <input type="text" id="tecido" name="tecido" class="form-control" value="">
-              </div>
-              <div class="flex flex-col">
-                  <label for="parImper" class="block text-sm font-medium text-gray-700">Par/Impar</label>
-                  <input type="text" id="parImper" name="parImper" class="form-control" value="">
-              </div>
+                <input type="hidden" id="encaixeID" name="encaixeID" value="${response.id}">
+                <div class="text-left">
+                    <h2 class="text-1xl font-semibold mb-2">GERAL</h2>
+                    <div class="h-px bg-gray-500 mx-auto"></div>
+                </div>
 
-              <div class="flex flex-col col-span-2">
-              <label for="notas" class="block text-sm font-medium text-gray-700">Notas</label>
-              <textarea id="notas" name="notas" class="form-control" rows="4"></textarea>
-             </div>
-              
-          </div>
 
-      </form>
+                <div class="p-6 flex-auto grid grid-cols-2 gap-4">
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex flex-col">
+                            <label for="nome" class="block text-sm font-medium text-gray-700">MOVIMENTO</label>
+                            <input type="text" id="nome" name="nome" class="form-control text-sm" value="">
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label for="largura" class="block text-sm font-medium text-gray-700">LARGURA</label>
+                            <input type="text" id="largura" name="largura" class="form-control text-sm" value="">
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label for="tecido" class="block text-sm font-medium text-gray-700">TECIDO</label>
+                            <input type="text" id="tecido" name="tecido" class="form-control text-sm" value="">
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label for="parImper" class="block text-sm font-medium text-gray-700">PAR/IMPAR</label>
+                            <select id="parImper" name="parImper" class="form-select text-sm">
+                                <option value="NÃO INFORMADO" >NÃO INFORMADO</option>
+                                <option value="PAR" >PAR</option>
+                                <option value="IMPAR">IMPAR</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex flex-col col-span-2">
+                            <label for="notas" class="block text-sm font-medium text-gray-700">NOTAS</label>
+                            <textarea id="notas" name="notas" class="form-control text-sm" rows="4"></textarea>
+                        </div>
+                    </div>
+                
+                </div>
+
+                <div class="text-left">
+                    <div class="flex items-center gap-4" id="">
+                    <h2 class="text-1xl font-semibold">CONSUMOS</h2>
+                    </div>
+                    <div class="h-px bg-gray-500 mx-auto"></div>
+                </div>
+
+                <div class="p-6 flex-auto grid grid-cols-4 gap-4" id="conteudoAddMovimento">
+                
+                </div>
+
+                <div class="p-6 mt-10 flex-auto grid grid-cols-2 gap-4 border-t-2 border-b-2 border-slate-500" id="conteudoFooter">
+
+                    
+            
+                
+                </div>
+
+
+
+
+
+        </form>
       
       </div>
     `
