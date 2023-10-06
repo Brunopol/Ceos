@@ -382,7 +382,7 @@ function processJSONResponse (response) {
                 </div>
 
                 <div class="text-left">
-                    <div class="flex items-center gap-4" id="">
+                    <div class="flex items-center gap-4" id="consumoTitlenoAdd">
                     <h2 class="text-1xl font-semibold">CONSUMOS</h2>
                     </div>
                     <div class="h-px bg-gray-500 mx-auto"></div>
@@ -411,16 +411,22 @@ function processJSONResponse (response) {
     tabContents.append(conPlusHtml)
 
     //ADD MAIS CONSUMOS PARA O MOVIMENTO NOVO
-    tabAddContentsForm = $('#conteudoAddMovimento')
-
+    tabAddContentsForm = $('#consumoTitlenoAdd')
+    //
     var conConsumosAddHtml = `
-            <button class="items-center col-span-2 bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                onclick="AddMoreConsumosOnTheAddMovimentos(event)"
-                id="buttonAddConsumosMovimentoNovo"
-                style="width: 263px; height: 30px;">
-                ADD + consumos
-            </button>
+            <div class="flex flex-col justify-center items-center">
+                <button class="bg-emerald-200 text-white font-bold uppercase text-xs rounded-md shadow-sm outline-none focus:outline-none mb-1 transition-all duration-150 hover:bg-emerald-500 hover:shadow-md hover:text-white"
+                    onclick="AddMoreConsumosOnTheAddMovimentos(event)"
+                    id="buttonAddConsumosMovimentoNovo">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+
+                </button>
+            </div>
         `
+
+        
 
     tabAddContentsForm.append(conConsumosAddHtml)
     //
@@ -490,32 +496,43 @@ function deletarConsumoNovo (id) {
 }
 
 //--------------------ADD MAIS CONSUMOS NO MOVIEMTNO NOVO (dinamico)--------------------\\
-
+//
 function AddMoreConsumosOnTheAddMovimentos (event) {
     event.preventDefault()
 
-    var tabAddContentsForm = $('#buttonAddConsumosMovimentoNovo')
+    var tabAddContentsForm = $('#conteudoAddMovimento')
 
     randomNumForId = Math.floor(Math.random() * (100 - 1)) + 1
     randomNumForId2 = Math.floor(Math.random() * (100 - 1)) + 1
 
     var conConsumosAddHtml = `
     
-    <div class="flex flex-col">
+    <div class="flex flex-col relative" id="consumo${randomNumForId + randomNumForId2}">
+
+        <button class="bg-red-100 hover:bg-red-500 text-red-700 font-semibold py-1 px-2 rounded-full transition duration-300 ease-in-out focus:outline-none text-xs absolute top-0 right-0 transform -translate-y-1/3" type="button" onclick="deletarConsumoNovo(${
+            randomNumForId + randomNumForId2})">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+        </button>
+
         <label for="consumo_nome" class="block text-sm font-medium text-blue-600">
-            <span contenteditable="true" oninput="updateInputValue(this, '${
-                randomNumForId + randomNumForId2
-            }')">CONSUMO</span>
+            <span contenteditable="true" oninput="updateInputValue(this, '${randomNumForId + randomNumForId2}')"">
+                CONSUMO
+            </span>
         </label>
+
         <input type="hidden" id="${
             randomNumForId + randomNumForId2
         }" name="consumo_nome[]" value="CONSUMO">
-        <input type="text" name="consumo_valor[]" class="form-control" value="">
+        <input type="text" name="consumo_valor[]" class="form-control text-sm" value="">
+        
     </div>
     
     `
 
-    tabAddContentsForm.before(conConsumosAddHtml)
+
+    tabAddContentsForm.append(conConsumosAddHtml)
 }
 
 //--------------------AJAX PARA MANDAR PARA O SERVIDOR O MOVIMENTO NOVO--------------------\\
