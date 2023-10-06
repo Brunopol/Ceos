@@ -37,8 +37,8 @@ function toggleModal (modalID, userURL, referencia, date) {
         const referenceBox = document.getElementById('referenceBox')
         const dateBox = document.getElementById('dateBox')
 
-        referenceBox.textContent = 'Ref: ' + referencia
-        dateBox.textContent = formatDate(date)
+        referenceBox.value = referencia
+        dateBox.value = formatDate(date)
 
         processJSONResponse(response)
     })
@@ -65,9 +65,9 @@ function processJSONResponse (response) {
 
     var liHtml = `
     <li class="-mb-px last:mr-0 flex-auto text-center p-1">
-      <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-black bg-white"
+      <a class="text-xs font-bold uppercase px-2 py-2 shadow-lg rounded block leading-normal text-black bg-white"
         onclick="changeAtiveTab(event,'modelagem')">
-        <i class="fas fa-space-shuttle text-base mr-1"></i> Modelagem
+         Modelagem
       </a>
     </li>
   `
@@ -142,8 +142,8 @@ function processJSONResponse (response) {
         var liHtml = `
         <li class="-mb-px last:mr-0 flex-auto text-center p-1 relative" id="tabMovimento${movimentoId}">
 
-            <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-black bg-white" onclick="changeAtiveTab(event,'${movimentoId}')">
-                <i class="fas fa-space-shuttle text-base mr-1"></i> ${movimentoNome}
+            <a class="text-xs font-bold uppercase px-2 py-2 shadow-lg rounded block leading-normal text-black bg-white" onclick="changeAtiveTab(event,'${movimentoId}')">
+                 ${movimentoNome}
             </a>
 
         </li>
@@ -160,7 +160,7 @@ function processJSONResponse (response) {
                 <input type="hidden" id="encaixeID">
 
                 <div class="text-left">
-                    <h2 class="text-2xl font-semibold mb-2">GERAL</h2>
+                    <h2 class="text-1xl font-semibold mb-2">GERAL</h2>
                     <div class="h-px bg-gray-500 mx-auto"></div>
                 </div>
 
@@ -169,32 +169,37 @@ function processJSONResponse (response) {
 
                     <div class="grid grid-cols-2 gap-4">
                         <div class="flex flex-col">
-                            <label for="nome" class="block text-sm font-medium text-gray-700">Movimento</label>
-                            <input type="text" id="nome" name="nome" class="form-control" value="${movimentoNome}">
+                            <label for="nome" class="block text-sm font-medium text-gray-700">MOVIMENTO</label>
+                            <input type="text" id="nome" name="nome" class="form-control text-sm" value="${movimentoNome}">
                         </div>
 
                         <div class="flex flex-col">
-                            <label for="largura" class="block text-sm font-medium text-gray-700">Largura</label>
-                            <input type="text" id="largura" name="largura" class="form-control" value="${movimentoLargura}">
+                            <label for="largura" class="block text-sm font-medium text-gray-700">LARGURA</label>
+                            <input type="text" id="largura" name="largura" class="form-control text-sm" value="${movimentoLargura}">
                         </div>
 
                         <div class="flex flex-col">
-                            <label for="tecido" class="block text-sm font-medium text-gray-700">Tecido</label>
-                            <input type="text" id="tecido" name="tecido" class="form-control" value="${movimentoTecido}">
+                            <label for="tecido" class="block text-sm font-medium text-gray-700">TECIDO</label>
+                            <input type="text" id="tecido" name="tecido" class="form-control text-sm" value="${movimentoTecido}">
                         </div>
 
                         <div class="flex flex-col">
-                            <label for="parImper" class="block text-sm font-medium text-gray-700">ParImpar</label>
-                            <input type="text" id="parImper" name="parImper" class="form-control" value="${movimentoParImper}">
+                            <label for="parImper" class="block text-sm font-medium text-gray-700">PAR/IMPAR</label>
+                            <select id="parImper" name="parImper" class="form-select text-sm">
+                                <option value="NÃO INFORMADO" ${movimentoParImper === 'NÃO INFORMADO' ? 'selected' : ''}>NÃO INFORMADO</option>
+                                <option value="PAR" ${movimentoParImper === 'PAR' ? 'selected' : ''}>PAR</option>
+                                <option value="IMPAR" ${movimentoParImper === 'IMPAR' ? 'selected' : ''}>IMPAR</option>
+                            </select>
                         </div>
+
                     </div>
 
                     
 
                     <div class="grid grid-cols-2 gap-4">
                         <div class="flex flex-col col-span-2">
-                            <label for="notas" class="block text-sm font-medium text-gray-700">Notas</label>
-                            <textarea id="notas" name="notas" class="form-control" rows="4">${movimentoNotas}</textarea>
+                            <label for="notas" class="block text-sm font-medium text-gray-700">NOTAS</label>
+                            <textarea id="notas" name="notas" class="form-control text-sm" rows="4">${movimentoNotas}</textarea>
                         </div>
                     </div>
                 
@@ -202,7 +207,7 @@ function processJSONResponse (response) {
 
                 <div class="text-left">
                     <div class="flex items-center gap-4" id="consumosTitle${movimentoId}">
-                    <h2 class="text-2xl font-semibold mb-2">CONSUMOS</h2>
+                    <h2 class="text-1xl font-semibold">CONSUMOS</h2>
                     </div>
                     <div class="h-px bg-gray-500 mx-auto"></div>
                 </div>
@@ -211,12 +216,13 @@ function processJSONResponse (response) {
                 
                 </div>
 
-                <div class="p-6 flex-auto grid grid-cols-2 gap-4 " id="conteudoFooter">
+                <div class="p-6 mt-10 flex-auto grid grid-cols-2 gap-4 border-t-2 border-b-2 border-slate-500" id="conteudoFooter">
 
-                    <div class="flex flex-col">
-                        <label for="parImper" class="block text-sm font-medium text-gray-700">Data Criação</label>
-                        <input type="text" id="parImper" name="" class="form-control" value="${movimentoCreatedAt}">
+                    <div class="flex flex-col justify-center justify-items-center">
+                        <label for="parImper" class="block text-sm font-medium text-gray-700">DATA CRIAÇÃO</label>
+                        <input type="text" id="parImper" name="" class="form-control text-sm bg-gray-200 text-gray-600 cursor-not-allowed" value="${movimentoCreatedAt}" readonly>
                     </div>
+            
                 
                 </div>
             </form>
@@ -241,11 +247,11 @@ function processJSONResponse (response) {
             </svg>
             </button>
 
-                <label for="consumo_nome" class="block text-sm font-medium text-gray-700">
+                <label for="consumo_nome" class="block text-sm font-medium text-blue-600">
                     <span contenteditable="true" oninput="updateInputValue(this, '${movimento.id}${consumo.id}')">${consumo.nome}</span>
                 </label>
                 <input type="hidden" id="${movimento.id}${consumo.id}" name="consumo_nome[]" value="${consumo.nome}">
-                <input type="text" name="consumo_valor[]" class="form-control" value="${consumo.valor}">
+                <input type="text" name="consumo_valor[]" class="form-control text-sm" value="${consumo.valor}">
                 
             </div>
       `
@@ -296,7 +302,7 @@ function processJSONResponse (response) {
         <div id="errorMessage" class="hidden mt-1 bg-red-500 text-white p-1 rounded-b shadow-md items-center border-t border-solid border-slate-200">
             <span>Error, prencha corretamente todos os campos</span>
         </div>
-        <div class="flex items-center justify-center p-6 border-t border-solid border-slate-200 rounded-b">
+        <div class="flex items-center justify-end p-6">
             <button class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onclick="updateEncaixeMovimento(event, ${movimentoId})">
                 Salvar Movimento <p class="text-orange-300">${movimentoNome}</p>
             </button>    
@@ -312,9 +318,9 @@ function processJSONResponse (response) {
     //BOTÃO PARA ADD O MOVIMENTO NO (HEADER)
     var listPlusHtml = `
     <li class="-mb-px last:mr-0 flex-auto text-center p-1">
-        <a class="text-xs font-semibold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-white bg-blue-500 hover:shadow-lg"
+        <a class="text-xs font-semibold uppercase px-2 py-2 shadow-lg rounded block leading-normal text-white bg-blue-500 hover:shadow-lg"
             onclick="changeAtiveTab(event,'addMovimento')">
-            <i class="fas fa-space-shuttle text-base mr-1"></i> ADD+
+             ADD+
         </a>
     </li>
   `
@@ -428,15 +434,16 @@ function AddMoreConsumos (event, movimentoId) {
         </svg>
         </button>
 
-        <label for="consumo_nome" class="block text-sm font-medium text-gray-700">
-            <span contenteditable="true" oninput="updateInputValue(this, '${
-                randomNumForId + randomNumForId2
-            }')">Consumo</span>
+        <label for="consumo_nome" class="block text-sm font-medium text-blue-600">
+            <span contenteditable="true" oninput="updateInputValue(this, '${randomNumForId + randomNumForId2}')"">
+                CONSUMO
+            </span>
         </label>
+
         <input type="hidden" id="${
             randomNumForId + randomNumForId2
-        }" name="consumo_nome[]" value="Consumo">
-        <input type="text" name="consumo_valor[]" class="form-control" value="">
+        }" name="consumo_nome[]" value="CONSUMO">
+        <input type="text" name="consumo_valor[]" class="form-control text-sm" value="">
         
     </div>
     
@@ -465,14 +472,14 @@ function AddMoreConsumosOnTheAddMovimentos (event) {
     var conConsumosAddHtml = `
     
     <div class="flex flex-col">
-        <label for="consumo_nome" class="block text-sm font-medium text-gray-700">
+        <label for="consumo_nome" class="block text-sm font-medium text-blue-600">
             <span contenteditable="true" oninput="updateInputValue(this, '${
                 randomNumForId + randomNumForId2
-            }')">Consumo</span>
+            }')">CONSUMO</span>
         </label>
         <input type="hidden" id="${
             randomNumForId + randomNumForId2
-        }" name="consumo_nome[]" value="Consumo">
+        }" name="consumo_nome[]" value="CONSUMO">
         <input type="text" name="consumo_valor[]" class="form-control" value="">
     </div>
     
@@ -556,7 +563,7 @@ function updateInputValue (editableSpan, hiddenInputId) {
 
     // PARA NÃO REMOVER TODO O LABEL
     if (inputValue.trim() === '') {
-        editableSpan.textContent = 'Consumo'
+        editableSpan.textContent = 'CONSUMO'
     }
 
     var hiddenInput = $('#' + hiddenInputId)

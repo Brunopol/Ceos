@@ -135,11 +135,10 @@
                     <div class="fixed inset-0 z-50 flex justify-center items-center hidden overflow-x-hidden overflow-y-auto outline-none focus:outline-none"
                         id="modal-id">
                         <div class="w-4/5 h-3/5 my-6 mx-auto relative">
-                            <button class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-xl outline-none focus:outline-none absolute z-10" style="top: -20px; right: -35px;" type="button" onclick="closeModal('modal-id')">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            <button class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-3xl outline-none focus:outline-none absolute z-10" style="top: -20px; right: -35px;" type="button" onclick="closeModal('modal-id')">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-9 h-9">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                   </svg>
-                                  
                                   
                             </button>
                             
@@ -150,17 +149,14 @@
                                 <div
                                     class="bg-gray-800 flex items-center justify-between p-4 rounded-t border-b border-solid border-gray-300">
                                     <div class="flex items-center">
-                                        <h3 class="text-2xl font-semibold text-white" id="tituloEncaixeRef">
-                                            <span id="referenceBox"
-                                                class="inline-block px-2 py-1 rounded-md bg-indigo-500 text-white">Reference</span>
+                                        <h3 class="text-1xl font-bold " id="tituloEncaixeRef">
+                                            <input id="referenceBox"
+                                                class="inline-block rounded-md text-center" readonly>
                                         </h3>
                                     </div>
                                     <div class="flex items-center">
-                                        <h3 class="text-2xl font-semibold text-white">
-                                            <span id="dateBox" class="inline-block">
-                                                <span
-                                                    class="inline-block px-3 py-1 rounded-md bg-green-500 text-white">Date</span>
-                                            </span>
+                                        <h3 class="text-2xl font-bold">
+                                            <input id="dateBox" class="inline-block rounded-md text-center" readonly>
                                         </h3>
                                     </div>
                                 </div>
