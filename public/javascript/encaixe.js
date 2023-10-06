@@ -392,7 +392,7 @@ function processJSONResponse (response) {
                 
                 </div>
 
-                <div class="p-6 mt-10 flex-auto grid grid-cols-2 gap-4 border-t-2 border-b-2 border-slate-500" id="conteudoFooter">
+                <div class="p-6 mt-10 flex-auto grid grid-cols-2 gap-4 border-t-2 border-b-2 border-slate-500" id="conteudoFooterAdd">
 
                     
             
@@ -423,37 +423,24 @@ function processJSONResponse (response) {
         `
 
     tabAddContentsForm.append(conConsumosAddHtml)
-
-    //SÓ PARA ARRUMAR O FRONTEND COLOCAR PARA ESQUERDA
-    var blankSpace = `
-       
-        <div  class="hidden mt-1 bg-red-500 text-white p-1 rounded-b shadow-md items-center border-t border-solid border-slate-200">
-        </div>
-        <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-        </div>
-        
-      `
-
-    tabAddContentsForm.append(blankSpace)
-
+    //
     //SALVAR E FECHAR PARA O MOVIMENTO NOVO
-    var footer = `
+
+      var footer = `
         <!-- Footer -->
+        <div></div>
         <div id="errorMessage" class="hidden mt-1 bg-red-500 text-white p-1 rounded-b shadow-md items-center border-t border-solid border-slate-200">
             <span>Error, prencha corretamente todos os campos</span>
         </div>
-        <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-            <button class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onclick="closeModal('modal-id')">
-                Fechar
-            </button>
+        <div class="flex items-center justify-end p-6">
             <button class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onclick="addEncaixeMovimento(event)">
-                Salvar
+                Salvar Movimento
             </button>    
         </div>
       
       `
 
-    tabAddContentsForm.append(footer)
+    $('#conteudoFooterAdd').append(footer)
 }
 
 //--------------------ADD MAIS CONSUMOS (dinamico)--------------------\\
