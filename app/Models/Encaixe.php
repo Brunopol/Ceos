@@ -20,10 +20,11 @@ class Encaixe extends Model
         $tecidosArray = $this->movimentos->pluck('tecido')->toArray();
         $tecidosSemRepeticao = array_unique($tecidosArray);
 
-        return $tecidosSemRepeticao;
+        // Convert to an array of strings
+        $tecidosSerializable = array_map('strval', $tecidosSemRepeticao);
+
+        return $tecidosSerializable;
     }
-
-
 
     protected $fillable = [
         'referencia',

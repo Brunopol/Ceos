@@ -16,13 +16,34 @@ class EncaixeController extends Controller
     public function index(Request $request)
     {
 
+        if ($request->ajax()) {
+            $encaixes = Encaixe::with(['movimentos'])->get();
+
+
+
+            $data = [];
+            foreach ($encaixes as $encaixe) {
+                $row = [
+                    'referencia' => $encaixe->referencia,
+                    'tecidos' => $encaixe->tecidos(),
+                    'created_at' => $encaixe->created_at->toISOString(),
+                    'actions' => [
+                        'url_show' => route('encaixe.show', $encaixe->id),
+                        'url_delete' => route('encaixe.delete', $encaixe->id),
+                        'referencia' => $encaixe->referencia,
+                        'date' => $encaixe->created_at->toISOString(),
+                    ]
+                                       
+                    
+                ];
         
+                $data[] = $row;
+            }
+        
+            return datatables()->of($data)->toJson();
+        }
 
-        $encaixes = Encaixe::with(['movimentos'])->get();
-
-        return view('encaixe', [
-            "encaixes" => $encaixes,
-        ]);
+        return view('encaixe');
     }
 
 
