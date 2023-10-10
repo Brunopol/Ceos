@@ -37,8 +37,8 @@
                                 <tr>
                                     <th>referencia</th>
                                     <th>tecidos</th>
-                                    <th>created_at<th>
-                                    <th>actions<th>
+                                    <th>created_at</th>
+                                    <th>actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -105,7 +105,7 @@
                         id="modal-id-backdrop"></div>
                     <div class="fixed inset-0 z-50 flex justify-center items-center hidden overflow-x-hidden overflow-y-auto outline-none focus:outline-none"
                         id="modal-id">
-                        <div class="w-4/5 h-3/5 my-6 mx-auto relative">
+                        <div class="w-3/5 h-3/5 my-6 mx-auto relative">
                             <button
                                 class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-3xl outline-none focus:outline-none absolute z-10"
                                 style="top: -20px; right: -35px;" type="button" onclick="closeModal('modal-id')">
@@ -135,7 +135,7 @@
                                         </h3>
                                     </div>
                                 </div>
-                                <div class="flex flex-wrap justify-center items-center h-full" id="tabs-id">
+                                <div class="flex flex-wrap justify-center h-full" id="tabs-id">
                                     <div class="w-full">
                                         <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row bg-slate-400">
                                             <!-- Tab items -->

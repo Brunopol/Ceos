@@ -78,11 +78,12 @@ function processJSONResponse (response) {
       <div class="hidden" id="modelagem">
 
       
+      <div class="max-w-screen-md mx-auto overflow-x-auto">
 
-        <table id="modelagemTable" class="w-full sm:max-w-xs mx-auto table-auto text-sm">
+        <table id="modelagemTable" class="w-full table-auto text-sm">
         <thead>
             <tr>
-                <th class="border px-4 py-2">#ID</th>
+                <th class="border px-1 py-2">#ID</th>
                 <th class="border px-4 py-2">REF</th>
                 <th class="border px-4 py-2">CLIENTE</th>
                 <th class="border px-4 py-2">DATA</th>
@@ -98,6 +99,8 @@ function processJSONResponse (response) {
         
 
         </table>
+
+        </div>
 
         
       
