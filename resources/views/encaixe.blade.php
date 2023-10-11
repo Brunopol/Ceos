@@ -2,7 +2,7 @@
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Módulo Encaixe') }}
-            
+
         </h2>
     </x-slot>
 
@@ -35,42 +35,13 @@
                             style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>REF</th>
-                                    <th>TECIDOS</th>
-                                    <th>DATA</th>
-                                    <th>AÇÕES</th>
+                                    <th>referencia</th>
+                                    <th>tecidos</th>
+                                    <th>created_at</th>
+                                    <th>actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($encaixes as $encaixe)
-                                    <tr>
-                                        <td>{{ $encaixe->referencia }}</td>
-                                        <td>
-                                            @foreach ($encaixe->tecidos() as $tecido)
-                                                {{ $tecido . ', ' }}
-                                            @endforeach
-                                        </td>
-                                        <td>{{ $encaixe->created_at }}</td>
-                                        <td>
-                                            <button
-                                                class="bg-blue-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                                type="button" data-url="{{ route('encaixe.show', $encaixe->id) }}"
-                                                data-referencia="{{ $encaixe->referencia }}"
-                                                data-date="{{ $encaixe->created_at }}"
-                                                onclick="toggleModal('modal-id', $(this).data('url'), $(this).data('referencia'), $(this).data('date'))">
-                                                Mostrar
-                                            </button>
-                                            <button
-                                                class="bg-red-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                                type="button" data-url="{{ route('encaixe.delete', $encaixe->id) }}"
-                                                data-referencia="{{ $encaixe->referencia }}"
-                                                onclick="deletarEncaixeConfirmar($(this).data('referencia'), $(this).data('url'))">
-                                                Deletar
-                                            </button>
-
-                                        </td>
-                                    </tr>
-                                @endforeach
 
                             </tbody>
                         </table>
@@ -134,24 +105,28 @@
                         id="modal-id-backdrop"></div>
                     <div class="fixed inset-0 z-50 flex justify-center items-center hidden overflow-x-hidden overflow-y-auto outline-none focus:outline-none"
                         id="modal-id">
-                        <div class="w-4/5 h-3/5 my-6 mx-auto relative">
-                            <button class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-3xl outline-none focus:outline-none absolute z-10" style="top: -20px; right: -35px;" type="button" onclick="closeModal('modal-id')">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-9 h-9">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                  </svg>
-                                  
+                        <div class="w-3/5 h-3/5 my-6 mx-auto relative">
+                            <button
+                                class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-3xl outline-none focus:outline-none absolute z-10"
+                                style="top: -20px; right: -35px;" type="button" onclick="closeModal('modal-id')">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="w-9 h-9">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+
                             </button>
-                            
-                            
-                            
+
+
+
                             <div
                                 class="bg-white w-full h-full flex flex-col rounded-lg shadow-lg relative outline-none focus:outline-none border-0">
                                 <div
                                     class="bg-gray-800 flex items-center justify-between p-4 rounded-t border-b border-solid border-gray-300">
                                     <div class="flex items-center">
                                         <h3 class="text-1xl font-bold " id="tituloEncaixeRef">
-                                            <input id="referenceBox"
-                                                class="inline-block rounded-md text-center" readonly>
+                                            <input id="referenceBox" class="inline-block rounded-md text-center"
+                                                readonly>
                                         </h3>
                                     </div>
                                     <div class="flex items-center">
@@ -160,7 +135,7 @@
                                         </h3>
                                     </div>
                                 </div>
-                                <div class="flex flex-wrap justify-center items-center h-full" id="tabs-id">
+                                <div class="flex flex-wrap justify-center h-full" id="tabs-id">
                                     <div class="w-full">
                                         <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row bg-slate-400">
                                             <!-- Tab items -->
@@ -194,68 +169,86 @@
     </div>
 </x-app-layout>
 
+
 <script type="module">
-    $('document').ready(function() {
+    $(document).ready(function() {
         $('#myTable').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "encaixe",
+            columnDefs: [{
+                className: "align-left",
+                "targets": 2,
+                render: function(data) {
+                    return new Date(data).toLocaleString();
+                }
+            }, ],
+
             columns: [{
-                    data: 'referencia'
-                }, // Use the actual name of your reference column
-                null,
+                    data: 'referencia',
+                    name: 'referencia'
+                },
                 {
-                    data: 'created_at', // Use the actual name of your date column
+                    data: 'tecidos',
+                    orderable: false,
+
                     render: function(data, type, row) {
-                        if (type === 'display' && data) {
-                            var date = new Date(data);
-                            return date.toLocaleString('pt-BR', {
-                                day: '2-digit',
-                                month: '2-digit',
-                                year: 'numeric',
-                                hour: '2-digit',
-                                minute: '2-digit',
-                            });
+
+                        function isObject(variable) {
+                            return typeof variable === 'object' && variable !== null;
                         }
-                        return data;
-                    },
+
+                        if (isObject(data)) {
+                            data = Object.values(data);
+                        }
+
+                        data = data.map(element => {
+                            if (typeof element === 'string') {
+                                element = element.replace(/^\s+|\s+$/g,
+                                    '');
+                            }
+                            return element;
+                        });
+
+                        return data.join(', ');
+
+                    }
+
                 },
-
-                null,
-
-            ],
-
-            fixedHeader: true,
-            responsive: true,
-            "lengthChange": true,
-            "lengthMenu": [10, 25, 50, 75, 100],
-
-            "language": {
-
-                "decimal": "",
-                "emptyTable": "Nenhum dado disponível na tabela",
-                "info": "Mostrando _START_ até _END_ de _TOTAL_ entradas",
-                "infoEmpty": "Mostrando 0 até 0 de 0 entradas",
-                "infoFiltered": "(filtrado de um total de _MAX_ entradas)",
-                "infoPostFix": "",
-                "thousands": ",",
-                "lengthMenu": "Mostrar _MENU_ entradas",
-                "loadingRecords": "Carregando...",
-                "processing": "",
-                "search": "Buscar:",
-                "zeroRecords": "Nenhum registro correspondente encontrado",
-                "paginate": {
-                    "first": "Primeira",
-                    "last": "Última",
-                    "next": "Próxima",
-                    "previous": "Anterior"
+                {
+                    data: 'created_at',
+                    orderable: true
                 },
-                "aria": {
-                    "sortAscending": ": ativar para ordenar coluna de forma ascendente",
-                    "sortDescending": ": ativar para ordenar coluna de forma descendente"
+                {
+                    data: 'actions',
+                    orderable: false,
+                    render: function(data, type, row) {
+
+                        var actionsData = data
+
+                        return `
+                            <button class="bg-blue-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                type="button" data-url="${actionsData.url_show}" data-referencia="${actionsData.referencia}"
+                                data-date="${actionsData.date}"
+                                onclick="toggleModal('modal-id', '${actionsData.url_show}', '${actionsData.referencia}', '${actionsData.date}')">
+                                Mostrar
+                            </button>
+                            <button class="bg-red-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                type="button" data-url="${actionsData.url_delete}" data-referencia="${actionsData.referencia}"
+                                onclick="deletarEncaixeConfirmar('${actionsData.referencia}', '${actionsData.url_delete}')">
+                                Deletar
+                            </button>
+                        `;
+                    }
                 }
 
-            }
-
+            ]
         });
+
     });
 </script>
+
+
+
 
 <script src="https://dev.ufoway.com.br/v4/javascript/encaixe.js" type="text/javascript"></script>

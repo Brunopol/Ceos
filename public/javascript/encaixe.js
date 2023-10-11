@@ -78,11 +78,12 @@ function processJSONResponse (response) {
       <div class="hidden" id="modelagem">
 
       
+      <div class="max-w-screen-md mx-auto overflow-x-auto">
 
-        <table id="modelagemTable" class="w-full sm:max-w-xs mx-auto table-auto text-sm">
+        <table id="modelagemTable" class="w-full table-auto text-sm">
         <thead>
             <tr>
-                <th class="border px-4 py-2">#ID</th>
+                <th class="border px-1 py-2">#ID</th>
                 <th class="border px-4 py-2">REF</th>
                 <th class="border px-4 py-2">CLIENTE</th>
                 <th class="border px-4 py-2">DATA</th>
@@ -98,6 +99,8 @@ function processJSONResponse (response) {
         
 
         </table>
+
+        </div>
 
         
       
@@ -346,17 +349,24 @@ function processJSONResponse (response) {
                     <div class="grid grid-cols-2 gap-4">
                         <div class="flex flex-col">
                             <label for="nome" class="block text-sm font-medium text-gray-700">MOVIMENTO</label>
-                            <input type="text" id="nome" name="nome" class="form-control text-sm" value="">
+                            <input type="text" id="nome" name="nome" class="form-control text-sm" value="" list="nomes" autocomplete="on">
+                            <datalist id="nomes">
+                                <option value="CONSUMO">
+                                <option value="LIBERAÇÃO">
+                                <option value="DESENVOLVIMENTO">
+                                <option value="SIMULAÇÃO">
+                                <option value="MOSTRUÁRIO">
+                            </datalist>
                         </div>
 
                         <div class="flex flex-col">
                             <label for="largura" class="block text-sm font-medium text-gray-700">LARGURA</label>
-                            <input type="text" id="largura" name="largura" class="form-control text-sm" value="">
+                            <input type="text" id="largura" name="largura" class="form-control text-sm" value="" autocomplete="on">
                         </div>
 
                         <div class="flex flex-col">
                             <label for="tecido" class="block text-sm font-medium text-gray-700">TECIDO</label>
-                            <input type="text" id="tecido" name="tecido" class="form-control text-sm" value="">
+                            <input type="text" id="tecido" name="tecido" class="form-control text-sm" value="" autocomplete="on">
                         </div>
 
                         <div class="flex flex-col">
@@ -479,7 +489,7 @@ function AddMoreConsumos (event, movimentoId) {
         <input type="hidden" id="${
             randomNumForId + randomNumForId2
         }" name="consumo_nome[]" value="CONSUMO">
-        <input type="text" name="consumo_valor[]" class="form-control text-sm" value="">
+        <input type="text" name="consumo_valor[]" class="form-control text-sm" value="" autocomplete="on">
         
     </div>
     
@@ -525,7 +535,7 @@ function AddMoreConsumosOnTheAddMovimentos (event) {
         <input type="hidden" id="${
             randomNumForId + randomNumForId2
         }" name="consumo_nome[]" value="CONSUMO">
-        <input type="text" name="consumo_valor[]" class="form-control text-sm" value="">
+        <input type="text" name="consumo_valor[]" class="form-control text-sm" value="" autocomplete="on">
         
     </div>
     

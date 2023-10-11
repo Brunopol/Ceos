@@ -16,13 +16,34 @@ class EncaixeController extends Controller
     public function index(Request $request)
     {
 
-        
+        if ($request->ajax()) {
+            $encaixes = Encaixe::with(['movimentos'])->get();
 
-        $encaixes = Encaixe::with(['movimentos'])->get();
 
-        return view('encaixe', [
-            "encaixes" => $encaixes,
-        ]);
+
+            $data = [];
+            foreach ($encaixes as $encaixe) {
+                $row = [
+                    'referencia' => $encaixe->referencia,
+                    'tecidos' => $encaixe->tecidos(),
+                    'created_at' => $encaixe->created_at->toISOString(),
+                    'actions' => [
+                        'url_show' => route('encaixe.show', $encaixe->id),
+                        'url_delete' => route('encaixe.delete', $encaixe->id),
+                        'referencia' => $encaixe->referencia,
+                        'date' => $encaixe->created_at->toISOString(),
+                    ]
+
+
+                ];
+
+                $data[] = $row;
+            }
+
+            return datatables()->of($data)->toJson();
+        }
+
+        return view('encaixe');
     }
 
 
@@ -31,7 +52,7 @@ class EncaixeController extends Controller
         $encaixe = Encaixe::with(['movimentos', 'movimentos.consumos'])->find($id);
 
         $responseAPIMOD = Http::get("https://mod.ufoway.com.br/api.php?ref2=$encaixe->referencia");
-    
+
         $responseAPIMODjson = $responseAPIMOD->json();
 
         $encaixe->modelagemData = $responseAPIMODjson;
@@ -53,7 +74,7 @@ class EncaixeController extends Controller
     {
 
         $validatedData = $request->validate([
-            'referencia' => 'required',
+            'referencia' => 'required|unique:encaixes',
         ]);
 
         $encaixe = Encaixe::create([
@@ -156,7 +177,7 @@ class EncaixeController extends Controller
             'referencia' => $encaixeMovimento->encaixe->referencia,
             'url' => route('encaixe.show', ['id' => $encaixeMovimento->encaixe->id]),
             'created_at' => $encaixeMovimento->created_at,
-        ]);        
+        ]);
     }
 
     public function deletarMovimento($id)
@@ -181,7 +202,7 @@ class EncaixeController extends Controller
             'url' => route('encaixe.show', ['id' => $consumo->encaixe_movimento->encaixe->id]),
             'created_at' => $consumo->created_at,
 
-        
+
         ]);
     }
 }
