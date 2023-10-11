@@ -18,12 +18,14 @@ class Encaixe extends Model
     public function tecidos()
     {
         $tecidosArray = $this->movimentos->pluck('tecido')->toArray();
-        $tecidosSemRepeticao = array_unique($tecidosArray);
 
-        // Convert to an array of strings
-        $tecidosSerializable = array_map('strval', $tecidosSemRepeticao);
+        $result = [];
+        foreach ($tecidosArray as $key => $value) {
+            if (!in_array($value, $result) && $value != null && $value !=  " ")
+                $result[$key] = $value;
+        }
 
-        return $tecidosSerializable;
+        return $result;
     }
 
     protected $fillable = [

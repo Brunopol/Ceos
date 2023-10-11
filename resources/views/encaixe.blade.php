@@ -189,7 +189,31 @@
                     name: 'referencia'
                 },
                 {
-                    data: 'tecidos'
+                    data: 'tecidos',
+                    orderable: false,
+
+                    render: function(data, type, row) {
+
+                        function isObject(variable) {
+                            return typeof variable === 'object' && variable !== null;
+                        }
+
+                        if (isObject(data)) {
+                            data = Object.values(data);
+                        }
+
+                        data = data.map(element => {
+                            if (typeof element === 'string') {
+                                element = element.replace(/^\s+|\s+$/g,
+                                    '');
+                            }
+                            return element;
+                        });
+
+                        return data.join(', ');
+
+                    }
+
                 },
                 {
                     data: 'created_at',
@@ -199,7 +223,7 @@
                     data: 'actions',
                     orderable: false,
                     render: function(data, type, row) {
-                
+
                         var actionsData = data
 
                         return `
@@ -220,6 +244,7 @@
 
             ]
         });
+
     });
 </script>
 
