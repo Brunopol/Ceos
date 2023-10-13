@@ -30,19 +30,43 @@ function changeAtiveTab (event, tabID) {
 //--------------------CHAMA O MODEL--------------------\\
 
 function toggleModal (modalID, userURL, referencia, date) {
+    startLoading()
     $.get(userURL, function (response) {
         $('#' + modalID).toggleClass('hidden flex')
         $('#' + modalID + '-backdrop').toggleClass('hidden flex')
 
         const referenceBox = document.getElementById('referenceBox')
+        const encaixeUser = document.getElementById('encaixeUserBox')
         const dateBox = document.getElementById('dateBox')
 
         referenceBox.value = referencia
+
+        if (response.user === null || response.user === '') {
+            encaixeUser.value = 'Antes de 13/10/2023';
+        } else {
+            encaixeUser.value = response.user.name;
+        }        
+        
         dateBox.value = formatDate(date)
 
+        finishLoading()
         processJSONResponse(response)
+        
     })
 }
+
+//--------------------CARREGAMENTO DO MODEL--------------------\\
+
+const loading = document.getElementById('loadingOverlay')
+
+function startLoading () {
+    loading.classList.remove('hidden')
+}
+
+function finishLoading () {
+    loading.classList.add('hidden')
+}
+
 
 //--------------------FECHA O MODEL--------------------\\
 
@@ -140,6 +164,13 @@ function processJSONResponse (response) {
         var movimentoParImper = movimento.parImper
         var movimentoCreatedAt = formatDate(movimento.created_at)
         var movimentoNotas = movimento.notas
+        var movimentoUser = ''
+
+        if (movimento.user === null || movimento.user === '') {
+            movimentoUser = 'Antes de 13/10/2023';
+        } else {
+            movimentoUser = movimento.user.name;
+        }        
 
         //LISTA DO MOVIMENTOS (HEADER)
         var liHtml = `
@@ -219,10 +250,15 @@ function processJSONResponse (response) {
                 
                 </div>
 
-                <div class="p-6 mt-10 flex-auto grid grid-cols-2 gap-4 border-t-2 border-b-2 border-slate-500" id="conteudoFooter">
+                <div class="p-6 mt-10 flex-auto grid grid-cols-3 gap-4 border-t-2 border-b-2 border-slate-500" id="conteudoFooter">
 
                     <div class="flex flex-col justify-center justify-items-center">
-                        <label for="parImper" class="block text-sm font-medium text-gray-700">DATA CRIAÇÃO</label>
+                        <label for="parImper" class="block text-sm font-medium text-gray-700">USUÁRIO CRIAÇÃO</label>
+                        <input type="text" id="parImper" name="" class="form-control text-sm bg-gray-200 text-gray-600 cursor-not-allowed" value="${movimentoUser}" readonly>
+                    </div>
+
+                    <div class="flex flex-col justify-center justify-items-center">
+                        <label for="parImper" class="block text-sm font-medium text-gray-700">DATA</label>
                         <input type="text" id="parImper" name="" class="form-control text-sm bg-gray-200 text-gray-600 cursor-not-allowed" value="${movimentoCreatedAt}" readonly>
                     </div>
             
@@ -779,7 +815,7 @@ function deletarConsumo (event, consumoID, url) {
 
 function showNotification (message) {
     var notification = $('<div>', {
-        class: 'fixed bottom-4 left-4 bg-gray-800 text-white px-4 py-2 rounded-md shadow-md',
+        class: 'fixed bottom-4 left-4 bg-gray-800 text-white px-4 py-2 rounded-md shadow-md z-50',
         text: message
     }).appendTo('body')
 

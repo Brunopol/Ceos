@@ -48,6 +48,16 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function encaixes(): HasMany
+    {
+        return $this->hasMany(Encaixe::class);
+    }
+
+    public function movimentos(): HasMany
+    {
+        return $this->hasMany(Encaixe_movimento::class);
+    }
+
     public function permissions(): BelongsToMany
     {
         return $this->belongsToMany(Permission::class);
