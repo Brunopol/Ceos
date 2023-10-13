@@ -30,6 +30,7 @@ function changeAtiveTab (event, tabID) {
 //--------------------CHAMA O MODEL--------------------\\
 
 function toggleModal (modalID, userURL, referencia, date) {
+    startLoading()
     $.get(userURL, function (response) {
         $('#' + modalID).toggleClass('hidden flex')
         $('#' + modalID + '-backdrop').toggleClass('hidden flex')
@@ -40,9 +41,24 @@ function toggleModal (modalID, userURL, referencia, date) {
         referenceBox.value = referencia
         dateBox.value = formatDate(date)
 
+        finishLoading()
         processJSONResponse(response)
+        
     })
 }
+
+//--------------------CARREGAMENTO DO MODEL--------------------\\
+
+const loading = document.getElementById('loadingOverlay')
+
+function startLoading () {
+    loading.classList.remove('hidden')
+}
+
+function finishLoading () {
+    loading.classList.add('hidden')
+}
+
 
 //--------------------FECHA O MODEL--------------------\\
 
@@ -779,7 +795,7 @@ function deletarConsumo (event, consumoID, url) {
 
 function showNotification (message) {
     var notification = $('<div>', {
-        class: 'fixed bottom-4 left-4 bg-gray-800 text-white px-4 py-2 rounded-md shadow-md',
+        class: 'fixed bottom-4 left-4 bg-gray-800 text-white px-4 py-2 rounded-md shadow-md z-50',
         text: message
     }).appendTo('body')
 

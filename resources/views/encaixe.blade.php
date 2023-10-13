@@ -9,18 +9,26 @@
     <script>
         var csrfToken = '{{ csrf_token() }}';
     </script>
+    
+
+    <div id="loadingOverlay" class="hidden fixed top-0 left-0 w-full h-full z-50 flex items-center justify-center bg-black bg-opacity-70">
+        <div class="bg-white p-4 rounded-lg shadow-lg animate-pulse">
+          <div class="flex items-center space-x-2">
+            <svg class="w-6 h-6 animate-spin text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+            <span class="text-blue-600 text-lg font-semibold">Carregando...</span>
+          </div>
+        </div>
+      </div>
+      
+    
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-
-                    <div id="loadingSpinner" class="text-center my-4 hidden">
-                        <div class="spinner-border text-primary" role="status">
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                    </div>
-
 
                     <div class="flex flex-col">
                         <button
@@ -162,11 +170,6 @@
         </div>
     </div>
 
-    <div class="hidden fixed bottom-4 left-4 bg-gray-800 text-white px-4 py-2 rounded-md shadow-md">
-        <button
-            class="hidden bg-red-100 hover:bg-red-600 text-white font-semibold py-1 px-2 rounded transition duration-300 ease-in-out focus:outline-none text-xs"
-            type="button" onclick="">
-    </div>
 </x-app-layout>
 
 
