@@ -49,7 +49,7 @@ class EncaixeController extends Controller
 
     public function show($id)
     {
-        $encaixe = Encaixe::with(['movimentos', 'movimentos.consumos'])->find($id);
+        $encaixe = Encaixe::with(['movimentos', 'movimentos.consumos','movimentos.user','user'])->find($id);
 
         $responseAPIMOD = Http::get("https://mod.ufoway.com.br/api.php?ref2=$encaixe->referencia");
 
@@ -78,7 +78,9 @@ class EncaixeController extends Controller
 
         $encaixe = Encaixe::create([
             'referencia' => $validatedData['referencia'],
+            'user_id' => auth()->user()->id
         ]);
+        
 
         return response()->json([
             'message' => "Encaixe '$encaixe->referencia' foi adicionando com sucesso",
@@ -109,6 +111,7 @@ class EncaixeController extends Controller
             'tecido' => $validatedData['tecido'],
             'parImper' => $validatedData['parImper'],
             'notas' => $validatedData['notas'],
+            'user_id' => auth()->user()->id
         ]);
 
         if (isset($validatedData['consumo_nome']) && is_array($validatedData['consumo_nome'])) {

@@ -131,9 +131,13 @@
                                 class="bg-white w-full h-full flex flex-col rounded-lg shadow-lg relative outline-none focus:outline-none border-0">
                                 <div
                                     class="bg-gray-800 flex items-center justify-between p-4 rounded-t border-b border-solid border-gray-300">
-                                    <div class="flex items-center">
+                                    <div class="flex items-center gap-4">
                                         <h3 class="text-1xl font-bold " id="tituloEncaixeRef">
                                             <input id="referenceBox" class="inline-block rounded-md text-center"
+                                                readonly>
+                                        </h3>
+                                        <h3 class="text-1xl font-bold " id="tituloEncaixeUser">
+                                            <input id="encaixeUserBox" class="inline-block rounded-md text-center"
                                                 readonly>
                                         </h3>
                                     </div>

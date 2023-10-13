@@ -11,6 +11,11 @@ class Encaixe_movimento extends Model
 {
     use HasFactory;
 
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function encaixe(): BelongsTo
     {
         return $this->belongsTo(Encaixe::class);
@@ -28,6 +33,7 @@ class Encaixe_movimento extends Model
         'quantidade',
         'parImper',
         'notas',
+        'user_id'
         // ... other fields
     ];
 }
