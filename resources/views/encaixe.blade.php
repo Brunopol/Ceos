@@ -11,7 +11,7 @@
     </script>
     
 
-    <div id="loadingOverlay" class="hidden fixed top-0 left-0 w-full h-full z-50 flex items-center justify-center bg-black bg-opacity-70">
+    <div id="loadingOverlay" class="hidden fixed top-0 left-0 w-full h-full z-50 flex items-center justify-center bg-black bg-opacity-25">
         <div class="bg-white p-4 rounded-lg shadow-lg animate-pulse">
           <div class="flex items-center space-x-2">
             <svg class="w-6 h-6 animate-spin text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
