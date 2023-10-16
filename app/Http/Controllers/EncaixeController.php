@@ -6,9 +6,7 @@ use App\Models\Encaixe;
 use App\Models\Encaixe_movimento;
 use App\Models\Encaixe_movimento_consumo;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use Illuminate\View\View;
-use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\DB;
 
 class EncaixeController extends Controller
 {
@@ -51,9 +49,22 @@ class EncaixeController extends Controller
     {
         $encaixe = Encaixe::with(['movimentos', 'movimentos.consumos','movimentos.user','user'])->find($id);
 
-        $responseAPIMOD = Http::get("https://mod.ufoway.com.br/api.php?ref2=$encaixe->referencia");
+        //$curl = new CurlService();
 
-        $responseAPIMODjson = $responseAPIMOD->json();
+        // Make a GET request
+        //$responseAPIMOD = $curl->to("https://mod.ufoway.com.br/api.php?ref2=" . $encaixe->referencia)
+                        //->get();
+        //$responseAPIMOD = Http::withOptions(['verify' => false])->get("https://mod.ufoway.com.br/api.php?ref2=" . $encaixe->referencia);
+        
+            $responseAPIMOD = DB::connection('modelagem_db')
+            ->table('registro_ufo')
+            ->select('*')
+            ->where('referencia', '=', $encaixe->referencia)
+            ->get();
+        
+
+
+        $responseAPIMODjson = $responseAPIMOD;
 
         $encaixe->modelagemData = $responseAPIMODjson;
 

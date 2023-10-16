@@ -63,6 +63,21 @@ return [
             ]) : [],
         ],
 
+        'modelagem_db' => [
+            'driver' => 'mysql',
+            'host' => '127.0.0.1', // Replace with the correct host or IP address
+            'port' => '3306', // Replace with the correct port
+            'database' => 'ufowayco_modsys',
+            'username' => 'ufowayco_modsys',
+            'password' => 'Nv32125//*+',
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'strict' => true,
+            'engine' => null,
+        ],
+        
+
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),

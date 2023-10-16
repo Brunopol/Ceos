@@ -11,24 +11,33 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             <?php echo e(__('Módulo Encaixe')); ?>
 
+
         </h2>
      <?php $__env->endSlot(); ?>
 
     <script>
         var csrfToken = '<?php echo e(csrf_token()); ?>';
     </script>
+    
+
+    <div id="loadingOverlay" class="hidden fixed top-0 left-0 w-full h-full z-50 flex items-center justify-center bg-black bg-opacity-25">
+        <div class="bg-white p-4 rounded-lg shadow-lg animate-pulse">
+          <div class="flex items-center space-x-2">
+            <svg class="w-6 h-6 animate-spin text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+            <span class="text-blue-600 text-lg font-semibold">Carregando...</span>
+          </div>
+        </div>
+      </div>
+      
+    
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-
-                    <div id="loadingSpinner" class="text-center my-4 hidden">
-                        <div class="spinner-border text-primary" role="status">
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                    </div>
-
 
                     <div class="flex flex-col">
                         <button
@@ -43,45 +52,13 @@
                             style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>REF</th>
-                                    <th>TECIDOS</th>
-                                    <th>DATA</th>
-                                    <th>AÇÕES</th>
+                                    <th>referencia</th>
+                                    <th>tecidos</th>
+                                    <th>created_at</th>
+                                    <th>actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $__currentLoopData = $encaixes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $encaixe): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <tr>
-                                        <td><?php echo e($encaixe->referencia); ?></td>
-                                        <td>
-                                            <?php $__currentLoopData = $encaixe->tecidos(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tecido): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                
-                                                <?php echo e($tecido . ', '); ?>
-
-
-                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                        </td>
-                                        <td><?php echo e($encaixe->created_at); ?></td>
-                                        <td>
-                                            <button
-                                                class="bg-blue-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                                type="button" data-url="<?php echo e(route('encaixe.show', $encaixe->id)); ?>"
-                                                data-referencia="<?php echo e($encaixe->referencia); ?>"
-                                                data-date="<?php echo e($encaixe->created_at); ?>"
-                                                onclick="toggleModal('modal-id', $(this).data('url'), $(this).data('referencia'), $(this).data('date'))">
-                                                Mostrar
-                                            </button>
-                                            <button
-                                                class="bg-red-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                                type="button" data-url="<?php echo e(route('encaixe.delete', $encaixe->id)); ?>"
-                                                data-referencia="<?php echo e($encaixe->referencia); ?>"
-                                                onclick="deletarEncaixeConfirmar($(this).data('referencia'), $(this).data('url'))">
-                                                Deletar
-                                            </button>
-
-                                        </td>
-                                    </tr>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                             </tbody>
                         </table>
@@ -141,34 +118,45 @@
 
 
                     <!-- Model Para editar encaixe-->
-                    <div class="hidden overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center"
+                    <div class="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-25 hidden"
+                        id="modal-id-backdrop"></div>
+                    <div class="fixed inset-0 z-50 flex justify-center items-center hidden overflow-x-hidden overflow-y-auto outline-none focus:outline-none"
                         id="modal-id">
-                        <div class="relative w-3/7 h-1/2 my-6 mx-auto">
-                            <!-- Content -->
+                        <div class="w-3/5 h-3/5 my-6 mx-auto relative">
+                            <button
+                                class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-3xl outline-none focus:outline-none absolute z-10"
+                                style="top: -20px; right: -35px;" type="button" onclick="closeModal('modal-id')">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="w-9 h-9">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+
+                            </button>
+
+
+
                             <div
-                                class="border-0 rounded-lg shadow-lg relative flex flex-col w-full h-full bg-white outline-none focus:outline-none">
-                                <!-- Header -->
+                                class="bg-white w-full h-full flex flex-col rounded-lg shadow-lg relative outline-none focus:outline-none border-0">
                                 <div
-                                    class="flex items-center justify-between p-4 border-b border-solid border-gray-300 rounded-t bg-gray-800">
-                                    <div class="flex items-center">
-                                        <h3 class="text-2xl font-semibold text-white" id="tituloEncaixeRef">
-                                            <span id="referenceBox"
-                                                class="inline-block px-2 py-1 rounded-md bg-indigo-500 text-white">Reference</span>
+                                    class="bg-gray-800 flex items-center justify-between p-4 rounded-t border-b border-solid border-gray-300">
+                                    <div class="flex items-center gap-4">
+                                        <h3 class="text-1xl font-bold " id="tituloEncaixeRef">
+                                            <input id="referenceBox" class="inline-block rounded-md text-center"
+                                                readonly>
+                                        </h3>
+                                        <h3 class="text-1xl font-bold " id="tituloEncaixeUser">
+                                            <input id="encaixeUserBox" class="inline-block rounded-md text-center"
+                                                readonly>
                                         </h3>
                                     </div>
                                     <div class="flex items-center">
-                                        <h3 class="text-2xl font-semibold text-white">
-                                            <span id="dateBox" class="inline-block">
-                                                <span
-                                                    class="inline-block px-3 py-1 rounded-md bg-green-500 text-white">Date</span>
-                                            </span>
+                                        <h3 class="text-2xl font-bold">
+                                            <input id="dateBox" class="inline-block rounded-md text-center" readonly>
                                         </h3>
                                     </div>
                                 </div>
-
-
-                                <!-- Body -->
-                                <div class="flex flex-wrap justify-center items-center h-full" id="tabs-id">
+                                <div class="flex flex-wrap justify-center h-full" id="tabs-id">
                                     <div class="w-full">
                                         <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row bg-slate-400">
                                             <!-- Tab items -->
@@ -186,7 +174,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="hidden opacity-25 fixed inset-0 z-40 bg-black" id="modal-id-backdrop"></div>
+
+
 
 
                 </div>
@@ -194,11 +183,6 @@
         </div>
     </div>
 
-    <div class="hidden fixed bottom-4 left-4 bg-gray-800 text-white px-4 py-2 rounded-md shadow-md">
-        <button
-            class="hidden bg-red-100 hover:bg-red-600 text-white font-semibold py-1 px-2 rounded transition duration-300 ease-in-out focus:outline-none text-xs"
-            type="button" onclick="">
-    </div>
  <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54)): ?>
@@ -206,69 +190,87 @@
 <?php unset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54); ?>
 <?php endif; ?>
 
+
 <script type="module">
-    $('document').ready(function() {
+    $(document).ready(function() {
         $('#myTable').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "encaixe",
+            columnDefs: [{
+                className: "align-left",
+                "targets": 2,
+                render: function(data) {
+                    return new Date(data).toLocaleString();
+                }
+            }, ],
+
             columns: [{
-                    data: 'referencia'
-                }, // Use the actual name of your reference column
-                null,
+                    data: 'referencia',
+                    name: 'referencia'
+                },
                 {
-                    data: 'created_at', // Use the actual name of your date column
+                    data: 'tecidos',
+                    orderable: false,
+
                     render: function(data, type, row) {
-                        if (type === 'display' && data) {
-                            var date = new Date(data);
-                            return date.toLocaleString('pt-BR', {
-                                day: '2-digit',
-                                month: '2-digit',
-                                year: 'numeric',
-                                hour: '2-digit',
-                                minute: '2-digit',
-                            });
+
+                        function isObject(variable) {
+                            return typeof variable === 'object' && variable !== null;
                         }
-                        return data;
-                    },
+
+                        if (isObject(data)) {
+                            data = Object.values(data);
+                        }
+
+                        data = data.map(element => {
+                            if (typeof element === 'string') {
+                                element = element.replace(/^\s+|\s+$/g,
+                                    '');
+                            }
+                            return element;
+                        });
+
+                        return data.join(', ');
+
+                    }
+
                 },
-
-                null,
-
-            ],
-
-            fixedHeader: true,
-            responsive: true,
-            "lengthChange": true,
-            "lengthMenu": [10, 25, 50, 75, 100],
-
-            "language": {
-
-                "decimal": "",
-                "emptyTable": "Nenhum dado disponível na tabela",
-                "info": "Mostrando _START_ até _END_ de _TOTAL_ entradas",
-                "infoEmpty": "Mostrando 0 até 0 de 0 entradas",
-                "infoFiltered": "(filtrado de um total de _MAX_ entradas)",
-                "infoPostFix": "",
-                "thousands": ",",
-                "lengthMenu": "Mostrar _MENU_ entradas",
-                "loadingRecords": "Carregando...",
-                "processing": "",
-                "search": "Buscar:",
-                "zeroRecords": "Nenhum registro correspondente encontrado",
-                "paginate": {
-                    "first": "Primeira",
-                    "last": "Última",
-                    "next": "Próxima",
-                    "previous": "Anterior"
+                {
+                    data: 'created_at',
+                    orderable: true
                 },
-                "aria": {
-                    "sortAscending": ": ativar para ordenar coluna de forma ascendente",
-                    "sortDescending": ": ativar para ordenar coluna de forma descendente"
+                {
+                    data: 'actions',
+                    orderable: false,
+                    render: function(data, type, row) {
+
+                        var actionsData = data
+
+                        return `
+                            <button class="bg-blue-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                type="button" data-url="${actionsData.url_show}" data-referencia="${actionsData.referencia}"
+                                data-date="${actionsData.date}"
+                                onclick="toggleModal('modal-id', '${actionsData.url_show}', '${actionsData.referencia}', '${actionsData.date}')">
+                                Mostrar
+                            </button>
+                            <button class="bg-red-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                type="button" data-url="${actionsData.url_delete}" data-referencia="${actionsData.referencia}"
+                                onclick="deletarEncaixeConfirmar('${actionsData.referencia}', '${actionsData.url_delete}')">
+                                Deletar
+                            </button>
+                        `;
+                    }
                 }
 
-            }
-
+            ]
         });
+
     });
 </script>
+
+
+
 
 <script src="https://dev.ufoway.com.br/v4/javascript/encaixe.js" type="text/javascript"></script>
 <?php /**PATH /home/ufowayco/CeosV4/Ceos/resources/views/encaixe.blade.php ENDPATH**/ ?>
