@@ -2,7 +2,7 @@
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Usuários') }}
+            {{ __('Módulo Usuários') }}
         </h2>
 
         <div id="successMessage" class="hidden mt-4 bg-green-500 text-white p-4 rounded-md shadow-md">
@@ -94,8 +94,8 @@
                                         <div class="col-span-2">
                                             <label class="block text-sm font-medium text-gray-700">Permissões</label>
                                             <div class="flex items-center space-x-2">
-                                                <input type="checkbox" id="testCheckbox" name="permissions[]" class="form-checkbox" value="test">
-                                                <label for="testCheckbox">Test</label>
+                                                <input type="checkbox" id="controleDeAcessosCheckbox" name="permissions[]" class="form-checkbox" value="controleDeAcessos">
+                                                <label for="controleDeAcessoCheckbox">Controle De Acessos</label>
                                             </div>
                                             <div class="flex items-center space-x-2">
                                                 <input type="checkbox" id="usersCheckbox" name="permissions[]" class="form-checkbox" value="users">
@@ -144,7 +144,7 @@
             $('#ramal').val(data.ramal);
 
             // Check fixed checkboxes
-            $('#testCheckbox').prop('checked', data.permissions.some(permission => permission.permission === 'test'));
+            $('#controleDeAcessosCheckbox').prop('checked', data.permissions.some(permission => permission.permission === 'controleDeAcessos'));
             $('#usersCheckbox').prop('checked', data.permissions.some(permission => permission.permission === 'users'));
             $('#encaixeCheckbox').prop('checked', data.permissions.some(permission => permission.permission === 'encaixe'));
             

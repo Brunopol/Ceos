@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ControleDeAcesso;
 use App\Http\Controllers\EncaixeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -17,12 +18,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect('dashboard');
+    return redirect('painel');
 });
 
-Route::get('/dashboard', function () {
+Route::get('/painel', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('painel');
 
 Route::get('/users', [UserController::class, 'index'])->middleware(['auth', 'verified','permission:users'])->name('users');
 Route::get('/users/{id}', [UserController::class, 'show'])->middleware(['auth', 'verified','permission:users'])->name('users.show');
@@ -37,6 +38,7 @@ Route::post('/encaixeMovimento', [EncaixeController::class, 'addMovimento'])->mi
 Route::delete('/encaixeMovimento/{id}', [EncaixeController::class, 'deletarMovimento'])->middleware(['auth', 'verified','permission:encaixe'])->name('encaixeMovimento.delete');
 Route::delete('/encaixeConsumo/{id}', [EncaixeController::class, 'deletarConsumo'])->middleware(['auth', 'verified','permission:encaixe'])->name('encaixeConsumo.delete');
 
+Route::get('/controleDeAcesso', [ControleDeAcesso::class, 'index'])->middleware(['auth', 'verified','permission:controleDeAcessos'])->name('controleDeAcessos');
 
 
 
