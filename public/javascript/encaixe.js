@@ -73,6 +73,7 @@ function finishLoading () {
 function closeModal (modalID) {
     $('#' + modalID).toggleClass('hidden flex')
     $('#' + modalID + '-backdrop').toggleClass('hidden flex')
+    finishLoading()
 }
 
 //--------------------PROCESSAR A RESPOSTA DO SERVIDOR E MANIPULAR O DOM--------------------\\
@@ -90,7 +91,7 @@ function processJSONResponse (response) {
     var liHtml = `
     <li class="-mb-px last:mr-0 flex-auto text-center p-1">
       <a class="text-xs font-bold uppercase px-2 py-2 shadow-lg rounded block leading-normal text-black bg-white"
-        onclick="changeAtiveTab(event,'modelagem')">
+        onclick="changeAtiveTab(event,'modelagem')" onfocus="this.click();">
          Modelagem
       </a>
     </li>
@@ -172,6 +173,8 @@ function processJSONResponse (response) {
             movimentoUser = movimento.user.name;
         }        
 
+        console.log(index)
+
         //LISTA DO MOVIMENTOS (HEADER)
         var liHtml = `
         <li class="-mb-px last:mr-0 flex-auto text-center p-1 relative" id="tabMovimento${movimentoId}">
@@ -204,22 +207,22 @@ function processJSONResponse (response) {
                     <div class="grid grid-cols-2 gap-4">
                         <div class="flex flex-col">
                             <label for="nome" class="block text-sm font-medium text-gray-700">MOVIMENTO</label>
-                            <input type="text" id="nome" name="nome" class="form-control text-sm" value="${movimentoNome}">
+                            <input type="text" tabindex="1" id="nome" name="nome" class="form-control text-sm" value="${movimentoNome}">
                         </div>
 
                         <div class="flex flex-col">
                             <label for="largura" class="block text-sm font-medium text-gray-700">LARGURA</label>
-                            <input type="text" id="largura" name="largura" class="form-control text-sm" value="${movimentoLargura}">
+                            <input type="text" tabindex="2" id="largura" name="largura" class="form-control text-sm" value="${movimentoLargura}">
                         </div>
 
                         <div class="flex flex-col">
                             <label for="tecido" class="block text-sm font-medium text-gray-700">TECIDO</label>
-                            <input type="text" id="tecido" name="tecido" class="form-control text-sm" value="${movimentoTecido}">
+                            <input type="text" tabindex="3" id="tecido" name="tecido" class="form-control text-sm" value="${movimentoTecido}">
                         </div>
 
                         <div class="flex flex-col">
                             <label for="parImper" class="block text-sm font-medium text-gray-700">PAR/IMPAR</label>
-                            <select id="parImper" name="parImper" class="form-select text-sm">
+                            <select id="parImper" tabindex="4" name="parImper" class="form-select text-sm">
                                 <option value="NÃO INFORMADO" ${movimentoParImper === 'NÃO INFORMADO' ? 'selected' : ''}>NÃO INFORMADO</option>
                                 <option value="PAR" ${movimentoParImper === 'PAR' ? 'selected' : ''}>PAR</option>
                                 <option value="IMPAR" ${movimentoParImper === 'IMPAR' ? 'selected' : ''}>IMPAR</option>
@@ -233,7 +236,7 @@ function processJSONResponse (response) {
                     <div class="grid grid-cols-2 gap-4">
                         <div class="flex flex-col col-span-2">
                             <label for="notas" class="block text-sm font-medium text-gray-700">NOTAS</label>
-                            <textarea id="notas" name="notas" class="form-control text-sm" rows="4">${movimentoNotas}</textarea>
+                            <textarea id="notas" tabindex="5" name="notas" class="form-control text-sm" rows="4">${movimentoNotas}</textarea>
                         </div>
                     </div>
                 
@@ -303,14 +306,14 @@ function processJSONResponse (response) {
         var conConsumosAddHtml = `
             
         <div class="flex flex-col justify-center items-center">
-            <button class="bg-emerald-200 text-white font-bold uppercase text-xs rounded-md shadow-sm outline-none focus:outline-none mb-1 transition-all duration-150 hover:bg-emerald-500 hover:shadow-md hover:text-white"
+        <button tabindex="6" class="bg-emerald-200 text-white font-bold uppercase text-xs rounded-md shadow-sm outline-none focus:outline-none mb-1 transition-all duration-150 hover:bg-emerald-500 focus:bg-emerald-500 hover:shadow-md focus:shadow-md hover:text-white focus:text-white"
                 onclick="AddMoreConsumos(event, ${movimentoId})"
                 id="buttonAddConsumos${movimentoId}">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+        </button>
 
-            </button>
         </div>
 
 
@@ -342,9 +345,11 @@ function processJSONResponse (response) {
             <span>Error, prencha corretamente todos os campos</span>
         </div>
         <div class="flex items-center justify-end p-6">
-            <button class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onclick="updateEncaixeMovimento(event, ${movimentoId})">
-                Salvar Movimento <p class="text-orange-300">${movimentoNome}</p>
-            </button>    
+            <button tabindex="7" class="bg-emerald-300 text-white active:bg-emerald-600 hover:bg-emerald-500 focus:bg-emerald-500 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg focus:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onclick="updateEncaixeMovimento(event, ${movimentoId})">
+            Salvar Movimento <p class="text-orange-300">${movimentoNome}</p>
+        </button>
+    
+      
         </div>
       
       `
@@ -358,7 +363,7 @@ function processJSONResponse (response) {
     var listPlusHtml = `
     <li class="-mb-px last:mr-0 flex-auto text-center p-1">
         <a class="text-xs font-semibold uppercase px-2 py-2 shadow-lg rounded block leading-normal text-white bg-blue-500 hover:shadow-lg"
-            onclick="changeAtiveTab(event,'addMovimento')">
+            onclick="changeAtiveTab(event,'addMovimento')"">
              ADD+
         </a>
     </li>
@@ -385,7 +390,7 @@ function processJSONResponse (response) {
                     <div class="grid grid-cols-2 gap-4">
                         <div class="flex flex-col">
                             <label for="nome" class="block text-sm font-medium text-gray-700">MOVIMENTO</label>
-                            <input type="text" id="nome" name="nome" class="form-control text-sm" value="" list="nomes" autocomplete="on">
+                            <input type="text" tabindex="1" id="nome" name="nome" class="form-control text-sm" value="" list="nomes" autocomplete="on">
                             <datalist id="nomes">
                                 <option value="CONSUMO">
                                 <option value="LIBERAÇÃO">
@@ -397,17 +402,17 @@ function processJSONResponse (response) {
 
                         <div class="flex flex-col">
                             <label for="largura" class="block text-sm font-medium text-gray-700">LARGURA</label>
-                            <input type="text" id="largura" name="largura" class="form-control text-sm" value="" autocomplete="on">
+                            <input type="text" tabindex="2" id="largura" name="largura" class="form-control text-sm" value="" autocomplete="on">
                         </div>
 
                         <div class="flex flex-col">
                             <label for="tecido" class="block text-sm font-medium text-gray-700">TECIDO</label>
-                            <input type="text" id="tecido" name="tecido" class="form-control text-sm" value="" autocomplete="on">
+                            <input type="text" tabindex="3" id="tecido" name="tecido" class="form-control text-sm" value="" autocomplete="on">
                         </div>
 
                         <div class="flex flex-col">
                             <label for="parImper" class="block text-sm font-medium text-gray-700">PAR/IMPAR</label>
-                            <select id="parImper" name="parImper" class="form-select text-sm">
+                            <select id="parImper" tabindex="4" name="parImper" class="form-select text-sm">
                                 <option value="NÃO INFORMADO" >NÃO INFORMADO</option>
                                 <option value="PAR" >PAR</option>
                                 <option value="IMPAR">IMPAR</option>
@@ -421,7 +426,7 @@ function processJSONResponse (response) {
                     <div class="grid grid-cols-2 gap-4">
                         <div class="flex flex-col col-span-2">
                             <label for="notas" class="block text-sm font-medium text-gray-700">NOTAS</label>
-                            <textarea id="notas" name="notas" class="form-control text-sm" rows="4"></textarea>
+                            <textarea id="notas" tabindex="5" name="notas" class="form-control text-sm" rows="4"></textarea>
                         </div>
                     </div>
                 
@@ -461,14 +466,14 @@ function processJSONResponse (response) {
     //
     var conConsumosAddHtml = `
             <div class="flex flex-col justify-center items-center">
-                <button class="bg-emerald-200 text-white font-bold uppercase text-xs rounded-md shadow-sm outline-none focus:outline-none mb-1 transition-all duration-150 hover:bg-emerald-500 hover:shadow-md hover:text-white"
+            <button tabindex="6" class="bg-emerald-200 text-white font-bold uppercase text-xs rounded-md shadow-sm outline-none focus:outline-none mb-1 transition-all duration-150 hover:bg-emerald-500 hover:shadow-md hover:text-white focus:bg-emerald-500 focus:shadow-md focus:text-white"
                     onclick="AddMoreConsumosOnTheAddMovimentos(event)"
                     id="buttonAddConsumosMovimentoNovo">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                    </svg>
-
-                </button>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+            </button>
+    
             </div>
         `
 
@@ -485,9 +490,10 @@ function processJSONResponse (response) {
             <span>Error, prencha corretamente todos os campos</span>
         </div>
         <div class="flex items-center justify-end p-6">
-            <button class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onclick="addEncaixeMovimento(event)">
+            <button tabindex="7" class="bg-emerald-300 text-white active:bg-emerald-600 hover:bg-emerald-500 focus:bg-emerald-500 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg focus:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onclick="addEncaixeMovimento(event)">
                 Salvar Movimento
-            </button>    
+            </button>
+    
         </div>
       
       `
