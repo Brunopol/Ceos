@@ -5,15 +5,15 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('painel') }}">
                         <img src="img/logo-icon-no-background.png" width="50" height="50">
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                    <x-nav-link :href="route('painel')" :active="request()->routeIs('painel')">
+                        {{ __('Painel') }}
                     </x-nav-link>
                     @can('users')
                     <x-nav-link :href="route('users')" :active="request()->routeIs('users')">
@@ -23,6 +23,11 @@
                     @can('encaixe')
                     <x-nav-link :href="route('encaixe')" :active="request()->routeIs('encaixe')">
                         {{ __('Encaixe') }}
+                    </x-nav-link>
+                    @endcan
+                    @can('controleDeAcessos')
+                    <x-nav-link :href="route('controleDeAcessos')" :active="request()->routeIs('controleDeAcessos')">
+                        {{ __('Controle De Acesso') }}
                     </x-nav-link>
                     @endcan
                 </div>
@@ -77,8 +82,8 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
+            <x-responsive-nav-link :href="route('painel')" :active="request()->routeIs('painel')">
+                {{ __('Painel') }}
             </x-responsive-nav-link>
             @can('user')
                 <x-responsive-nav-link :href="route('users')" :active="request()->routeIs('users')">
