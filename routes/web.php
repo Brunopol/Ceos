@@ -39,7 +39,7 @@ Route::delete('/encaixeMovimento/{id}', [EncaixeController::class, 'deletarMovim
 Route::delete('/encaixeConsumo/{id}', [EncaixeController::class, 'deletarConsumo'])->middleware(['auth', 'verified','permission:encaixe'])->name('encaixeConsumo.delete');
 
 Route::get('/controleDeAcesso', [ControleDeAcesso::class, 'index'])->middleware(['auth', 'verified','permission:controleDeAcessos'])->name('controleDeAcessos');
-
+Route::post('/controleDeAcesso/add', [ControleDeAcesso::class, 'add'])->middleware(['auth', 'verified','permission:controleDeAcessos'])->name('controleDeAcessos.add');
 
 
 Route::middleware('auth')->group(function () {
