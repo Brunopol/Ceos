@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Controle_de_acesso;
+use App\Models\Encaixe;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
-class ControleDeAcesso extends Controller
+class ControleDeAcessoController extends Controller
 {
 
 
@@ -25,6 +26,11 @@ class ControleDeAcesso extends Controller
                     'rgCpf' => $acesso->rgCpf,
                     'horaEntrada' => $acesso->horaEntrada,
                     'horaSaida' => $acesso->horaSaida,
+                    'actions' => [
+                        'url_show' => route('controleDeAcessos.show', $acesso->id),
+                        'url_delete' => 'TEMP'
+                        
+                    ]
                 ];
 
                 $data[] = $row;
@@ -64,6 +70,14 @@ class ControleDeAcesso extends Controller
             'id' => $acesso->id,
             'created_at' => $acesso ->created_at
         ]);
+    }
+
+    public function show($id) {
+
+        $acesso = Controle_de_acesso::find($id);
+        
+        return response()->json($acesso);
+
     }
 
 
