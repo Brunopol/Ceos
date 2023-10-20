@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ControleDeAcesso;
+use App\Http\Controllers\ControleDeAcessoController;
 use App\Http\Controllers\EncaixeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -38,8 +38,10 @@ Route::post('/encaixeMovimento', [EncaixeController::class, 'addMovimento'])->mi
 Route::delete('/encaixeMovimento/{id}', [EncaixeController::class, 'deletarMovimento'])->middleware(['auth', 'verified','permission:encaixe'])->name('encaixeMovimento.delete');
 Route::delete('/encaixeConsumo/{id}', [EncaixeController::class, 'deletarConsumo'])->middleware(['auth', 'verified','permission:encaixe'])->name('encaixeConsumo.delete');
 
-Route::get('/controleDeAcesso', [ControleDeAcesso::class, 'index'])->middleware(['auth', 'verified','permission:controleDeAcessos'])->name('controleDeAcessos');
-Route::post('/controleDeAcesso/add', [ControleDeAcesso::class, 'add'])->middleware(['auth', 'verified','permission:controleDeAcessos'])->name('controleDeAcessos.add');
+Route::get('/controleDeAcesso', [ControleDeAcessoController::class, 'index'])->middleware(['auth', 'verified','permission:controleDeAcessos'])->name('controleDeAcessos');
+Route::post('/controleDeAcesso/add', [ControleDeAcessoController::class, 'add'])->middleware(['auth', 'verified','permission:controleDeAcessos'])->name('controleDeAcessos.add');
+Route::get('/controleDeAcesso/{id}', [ControleDeAcessoController::class, 'show'])->middleware(['auth', 'verified','permission:controleDeAcessos'])->name('controleDeAcessos.show');
+Route::put('/controleDeAcesso/{id}', [ControleDeAcessoController::class, 'update'])->middleware(['auth', 'verified','permission:controleDeAcessos'])->name('controleDeAcessos.update');
 
 
 Route::middleware('auth')->group(function () {

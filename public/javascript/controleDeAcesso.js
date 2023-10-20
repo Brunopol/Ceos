@@ -39,7 +39,6 @@ function adicionarAcesso (event, url) {
 
     var formData = $('#formAddAcesso').serialize()
 
-    console.log(formData)
     $.ajax({
         url: url,
         type: 'POST',
@@ -54,6 +53,23 @@ function adicionarAcesso (event, url) {
         },
         error: function (error) {
             console.log(error.responseJSON.message)
+        }
+    })
+}
+
+function mostrarAcesso (url) {
+
+    $.ajax({
+        url: url,
+        type: 'GET',
+        headers: {
+            'X-CSRF-TOKEN': csrfToken
+        },
+        success: function (response) {
+            console.log(response)
+        },
+        error: function (error) {
+            console.log(error)
         }
     })
 }

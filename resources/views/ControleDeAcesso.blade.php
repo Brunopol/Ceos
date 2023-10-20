@@ -33,6 +33,7 @@
                                 <th>RG/CPF</th>
                                 <th>HORA ENTRADA</th>
                                 <th>HORA SAÍDA</th>
+                                <th>AÇÕES</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -194,7 +195,7 @@
                 },
                 {
                     data: 'rgCpf',
-                    orderable: true
+                    orderable: false
                 },
                 {
                     data: 'horaEntrada',
@@ -203,7 +204,25 @@
                 {
                     data: 'horaSaida',
                     orderable: true
-                }
+                },
+                {
+                    data: 'actions',
+                    orderable: false,
+                    render: function(data, type, row) {
+
+                        var actionsData = data
+
+                        return `
+                            <button class="bg-blue-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                onclick="mostrarAcesso('${ actionsData.url_show }')">
+                               Mostrar
+                            </button>
+                            <button class="bg-red-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
+                               Deletar
+                            </button>
+                        `;
+                    }
+                },
             ]
         });
 
