@@ -34,6 +34,7 @@
                                 <th>RG/CPF</th>
                                 <th>HORA ENTRADA</th>
                                 <th>HORA SAÍDA</th>
+                                <th>AÇÕES</th>
                             </tr>
                         </thead>
                         <tbody>
