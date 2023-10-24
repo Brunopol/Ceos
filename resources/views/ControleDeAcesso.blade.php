@@ -20,8 +20,7 @@
                 <div class="p-6 text-gray-900">
                     <button
                         class="self-start bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300 mb-4"
-                        type="button"
-                        onclick="toggleModal('modal-id-add', $(this).data('url'), $(this).data('referencia'))">
+                        type="button" onclick="toggleModal('modal-id-add')">
                         Novo
                     </button>
 
@@ -51,7 +50,7 @@
                                 class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
 
                                 <div class="flex items-start justify-between p-5 border-b border-slate-200 rounded-t">
-                                    <h3 class="text-3xl font-semibold">
+                                    <h3 class="text-3xl font-semibold" id="modalTitle">
                                         Adicionar Acesso
                                     </h3>
                                     <button class="text-slate-600 hover:text-slate-800 focus:outline-none"
@@ -66,6 +65,9 @@
 
                                 <form id="formAddAcesso" class="p-4">
                                     <div class="grid grid-cols-4 gap-4">
+
+                                        <input type="text" value="" id="id" class="hidden">
+
                                         <div class="mb-4">
                                             <label for="nome" class="block text-sm font-medium text-gray-700">
                                                 NOME
@@ -136,28 +138,34 @@
                                     <div class="p-5 border-t border-slate-200 rounded-b">
                                         <div class="grid grid-cols-1 md:grid-cols-1 md:grid-rows-3 md:gap-3">
                                             <label class="inline-flex items-center">
-                                                <input type="checkbox" onclick="toggleCarro()"
+                                                <input id="cbCarro" type="checkbox" onclick="checkBoxToggleCarro()"
                                                     class="form-checkbox h-5 w-5 text-emerald-500">
                                                 <span class="ml-2 text-gray-800">CARRO</span>
                                             </label>
                                             <label class="inline-flex items-center">
-                                                <input type="checkbox" onclick="toggleHoraSaida()"
+                                                <input id="cbHoraSaida" type="checkbox"
+                                                    onclick="checkBoxToggleHoraSaida()"
                                                     class="form-checkbox h-5 w-5 text-emerald-500">
-                                                <span class="ml-2 text-gray-800">ALTERAR HORÁRIO SAÍDA</span>
+                                                <span class="ml-2 text-gray-800">HORÁRIO SAÍDA</span>
                                             </label>
                                             <label class="inline-flex items-center">
-                                                <input type="checkbox" onclick="toggleHoraEntrada()"
+                                                <input id="cbHoraEntrada" type="checkbox"
+                                                    onclick="checkBoxToggleHoraEntrada()"
                                                     class="form-checkbox h-5 w-5 text-emerald-500">
-                                                <span class="ml-2 text-gray-800">ALTERAR HORÁRIO ENTRADA</span>
+                                                <span class="ml-2 text-gray-800">HORÁRIO ENTRADA</span>
                                             </label>
                                         </div>
                                         <div class="flex justify-end mt-3">
                                             <button
                                                 class="text-red-500 font-bold text-sm mr-3 focus:outline-none hover:text-red-700"
-                                                type="button" onclick="closeModal('modal-id-add')">Fechar</button>
-                                            <button
-                                                class="bg-emerald-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
-                                                onclick="adicionarAcesso(event, '{{ url('') }}')">Salvar</button>
+                                                type="button" onclick="closeModal('modal-id-add')">FECHAR</button>
+                                            <button id="adicionarButton"
+                                                class="hidden bg-emerald-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
+                                                onclick="adicionarAcesso(event, '{{ url('') }}')">ADICIONAR</button>
+
+                                            <button id="atualizarButton"
+                                                class="hidden bg-emerald-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
+                                                onclick="atualizarAcesso(event, '{{ url('') }}')">ATUALIZAR</button>
                                         </div>
                                     </div>
 
@@ -188,7 +196,7 @@
             processing: true,
             serverSide: true,
             ajax: "controleDeAcesso",
-            
+
             columns: [{
                     data: 'nome',
                     name: 'nome'
@@ -215,9 +223,10 @@
                         return `
                             <button class="bg-blue-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                 onclick="mostrarAcesso('${ actionsData.url_show }')">
-                               Mostrar
+                               EDITAR
                             </button>
-                            <button class="bg-red-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
+                            <button class="bg-red-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                onclick="deletarAcesso('${ actionsData.url_delete }')">
                                Deletar
                             </button>
                         `;

@@ -28,8 +28,7 @@ class ControleDeAcessoController extends Controller
                     'horaSaida' => $acesso->horaSaida,
                     'actions' => [
                         'url_show' => route('controleDeAcessos.show', $acesso->id),
-                        'url_delete' => 'TEMP'
-                        
+                        'url_delete' => route('controleDeAcessos.delete', $acesso->id)
                     ]
                 ];
 
@@ -69,6 +68,45 @@ class ControleDeAcessoController extends Controller
             'message' => "Encaixe '$acesso->nome' foi adicionando com sucesso",
             'id' => $acesso->id,
             'created_at' => $acesso ->created_at
+        ]);
+    }
+
+    public function update(Request $request, $id) {
+
+        $validatedData = $request->validate([
+            'nome' => 'required',
+            'rgCpf' => 'required',
+            'transportadora' => 'nullable',
+            'placa' => 'nullable',
+            'horaEntrada' => 'nullable',
+            'horaSaida' => 'nullable',
+            'setorResponsavelPessoa' => 'nullable'
+        ]);
+
+        $acesso = Controle_de_acesso::find($id);
+
+        $acesso->update([
+            'nome' => $validatedData['nome'],
+            'rgCpf' => $validatedData['rgCpf'],
+            'transportadora' => $validatedData['transportadora'],
+            'placa' => $validatedData['placa'],
+            'horaEntrada' => $validatedData['horaEntrada'],
+            'horaSaida' => $validatedData['horaSaida'],
+            'setorResponsavelPessoa' => $validatedData['setorResponsavelPessoa']
+        ]);
+
+        return response()->json([
+            'message' => "Acesso '$acesso->nome' atualizado com sucesso"
+        ]);
+        
+    }
+
+    public function delete($id) {
+        $acesso = Controle_de_acesso::find($id);
+        $acesso->delete();
+
+        return response()->json([
+            'message' => "Acesso '$acesso->nome' deletado com sucesso"
         ]);
     }
 
