@@ -28,79 +28,7 @@ function closeModal (modalID) {
     $('#' + modalID + '-backdrop').toggleClass('hidden flex')
 }
 
-//checkboxes
-
-function checkBoxes (response) {
-    var placaInput = $('#placa')
-    var cbCarro = $('#cbCarro')
-
-    var horaSaidaInput = $('#horaSaida')
-    var cbHoraSaida = $('#cbHoraSaida')
-
-    var horaEntradaInput = $('#horaEntrada')
-    var cbHoraEntrada = $('#cbHoraEntrada')
-
-    if (response.placa) {
-        showCarro()
-        cbCarro.prop('checked', true)
-    } else {
-        hideCarro()
-        cbCarro.prop('checked', false)
-    }
-    if (response.horaSaida) {
-        showHoraSaida()
-        cbHoraSaida.prop('checked', true)
-    } else {
-        hideHoraSaida()
-        cbHoraSaida.prop('checked', false)
-    }
-    if (response.horaEntrada) {
-        showHoraEntrada()
-        cbHoraEntrada.prop('checked', true)
-    } else {
-        hideHoraEntrada()
-        cbHoraEntrada.prop('checked', false)
-    }
-}
-
-function checkBoxToggleCarro () {
-    var cbCarro = $('#cbCarro')
-
-    if (cbCarro.prop('checked')) {
-        showCarro()
-    } else {
-        hideCarro()
-    }
-}
-
-function checkBoxToggleHoraSaida () {
-    var cbHoraSaida = $('#cbHoraSaida')
-
-    if (cbHoraSaida.prop('checked')) {
-        showHoraSaida()
-    } else {
-        hideHoraSaida()
-    }
-}
-
-function checkBoxToggleHoraEntrada () {
-    var cbHoraEntrada = $('#cbHoraEntrada')
-
-    if (cbHoraEntrada.prop('checked')) {
-        showHoraEntrada()
-    } else {
-        hideHoraEntrada()
-    }
-}
-
-// Functions for the checkboxes
-
-function showCarro () {
-    var placaDiv = $('#placaDiv')
-    placaDiv.removeClass('hidden')
-}
-
-function hideCarro () {
+function toggleCarro () {
     var placaDiv = $('#placaDiv')
     placaDiv.addClass('hidden')
 }
@@ -125,35 +53,14 @@ function showHoraEntrada () {
 
 function hideHoraEntrada () {
     var horaEntradaDiv = $('#horaEntradaDiv')
+    var horaEntradaInput = $('#horaEntrada')
 
-    horaEntradaDiv.addClass('hidden')
+    horaEntradaInput.val('')
+    horaEntradaDiv.toggleClass('hidden')
 }
-
-function setCurrentTime (id) {
-    var horaEntradaInput = document.getElementById(id)
-    var currentDate = new Date()
-    var currentHour = currentDate.getHours()
-    var currentMinute = currentDate.getMinutes()
-    var formattedTime =
-        (currentHour < 10 ? '0' : '') +
-        currentHour +
-        ':' +
-        (currentMinute < 10 ? '0' : '') +
-        currentMinute
-    horaEntradaInput.value = formattedTime
-}
-
-//ajax add acesso
 
 function adicionarAcesso (event, url) {
     event.preventDefault()
-
-    var horaEntradaInput = document.getElementById('horaEntrada')
-
-    if (horaEntradaInput.value == null || horaEntradaInput.value == '') {
-        console.log('im here')
-        setCurrentTime('horaEntrada')
-    }
 
     url = url + '/controleDeAcesso/add'
 
@@ -162,42 +69,6 @@ function adicionarAcesso (event, url) {
     $.ajax({
         url: url,
         type: 'POST',
-        data: formData,
-        headers: {
-            'X-CSRF-TOKEN': csrfToken
-        },
-        success: function (response) {
-            console.log(response.message)
-            closeModal('modal-id-add')
-            $('#formAddAcesso')[0].reset()
-        },
-        error: function (error) {
-            console.log(error.responseJSON.message)
-        }
-    })
-}
-
-function atualizarAcesso (event, url) {
-    event.preventDefault()
-
-    var horaEntradaInput = document.getElementById('horaEntrada')
-
-    var id = document.getElementById('id')
-
-    if (horaEntradaInput.value == null || horaEntradaInput.value == '') {
-        console.log('im here')
-        setCurrentTime('horaEntrada')
-    }
-
-    url = url + '/controleDeAcesso/' + id.value
-
-    console.log(url)
-
-    var formData = $('#formAddAcesso').serialize()
-
-    $.ajax({
-        url: url,
-        type: 'PUT',
         data: formData,
         headers: {
             'X-CSRF-TOKEN': csrfToken
@@ -222,74 +93,9 @@ function mostrarAcesso (url) {
         },
         success: function (response) {
             console.log(response)
-
-            $('#formAddAcesso')[0].reset()
-            toggleModal('modal-id-add', true)
-
-            checkBoxes(response)
-
-            $('#nome').val(response.nome)
-            $('#rgCpf').val(response.rgCpf)
-            $('#transportadora').val(response.transportadora)
-
-            $('#horaEntrada').val(response.horaEntrada)
-            $('#horaSaida').val(response.horaSaida)
-            $('#placa').val(response.placa)
-
-            $('#id').val(response.id)
         },
         error: function (error) {
             console.log(error)
         }
     })
-}
-
-function deletarAcesso (url) {
-    $.ajax({
-        url: url,
-        type: 'DELETE',
-        headers: {
-            'X-CSRF-TOKEN': csrfToken
-        },
-        success: function (response) {
-            location.reload()
-        },
-        error: function (error) {
-            console.log(error)
-        }
-    })
-}
-
-function registrarHoraSaida (id) {
-    $('#formRegistrarSaida')[0].reset()
-    toggleModal('modal-id-reg')
-    $('#idReg').val(id)
-    setCurrentTime('horaSaidaReg')
-}
-
-function registrarSaidaAcesso (event, url) {
-    event.preventDefault()
-
-    var id = document.getElementById('idReg')
-    var formData = $('#formRegistrarSaida').serialize()
-
-    url = url + '/controleDeAcesso/reg/' + id.value
-
-    $.ajax({
-        url: url,
-        type: 'PUT',
-        data: formData,
-        headers: {
-            'X-CSRF-TOKEN': csrfToken
-        },
-        success: function (response) {
-            console.log(response.message)
-            closeModal('modal-id-reg')
-            $('#formRegistrarSaida')[0].reset()
-        },
-        error: function (error) {
-            console.log(error.responseJSON.message)
-        }
-    })
-
 }
