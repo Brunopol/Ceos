@@ -1,7 +1,6 @@
 // functions for toggle modal of add and edit acessos
 
 function toggleModal (modalID, type) {
-
     var adicionarButton = $('#adicionarButton')
 
     var atualizarButton = $('#atualizarButton')
@@ -32,7 +31,6 @@ function closeModal (modalID) {
 //checkboxes
 
 function checkBoxes (response) {
-  
     var placaInput = $('#placa')
     var cbCarro = $('#cbCarro')
 
@@ -131,13 +129,18 @@ function hideHoraEntrada () {
     horaEntradaDiv.addClass('hidden')
 }
 
-function setCurrentTime() {
-    var horaEntradaInput = document.getElementById('horaEntrada');
-    var currentDate = new Date();
-    var currentHour = currentDate.getHours();
-    var currentMinute = currentDate.getMinutes();
-    var formattedTime = (currentHour < 10 ? '0' : '') + currentHour + ':' + (currentMinute < 10 ? '0' : '') + currentMinute;
-    horaEntradaInput.value = formattedTime;
+function setCurrentTime (id) {
+    var horaEntradaInput = document.getElementById(id)
+    var currentDate = new Date()
+    var currentHour = currentDate.getHours()
+    var currentMinute = currentDate.getMinutes()
+    var formattedTime =
+        (currentHour < 10 ? '0' : '') +
+        currentHour +
+        ':' +
+        (currentMinute < 10 ? '0' : '') +
+        currentMinute
+    horaEntradaInput.value = formattedTime
 }
 
 //ajax add acesso
@@ -145,11 +148,11 @@ function setCurrentTime() {
 function adicionarAcesso (event, url) {
     event.preventDefault()
 
-    var horaEntradaInput = document.getElementById('horaEntrada');
+    var horaEntradaInput = document.getElementById('horaEntrada')
 
     if (horaEntradaInput.value == null || horaEntradaInput.value == '') {
-        console.log('im here');
-        setCurrentTime() 
+        console.log('im here')
+        setCurrentTime('horaEntrada')
     }
 
     url = url + '/controleDeAcesso/add'
@@ -177,18 +180,18 @@ function adicionarAcesso (event, url) {
 function atualizarAcesso (event, url) {
     event.preventDefault()
 
-    var horaEntradaInput = document.getElementById('horaEntrada');
+    var horaEntradaInput = document.getElementById('horaEntrada')
 
-    var id = document.getElementById('id');
+    var id = document.getElementById('id')
 
     if (horaEntradaInput.value == null || horaEntradaInput.value == '') {
-        console.log('im here');
-        setCurrentTime() 
+        console.log('im here')
+        setCurrentTime('horaEntrada')
     }
 
     url = url + '/controleDeAcesso/' + id.value
 
-    console.log(url);
+    console.log(url)
 
     var formData = $('#formAddAcesso').serialize()
 
@@ -208,7 +211,6 @@ function atualizarAcesso (event, url) {
             console.log(error.responseJSON.message)
         }
     })
-
 }
 
 function mostrarAcesso (url) {
@@ -233,10 +235,8 @@ function mostrarAcesso (url) {
             $('#horaEntrada').val(response.horaEntrada)
             $('#horaSaida').val(response.horaSaida)
             $('#placa').val(response.placa)
-            
-            $('#id').val(response.id)
 
-            
+            $('#id').val(response.id)
         },
         error: function (error) {
             console.log(error)
@@ -244,7 +244,7 @@ function mostrarAcesso (url) {
     })
 }
 
-function deletarAcesso(url) {
+function deletarAcesso (url) {
     $.ajax({
         url: url,
         type: 'DELETE',
@@ -252,13 +252,44 @@ function deletarAcesso(url) {
             'X-CSRF-TOKEN': csrfToken
         },
         success: function (response) {
-            
-            location.reload();
-
+            location.reload()
         },
         error: function (error) {
             console.log(error)
         }
     })
-    
+}
+
+function registrarHoraSaida (id) {
+    $('#formRegistrarSaida')[0].reset()
+    toggleModal('modal-id-reg')
+    $('#idReg').val(id)
+    setCurrentTime('horaSaidaReg')
+}
+
+function registrarSaidaAcesso (event, url) {
+    event.preventDefault()
+
+    var id = document.getElementById('idReg')
+    var formData = $('#formRegistrarSaida').serialize()
+
+    url = url + '/controleDeAcesso/reg/' + id.value
+
+    $.ajax({
+        url: url,
+        type: 'PUT',
+        data: formData,
+        headers: {
+            'X-CSRF-TOKEN': csrfToken
+        },
+        success: function (response) {
+            console.log(response.message)
+            closeModal('modal-id-reg')
+            $('#formRegistrarSaida')[0].reset()
+        },
+        error: function (error) {
+            console.log(error.responseJSON.message)
+        }
+    })
+
 }

@@ -22,10 +22,14 @@ class ControleDeAcessoController extends Controller
             $data = [];
             foreach ($acessos as $acesso) {
                 $row = [
+                    'created_at' => $acesso->created_at->toISOString(),
                     'nome' => $acesso->nome,
                     'rgCpf' => $acesso->rgCpf,
                     'horaEntrada' => $acesso->horaEntrada,
-                    'horaSaida' => $acesso->horaSaida,
+                    'horaSaida' => [
+                        'saida' => $acesso->horaSaida,
+                        'id' => $acesso->id
+                    ],
                     'actions' => [
                         'url_show' => route('controleDeAcessos.show', $acesso->id),
                         'url_delete' => route('controleDeAcessos.delete', $acesso->id)
@@ -62,16 +66,17 @@ class ControleDeAcessoController extends Controller
             'horaSaida' => $validatedData['horaSaida'],
             'setorResponsavelPessoa' => $validatedData['setorResponsavelPessoa'],
         ]);
-        
+
 
         return response()->json([
             'message' => "Encaixe '$acesso->nome' foi adicionando com sucesso",
             'id' => $acesso->id,
-            'created_at' => $acesso ->created_at
+            'created_at' => $acesso->created_at
         ]);
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
 
         $validatedData = $request->validate([
             'nome' => 'required',
@@ -98,10 +103,28 @@ class ControleDeAcessoController extends Controller
         return response()->json([
             'message' => "Acesso '$acesso->nome' atualizado com sucesso"
         ]);
-        
     }
 
-    public function delete($id) {
+    public function updateReg(Request $request, $id)
+    {
+
+        $validatedData = $request->validate([
+            'horaSaida' => 'nullable'
+        ]);
+
+        $acesso = Controle_de_acesso::find($id);
+
+        $acesso->update([
+            'horaSaida' => $validatedData['horaSaida']
+        ]);
+
+        return response()->json([
+            'message' => "Acesso '$acesso->nome' atualizado com sucesso"
+        ]);
+    }
+
+    public function delete($id)
+    {
         $acesso = Controle_de_acesso::find($id);
         $acesso->delete();
 
@@ -110,13 +133,11 @@ class ControleDeAcessoController extends Controller
         ]);
     }
 
-    public function show($id) {
+    public function show($id)
+    {
 
         $acesso = Controle_de_acesso::find($id);
-        
+
         return response()->json($acesso);
-
     }
-
-
 }

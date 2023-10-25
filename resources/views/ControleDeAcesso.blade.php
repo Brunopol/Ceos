@@ -28,6 +28,7 @@
                     <table id="myTable" class="table table-striped nowrap cell-border hover stripe" style="width:100%">
                         <thead>
                             <tr>
+                                <th>DATA</th>
                                 <th>NOME</th>
                                 <th>RG/CPF</th>
                                 <th>HORA ENTRADA</th>
@@ -179,6 +180,51 @@
 
 
 
+                    <!-- Modal Registrar Saida -->
+                    <div class="fixed z-50 inset-0 flex items-center justify-center overflow-auto bg-black bg-opacity-50 hidden"
+                        id="modal-id-reg">
+                        <div class="relative w-3/5 my-6 mx-auto">
+                            <div
+                                class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+
+                                <div class="flex items-start justify-between p-5 border-b border-slate-200 rounded-t">
+                                    <h3 class="text-3xl font-semibold" id="modalTitle">
+                                        Registrar Saída
+                                    </h3>
+                                    <button class="text-slate-600 hover:text-slate-800 focus:outline-none"
+                                        type="button" onclick="closeModal('modal-id-reg')">
+                                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M6 18L18 6M6 6l12 12"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+
+                                <form id="formRegistrarSaida" class="p-4">
+
+                                    <input type="text" value="" id="idReg" class="hidden">
+
+                                    <div class="mb-4" id="">
+                                        <label for="horaSaida" class="block text-sm font-medium text-gray-700">
+                                            HORA SAÍDA
+                                        </label>
+                                        <input type="time" id="horaSaidaReg" name="horaSaida"
+                                            class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                    </div>
+
+                                    <div class="flex justify-end mt-3">
+                                    <button id=""
+                                                class=" bg-emerald-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
+                                                onclick="registrarSaidaAcesso(event, '{{ url('') }}')">REGISTRAR</button>
+                                    
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
 
 
 
@@ -196,8 +242,19 @@
             processing: true,
             serverSide: true,
             ajax: "controleDeAcesso",
-
+            columnDefs: [{
+                    className: "align-left",
+                    "targets": 0,
+                    render: function(data) {
+                        return new Date(data).toLocaleDateString();
+                    }
+                },
+                
+            ],
             columns: [{
+                    data: 'created_at',
+                    orderable: true
+                }, {
                     data: 'nome',
                     name: 'nome'
                 },
@@ -210,8 +267,19 @@
                     orderable: true
                 },
                 {
-                    data: 'horaSaida',
-                    orderable: true
+                    data: 'horaSaida.saida',
+                    orderable: true,
+                    render: function(data, type, row) {
+
+
+                        if (data == null) {
+                            return `<button onclick="registrarHoraSaida(${row.horaSaida.id})" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded">
+                                     Registrar
+                                    </button>`
+                        }
+
+                        return data
+                    }
                 },
                 {
                     data: 'actions',
@@ -232,7 +300,8 @@
                         `;
                     }
                 },
-            ]
+            ]   
+           
         });
 
     });
