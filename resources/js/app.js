@@ -1,12 +1,18 @@
 import jQuery from 'jquery';
 window.$ = window.jQuery = jQuery;
 
-// app.js
+// Import DataTables and DataTables Buttons
+import 'datatables.net-dt'; // Main DataTables library
+import 'datatables.net-buttons-dt'; // DataTables Buttons extension
+import 'datatables.net-buttons/js/buttons.html5'; // HTML5 export
+import 'datatables.net-buttons/js/buttons.print'; // Print button
+import 'datatables.net-buttons/js/buttons.colVis'; // Column visibility button
+import 'jszip'; // JSZip library (required for Excel and PDF)
+import pdfMake from 'pdfmake/build/pdfmake'; // Required for PDF export
+import pdfFonts from 'pdfmake/build/vfs_fonts'; // Required for PDF export
 
-import pdfmake from 'pdfmake';
-import 'datatables.net-buttons-dt';
-import 'datatables.net-buttons/js/buttons.html5.mjs';
-import 'datatables.net-buttons/js/buttons.print.mjs';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
 import DateTime from 'datatables.net-datetime';
 import 'datatables.net-responsive-dt';
 import 'datatables.net-searchbuilder-dt';
@@ -18,6 +24,3 @@ import Alpine from 'alpinejs';
 window.Alpine = Alpine;
 
 Alpine.start();
-
-
-

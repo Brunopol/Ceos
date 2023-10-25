@@ -25,6 +25,7 @@ class ControleDeAcessoController extends Controller
                     'created_at' => $acesso->created_at->toISOString(),
                     'nome' => $acesso->nome,
                     'rgCpf' => $acesso->rgCpf,
+                    'empresa' => $acesso->transportadora,
                     'horaEntrada' => $acesso->horaEntrada,
                     'horaSaida' => [
                         'saida' => $acesso->horaSaida,
