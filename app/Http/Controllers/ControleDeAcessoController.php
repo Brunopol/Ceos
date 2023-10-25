@@ -106,7 +106,8 @@ class ControleDeAcessoController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
 
         $validatedData = $request->validate([
             'nome' => 'required',
@@ -133,10 +134,28 @@ class ControleDeAcessoController extends Controller
         return response()->json([
             'message' => "Acesso '$acesso->nome' atualizado com sucesso"
         ]);
-        
     }
 
-    public function delete($id) {
+    public function updateReg(Request $request, $id)
+    {
+
+        $validatedData = $request->validate([
+            'horaSaida' => 'nullable'
+        ]);
+
+        $acesso = Controle_de_acesso::find($id);
+
+        $acesso->update([
+            'horaSaida' => $validatedData['horaSaida']
+        ]);
+
+        return response()->json([
+            'message' => "Acesso '$acesso->nome' atualizado com sucesso"
+        ]);
+    }
+
+    public function delete($id)
+    {
         $acesso = Controle_de_acesso::find($id);
         $acesso->delete();
 
