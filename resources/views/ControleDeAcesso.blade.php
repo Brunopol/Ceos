@@ -32,8 +32,9 @@
                                 <th>DATA</th>
                                 <th>NOME</th>
                                 <th>RG/CPF</th>
-                                <th>HORA ENTRADA</th>
-                                <th>HORA SAÍDA</th>
+                                <th>EMPRESA</th>
+                                <th>ENTRADA</th>
+                                <th>SAÍDA</th>
                                 <th>AÇÕES</th>
                             </tr>
                         </thead>
@@ -88,7 +89,7 @@
 
                                         <div class="mb-4">
                                             <label for="transportadora" class="block text-sm font-medium text-gray-700">
-                                                TRANSPORTADORA
+                                                EMPRESA
                                             </label>
                                             <input type="text" id="transportadora" name="transportadora"
                                                 class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
@@ -608,8 +609,8 @@
                                     </h3>
                                     <button class="text-slate-600 hover:text-slate-800 focus:outline-none"
                                         type="button" onclick="closeModal('modal-id-reg')">
-                                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg">
+                                        <svg class="h-6 w-6" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M6 18L18 6M6 6l12 12"></path>
                                         </svg>
@@ -629,10 +630,10 @@
                                     </div>
 
                                     <div class="flex justify-end mt-3">
-                                    <button id=""
-                                                class=" bg-emerald-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
-                                                onclick="registrarSaidaAcesso(event, '{{ url('') }}')">REGISTRAR</button>
-                                    
+                                        <button id=""
+                                            class=" bg-emerald-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
+                                            onclick="registrarSaidaAcesso(event, '{{ url('') }}')">REGISTRAR</button>
+
                                     </div>
                                 </form>
                             </div>
@@ -654,6 +655,14 @@
 <script type="module">
     $(document).ready(function() {
         $('#myTable').DataTable({
+            dom: 'Pfrtip',
+    buttons: [
+        'copy', 'excel', 'pdf'
+    ],
+    searchPanes:{
+        
+    },
+    
             dom: 'Pfrtip',
     buttons: [
         'copy', 'excel', 'pdf'
@@ -701,6 +710,7 @@
 
                         if (data == null) {
                             return `<button onclick="registrarHoraSaida(${row.horaSaida.id})" class="bg-yellow-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
+                            return `<button onclick="registrarHoraSaida(${row.horaSaida.id})" class="bg-yellow-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
                                      Registrar
                                     </button>`
                         }
@@ -719,9 +729,6 @@
                             <button class="bg-blue-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                 onclick="mostrarAcesso('${ actionsData.url_show }')">
                                EDITAR
-                            </button>
-                            <button class="bg-red-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
-                               Deletar
                             </button>
                             
                         `;
