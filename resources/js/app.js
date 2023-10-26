@@ -9,7 +9,6 @@ import 'datatables.net-buttons/js/buttons.print'; // Print button
 import 'datatables.net-buttons/js/buttons.colVis'; // Column visibility button
 import 'jszip'; // JSZip library (required for Excel and PDF)
 import pdfMake from 'pdfmake/build/pdfmake'; // Required for PDF export
-import pdfFonts from 'pdfmake/build/vfs_fonts'; // Required for PDF export
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
