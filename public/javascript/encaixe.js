@@ -53,7 +53,6 @@ function toggleModal (modalID, userURL, referencia, date) {
         processJSONResponse(response)
 
         if (!checkIfCanEdit()) {
-           
             $('#modelagemButton').click()
         }
     })
@@ -298,17 +297,29 @@ function processJSONResponse (response) {
             var conConsumosHtml = `
             <div class="flex flex-col relative" >
 
-            <button class="bg-red-100 hover:bg-red-500 text-red-700 font-semibold py-1 px-2 rounded-full transition duration-300 ease-in-out focus:outline-none text-xs absolute top-0 right-0 transform -translate-y-1/3" type="button" onclick="deletarConsumo(event, ${consumo.id}, '${window.location.origin}')">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-            </button>
+            ${
+                checkIfCanEdit()
+                    ? `
+                    <button class="bg-red-100 hover:bg-red-500 text-red-700 font-semibold py-1 px-2 rounded-full transition duration-300 ease-in-out focus:outline-none text-xs absolute top-0 right-0 transform -translate-y-1/3" type="button" onclick="deletarConsumo(event, ${consumo.id}, '${window.location.origin}')">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                    </button>
+                `
+                    : ''
+            }
 
                 <label for="consumo_nome" class="block text-sm font-medium text-blue-600">
-                    <span contenteditable="true" oninput="updateInputValue(this, '${movimento.id}${consumo.id}')">${consumo.nome}</span>
+                    <span contenteditable="true" oninput="updateInputValue(this, '${
+                        movimento.id
+                    }${consumo.id}')">${consumo.nome}</span>
                 </label>
-                <input type="hidden" id="${movimento.id}${consumo.id}" name="consumo_nome[]" value="${consumo.nome}">
-                <input type="text" name="consumo_valor[]" class="form-control text-sm" value="${consumo.valor}">
+                <input type="hidden" id="${movimento.id}${
+                consumo.id
+            }" name="consumo_nome[]" value="${consumo.nome}">
+                <input type="text" name="consumo_valor[]" class="form-control text-sm" value="${
+                    consumo.valor
+                }">
                 
             </div>
       `
@@ -333,7 +344,10 @@ function processJSONResponse (response) {
 
         `
 
-        $('#consumosTitle' + movimentoId).append(conConsumosAddHtml)
+        if (checkIfCanEdit()) {
+            $('#consumosTitle' + movimentoId).append(conConsumosAddHtml)
+        }
+
         // tab2ContentsFooter.append(conConsumosAddHtml)
 
         //BOTÃO PARA DELETAR MOVIMENTO
@@ -349,7 +363,11 @@ function processJSONResponse (response) {
 
 
       `
+
+      if (checkIfCanEdit()) {
         $('#tabMovimento' + movimentoId).prepend(deleteMovimento)
+
+      }
         //tab2ContentsFooter.append(deleteMovimento)
 
         //BOTÕES SALVAR E FECHAR MODEL
@@ -368,7 +386,10 @@ function processJSONResponse (response) {
       
       `
 
+      if (checkIfCanEdit()) {
         tab2ContentsFooter.append(footer)
+        
+      }
     })
 
     //------------------PARTE PARA ADICIONAR MAIS MOVIMENTOS------------------\\
