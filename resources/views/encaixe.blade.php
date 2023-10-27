@@ -174,6 +174,14 @@
         </div>
     </div>
 
+    
+        @can('encaixe')
+            <input value="1" class="hidden" id="encaixePermission">
+        @else
+            <input value="0" class="hidden" id="encaixePermission">
+        @endcan
+    
+
 </x-app-layout>
 
 
@@ -233,7 +241,10 @@
 
                         var actionsData = data
 
-                        return `
+                        console.log(data);
+
+                        if (data.canEdit) {
+                            return `
                             <button class="bg-blue-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                 type="button" data-url="${actionsData.url_show}" data-referencia="${actionsData.referencia}"
                                 data-date="${actionsData.date}"
@@ -246,6 +257,16 @@
                                 Deletar
                             </button>
                         `;
+                        } else {
+                            return `<button class="bg-blue-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                type="button" data-url="${actionsData.url_show}" data-referencia="${actionsData.referencia}"
+                                data-date="${actionsData.date}"
+                                onclick="toggleModal('modal-id', '${actionsData.url_show}', '${actionsData.referencia}', '${actionsData.date}')">
+                                Mostrar
+                            </button>`;
+                        }
+
+                        
                     }
                 }
 
