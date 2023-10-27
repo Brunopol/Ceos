@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Encaixe;
 use App\Models\Encaixe_movimento;
 use App\Models\Encaixe_movimento_consumo;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
@@ -19,7 +20,9 @@ class EncaixeController extends Controller
         if ($request->ajax()) {
             $encaixes = Encaixe::with(['movimentos'])->get();
 
+            
 
+            $canEdit = auth()->user()->hasPermissionTo('encaixe'); // @psalm-suppress
 
             $data = [];
             foreach ($encaixes as $encaixe) {
@@ -32,6 +35,7 @@ class EncaixeController extends Controller
                         'url_delete' => route('encaixe.delete', $encaixe->id),
                         'referencia' => $encaixe->referencia,
                         'date' => $encaixe->created_at->toISOString(),
+                        'canEdit' => $canEdit,
                     ]
 
 

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @property-read bool $encaixe
+ */
+
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;

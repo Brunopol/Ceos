@@ -20,7 +20,7 @@
                         {{ __('Usuários') }}
                     </x-nav-link>
                     @endcan
-                    @can('encaixe')
+                    @can('encaixeVisualizar')
                     <x-nav-link :href="route('encaixe')" :active="request()->routeIs('encaixe')">
                         {{ __('Encaixe') }}
                     </x-nav-link>
@@ -90,9 +90,14 @@
                 {{ __('Users') }}
             </x-responsive-nav-link>
             @endcan
-            @can('encaixe')
+            @can('encaixeVisualizar')
             <x-responsive-nav-link :href="route('encaixe')" :active="request()->routeIs('encaixe')">
                 {{ __('Encaixe') }}
+            </x-responsive-nav-link>
+            @endcan
+            @can('controleDeAcessos')
+            <x-responsive-nav-link :href="route('controleDeAcessos')" :active="request()->routeIs('controleDeAcessos')">
+                {{ __('controle De Acessos') }}
             </x-responsive-nav-link>
             @endcan
         </div>

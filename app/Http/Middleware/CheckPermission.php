@@ -13,9 +13,18 @@ class CheckPermission
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, $permission)
+    public function handle(Request $request, Closure $next, $permissions)
     {
-        abort_unless($request->user()->can($permission), Response::HTTP_FORBIDDEN);
+
+        $permissions = explode('|', $permissions);
+
+        if (is_array($permissions)) {
+            foreach ($permissions as $permission) {
+                abort_unless($request->user()->can($permission), Response::HTTP_FORBIDDEN);
+            }
+        } else {
+            abort_unless($request->user()->can($permissions), Response::HTTP_FORBIDDEN);
+        }
 
         return $next($request);
     }

@@ -42,16 +42,20 @@ function toggleModal (modalID, userURL, referencia, date) {
         referenceBox.value = referencia
 
         if (response.user === null || response.user === '') {
-            encaixeUser.value = 'Antes de 13/10/2023';
+            encaixeUser.value = 'Antes de 13/10/2023'
         } else {
-            encaixeUser.value = response.user.name;
-        }        
-        
+            encaixeUser.value = response.user.name
+        }
+
         dateBox.value = formatDate(date)
 
         finishLoading()
         processJSONResponse(response)
-        
+
+        if (!checkIfCanEdit()) {
+           
+            $('#modelagemButton').click()
+        }
     })
 }
 
@@ -66,7 +70,6 @@ function startLoading () {
 function finishLoading () {
     loading.classList.add('hidden')
 }
-
 
 //--------------------FECHA O MODEL--------------------\\
 
@@ -90,7 +93,7 @@ function processJSONResponse (response) {
 
     var liHtml = `
     <li class="-mb-px last:mr-0 flex-auto text-center p-1">
-      <a class="text-xs font-bold uppercase px-2 py-2 shadow-lg rounded block leading-normal text-black bg-white"
+      <a id="modelagemButton" class="text-xs font-bold uppercase px-2 py-2 shadow-lg rounded block leading-normal text-black bg-white"
         onclick="changeAtiveTab(event,'modelagem')" onfocus="this.click();">
          Modelagem
       </a>
@@ -168,10 +171,10 @@ function processJSONResponse (response) {
         var movimentoUser = ''
 
         if (movimento.user === null || movimento.user === '') {
-            movimentoUser = 'Antes de 13/10/2023';
+            movimentoUser = 'Antes de 13/10/2023'
         } else {
-            movimentoUser = movimento.user.name;
-        }        
+            movimentoUser = movimento.user.name
+        }
 
         console.log(index)
 
@@ -223,9 +226,21 @@ function processJSONResponse (response) {
                         <div class="flex flex-col">
                             <label for="parImper" class="block text-sm font-medium text-gray-700">PAR/IMPAR</label>
                             <select id="parImper" tabindex="4" name="parImper" class="form-select text-sm">
-                                <option value="NÃO INFORMADO" ${movimentoParImper === 'NÃO INFORMADO' ? 'selected' : ''}>NÃO INFORMADO</option>
-                                <option value="PAR" ${movimentoParImper === 'PAR' ? 'selected' : ''}>PAR</option>
-                                <option value="IMPAR" ${movimentoParImper === 'IMPAR' ? 'selected' : ''}>IMPAR</option>
+                                <option value="NÃO INFORMADO" ${
+                                    movimentoParImper === 'NÃO INFORMADO'
+                                        ? 'selected'
+                                        : ''
+                                }>NÃO INFORMADO</option>
+                                <option value="PAR" ${
+                                    movimentoParImper === 'PAR'
+                                        ? 'selected'
+                                        : ''
+                                }>PAR</option>
+                                <option value="IMPAR" ${
+                                    movimentoParImper === 'IMPAR'
+                                        ? 'selected'
+                                        : ''
+                                }>IMPAR</option>
                             </select>
                         </div>
 
@@ -298,7 +313,6 @@ function processJSONResponse (response) {
             </div>
       `
 
-
             tab2Contents.append(conConsumosHtml)
         })
 
@@ -359,146 +373,146 @@ function processJSONResponse (response) {
 
     //------------------PARTE PARA ADICIONAR MAIS MOVIMENTOS------------------\\
 
-    //BOTÃO PARA ADD O MOVIMENTO NO (HEADER)
-    var listPlusHtml = `
-    <li class="-mb-px last:mr-0 flex-auto text-center p-1">
-        <a class="text-xs font-semibold uppercase px-2 py-2 shadow-lg rounded block leading-normal text-white bg-blue-500 hover:shadow-lg"
-            onclick="changeAtiveTab(event,'addMovimento')"">
-             ADD+
-        </a>
-    </li>
-  `
+    if (checkIfCanEdit()) {
+        //BOTÃO PARA ADD O MOVIMENTO NO (HEADER)
+        var listPlusHtml = `
+                                    <li class="-mb-px last:mr-0 flex-auto text-center p-1">
+                                        <a class="text-xs font-semibold uppercase px-2 py-2 shadow-lg rounded block leading-normal text-white bg-blue-500 hover:shadow-lg"
+                                            onclick="changeAtiveTab(event,'addMovimento')"">
+                                            ADD+
+                                        </a>
+                                    </li>
+                                `
 
-    tabListHeader.prepend(listPlusHtml)
-//
-    //CONTEUDO DO NOVO MOVIMENTO
-    var conPlusHtml = `
-    <div class="" id="addMovimento" style="height: 556px; width: 804px;">
-
-       
-        <form id="formAddMovimento">
-          
-                <input type="hidden" id="encaixeID" name="encaixeID" value="${response.id}">
-                <div class="text-left">
-                    <h2 class="text-1xl font-semibold mb-2">GERAL</h2>
-                    <div class="h-px bg-gray-500 mx-auto"></div>
-                </div>
-
-
-                <div class="p-6 flex-auto grid grid-cols-2 gap-4">
-
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="flex flex-col">
-                            <label for="nome" class="block text-sm font-medium text-gray-700">MOVIMENTO</label>
-                            <input type="text" tabindex="1" id="nome" name="nome" class="form-control text-sm" value="" list="nomes" autocomplete="on">
-                            <datalist id="nomes">
-                                <option value="CONSUMO">
-                                <option value="LIBERAÇÃO">
-                                <option value="DESENVOLVIMENTO">
-                                <option value="SIMULAÇÃO">
-                                <option value="MOSTRUÁRIO">
-                            </datalist>
-                        </div>
-
-                        <div class="flex flex-col">
-                            <label for="largura" class="block text-sm font-medium text-gray-700">LARGURA</label>
-                            <input type="text" tabindex="2" id="largura" name="largura" class="form-control text-sm" value="" autocomplete="on">
-                        </div>
-
-                        <div class="flex flex-col">
-                            <label for="tecido" class="block text-sm font-medium text-gray-700">TECIDO</label>
-                            <input type="text" tabindex="3" id="tecido" name="tecido" class="form-control text-sm" value="" autocomplete="on">
-                        </div>
-
-                        <div class="flex flex-col">
-                            <label for="parImper" class="block text-sm font-medium text-gray-700">PAR/IMPAR</label>
-                            <select id="parImper" tabindex="4" name="parImper" class="form-select text-sm">
-                                <option value="NÃO INFORMADO" >NÃO INFORMADO</option>
-                                <option value="PAR" >PAR</option>
-                                <option value="IMPAR">IMPAR</option>
-                            </select>
-                        </div>
-
-                    </div>
-
-                    
-
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="flex flex-col col-span-2">
-                            <label for="notas" class="block text-sm font-medium text-gray-700">NOTAS</label>
-                            <textarea id="notas" tabindex="5" name="notas" class="form-control text-sm" rows="4"></textarea>
-                        </div>
-                    </div>
-                
-                </div>
-
-                <div class="text-left">
-                    <div class="flex items-center gap-4" id="consumoTitlenoAdd">
-                    <h2 class="text-1xl font-semibold">CONSUMOS</h2>
-                    </div>
-                    <div class="h-px bg-gray-500 mx-auto"></div>
-                </div>
-
-                <div class="p-6 flex-auto grid grid-cols-4 gap-4" id="conteudoAddMovimento">
-                
-                </div>
-
-                <div class="p-6 mt-10 flex-auto grid grid-cols-2 gap-4 border-t-2 border-b-2 border-slate-500" id="conteudoFooterAdd">
-
-                    
-            
-                
-                </div>
-
-
-
-
-
-        </form>
-      
-      </div>
-    `
-
-    tabContents.append(conPlusHtml)
-
-    //ADD MAIS CONSUMOS PARA O MOVIMENTO NOVO
-    tabAddContentsForm = $('#consumoTitlenoAdd')
-    //
-    var conConsumosAddHtml = `
-            <div class="flex flex-col justify-center items-center">
-            <button tabindex="6" class="bg-emerald-200 text-white font-bold uppercase text-xs rounded-md shadow-sm outline-none focus:outline-none mb-1 transition-all duration-150 hover:bg-emerald-500 hover:shadow-md hover:text-white focus:bg-emerald-500 focus:shadow-md focus:text-white"
-                    onclick="AddMoreConsumosOnTheAddMovimentos(event)"
-                    id="buttonAddConsumosMovimentoNovo">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                </svg>
-            </button>
-    
-            </div>
-        `
+        tabListHeader.prepend(listPlusHtml)
+        //
+        //CONTEUDO DO NOVO MOVIMENTO
+        var conPlusHtml = `
+        <div class="" id="addMovimento" style="height: 556px; width: 804px;">
 
         
+            <form id="formAddMovimento">
+            
+                    <input type="hidden" id="encaixeID" name="encaixeID" value="${response.id}">
+                    <div class="text-left">
+                        <h2 class="text-1xl font-semibold mb-2">GERAL</h2>
+                        <div class="h-px bg-gray-500 mx-auto"></div>
+                    </div>
 
-    tabAddContentsForm.append(conConsumosAddHtml)
-    //
-    //SALVAR E FECHAR PARA O MOVIMENTO NOVO
 
-      var footer = `
-        <!-- Footer -->
-        <div></div>
-        <div id="errorMessage" class="hidden mt-1 bg-red-500 text-white p-1 rounded-b shadow-md items-center border-t border-solid border-slate-200">
-            <span>Error, prencha corretamente todos os campos</span>
+                    <div class="p-6 flex-auto grid grid-cols-2 gap-4">
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="flex flex-col">
+                                <label for="nome" class="block text-sm font-medium text-gray-700">MOVIMENTO</label>
+                                <input type="text" tabindex="1" id="nome" name="nome" class="form-control text-sm" value="" list="nomes" autocomplete="on">
+                                <datalist id="nomes">
+                                    <option value="CONSUMO">
+                                    <option value="LIBERAÇÃO">
+                                    <option value="DESENVOLVIMENTO">
+                                    <option value="SIMULAÇÃO">
+                                    <option value="MOSTRUÁRIO">
+                                </datalist>
+                            </div>
+
+                            <div class="flex flex-col">
+                                <label for="largura" class="block text-sm font-medium text-gray-700">LARGURA</label>
+                                <input type="text" tabindex="2" id="largura" name="largura" class="form-control text-sm" value="" autocomplete="on">
+                            </div>
+
+                            <div class="flex flex-col">
+                                <label for="tecido" class="block text-sm font-medium text-gray-700">TECIDO</label>
+                                <input type="text" tabindex="3" id="tecido" name="tecido" class="form-control text-sm" value="" autocomplete="on">
+                            </div>
+
+                            <div class="flex flex-col">
+                                <label for="parImper" class="block text-sm font-medium text-gray-700">PAR/IMPAR</label>
+                                <select id="parImper" tabindex="4" name="parImper" class="form-select text-sm">
+                                    <option value="NÃO INFORMADO" >NÃO INFORMADO</option>
+                                    <option value="PAR" >PAR</option>
+                                    <option value="IMPAR">IMPAR</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="flex flex-col col-span-2">
+                                <label for="notas" class="block text-sm font-medium text-gray-700">NOTAS</label>
+                                <textarea id="notas" tabindex="5" name="notas" class="form-control text-sm" rows="4"></textarea>
+                            </div>
+                        </div>
+                    
+                    </div>
+
+                    <div class="text-left">
+                        <div class="flex items-center gap-4" id="consumoTitlenoAdd">
+                        <h2 class="text-1xl font-semibold">CONSUMOS</h2>
+                        </div>
+                        <div class="h-px bg-gray-500 mx-auto"></div>
+                    </div>
+
+                    <div class="p-6 flex-auto grid grid-cols-4 gap-4" id="conteudoAddMovimento">
+                    
+                    </div>
+
+                    <div class="p-6 mt-10 flex-auto grid grid-cols-2 gap-4 border-t-2 border-b-2 border-slate-500" id="conteudoFooterAdd">
+
+                        
+                
+                    
+                    </div>
+
+
+
+
+
+            </form>
+        
         </div>
-        <div class="flex items-center justify-end p-6">
-            <button tabindex="7" class="bg-emerald-300 text-white active:bg-emerald-600 hover:bg-emerald-500 focus:bg-emerald-500 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg focus:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onclick="addEncaixeMovimento(event)">
-                Salvar Movimento
-            </button>
-    
-        </div>
-      
-      `
+        `
 
-    $('#conteudoFooterAdd').append(footer)
+        tabContents.append(conPlusHtml)
+
+        //ADD MAIS CONSUMOS PARA O MOVIMENTO NOVO
+        tabAddContentsForm = $('#consumoTitlenoAdd')
+        //
+        var conConsumosAddHtml = `
+                <div class="flex flex-col justify-center items-center">
+                <button tabindex="6" class="bg-emerald-200 text-white font-bold uppercase text-xs rounded-md shadow-sm outline-none focus:outline-none mb-1 transition-all duration-150 hover:bg-emerald-500 hover:shadow-md hover:text-white focus:bg-emerald-500 focus:shadow-md focus:text-white"
+                        onclick="AddMoreConsumosOnTheAddMovimentos(event)"
+                        id="buttonAddConsumosMovimentoNovo">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                </button>
+        
+                </div>
+            `
+
+        tabAddContentsForm.append(conConsumosAddHtml)
+        //
+        //SALVAR E FECHAR PARA O MOVIMENTO NOVO
+
+        var footer = `
+            <!-- Footer -->
+            <div></div>
+            <div id="errorMessage" class="hidden mt-1 bg-red-500 text-white p-1 rounded-b shadow-md items-center border-t border-solid border-slate-200">
+                <span>Error, prencha corretamente todos os campos</span>
+            </div>
+            <div class="flex items-center justify-end p-6">
+                <button tabindex="7" class="bg-emerald-300 text-white active:bg-emerald-600 hover:bg-emerald-500 focus:bg-emerald-500 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg focus:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onclick="addEncaixeMovimento(event)">
+                    Salvar Movimento
+                </button>
+        
+            </div>
+        
+        `
+
+        $('#conteudoFooterAdd').append(footer)
+    }
 }
 
 //--------------------ADD MAIS CONSUMOS (dinamico)--------------------\\
@@ -513,17 +527,22 @@ function AddMoreConsumos (event, movimentoId) {
 
     var conConsumosAddHtml = `
     
-    <div class="flex flex-col relative" id="consumo${randomNumForId + randomNumForId2}">
+    <div class="flex flex-col relative" id="consumo${
+        randomNumForId + randomNumForId2
+    }">
 
         <button class="bg-red-100 hover:bg-red-500 text-red-700 font-semibold py-1 px-2 rounded-full transition duration-300 ease-in-out focus:outline-none text-xs absolute top-0 right-0 transform -translate-y-1/3" type="button" onclick="deletarConsumoNovo(${
-            randomNumForId + randomNumForId2})">
+            randomNumForId + randomNumForId2
+        })">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
         </button>
 
         <label for="consumo_nome" class="block text-sm font-medium text-blue-600">
-            <span contenteditable="true" oninput="updateInputValue(this, '${randomNumForId + randomNumForId2}')"">
+            <span contenteditable="true" oninput="updateInputValue(this, '${
+                randomNumForId + randomNumForId2
+            }')"">
                 CONSUMO
             </span>
         </label>
@@ -559,17 +578,22 @@ function AddMoreConsumosOnTheAddMovimentos (event) {
 
     var conConsumosAddHtml = `
     
-    <div class="flex flex-col relative" id="consumo${randomNumForId + randomNumForId2}">
+    <div class="flex flex-col relative" id="consumo${
+        randomNumForId + randomNumForId2
+    }">
 
         <button class="bg-red-100 hover:bg-red-500 text-red-700 font-semibold py-1 px-2 rounded-full transition duration-300 ease-in-out focus:outline-none text-xs absolute top-0 right-0 transform -translate-y-1/3" type="button" onclick="deletarConsumoNovo(${
-            randomNumForId + randomNumForId2})">
+            randomNumForId + randomNumForId2
+        })">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
         </button>
 
         <label for="consumo_nome" class="block text-sm font-medium text-blue-600">
-            <span contenteditable="true" oninput="updateInputValue(this, '${randomNumForId + randomNumForId2}')"">
+            <span contenteditable="true" oninput="updateInputValue(this, '${
+                randomNumForId + randomNumForId2
+            }')"">
                 CONSUMO
             </span>
         </label>
@@ -582,7 +606,6 @@ function AddMoreConsumosOnTheAddMovimentos (event) {
     </div>
     
     `
-
 
     tabAddContentsForm.append(conConsumosAddHtml)
 }
@@ -830,4 +853,16 @@ function showNotification (message) {
             $(this).remove()
         })
     }, 5000)
+}
+
+//permission
+
+function checkIfCanEdit () {
+    permisstionn = $('#encaixePermission')
+
+    if (permisstionn.val() == 1) {
+        return true
+    } else {
+        return false
+    }
 }

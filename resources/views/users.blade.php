@@ -103,7 +103,11 @@
                                             </div>
                                             <div class="flex items-center space-x-2">
                                                 <input type="checkbox" id="encaixeCheckbox" name="permissions[]" class="form-checkbox" value="encaixe">
-                                                <label for="encaixeCheckbox">Encaixe</label>
+                                                <label for="encaixeCheckbox">Encaixe Editar</label>
+                                            </div>
+                                            <div class="flex items-center space-x-2">
+                                                <input type="checkbox" id="encaixeVisualizarCheckbox" name="permissions[]" class="form-checkbox" value="encaixeVisualizar">
+                                                <label for="encaixeCheckbox">Encaixe Visualizar</label>
                                             </div>
                                         </div>
                                         <!-- Other form inputs -->
@@ -147,6 +151,9 @@
             $('#controleDeAcessosCheckbox').prop('checked', data.permissions.some(permission => permission.permission === 'controleDeAcessos'));
             $('#usersCheckbox').prop('checked', data.permissions.some(permission => permission.permission === 'users'));
             $('#encaixeCheckbox').prop('checked', data.permissions.some(permission => permission.permission === 'encaixe'));
+            $('#encaixeVisualizarCheckbox').prop('checked', data.permissions.some(permission => permission.permission === 'encaixeVisualizar'));
+            
+
             
             // Show the modal using the toggleModal function
             $("#" + modalID).toggleClass("hidden flex");
