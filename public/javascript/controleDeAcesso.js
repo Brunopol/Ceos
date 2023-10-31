@@ -28,7 +28,79 @@ function closeModal (modalID) {
     $('#' + modalID + '-backdrop').toggleClass('hidden flex')
 }
 
-function toggleCarro () {
+//checkboxes
+
+function checkBoxes (response) {
+    var placaInput = $('#placa')
+    var cbCarro = $('#cbCarro')
+
+    var horaSaidaInput = $('#horaSaida')
+    var cbHoraSaida = $('#cbHoraSaida')
+
+    var horaEntradaInput = $('#horaEntrada')
+    var cbHoraEntrada = $('#cbHoraEntrada')
+
+    if (response.placa) {
+        showCarro()
+        cbCarro.prop('checked', true)
+    } else {
+        hideCarro()
+        cbCarro.prop('checked', false)
+    }
+    if (response.horaSaida) {
+        showHoraSaida()
+        cbHoraSaida.prop('checked', true)
+    } else {
+        hideHoraSaida()
+        cbHoraSaida.prop('checked', false)
+    }
+    if (response.horaEntrada) {
+        showHoraEntrada()
+        cbHoraEntrada.prop('checked', true)
+    } else {
+        hideHoraEntrada()
+        cbHoraEntrada.prop('checked', false)
+    }
+}
+
+function checkBoxToggleCarro () {
+    var cbCarro = $('#cbCarro')
+
+    if (cbCarro.prop('checked')) {
+        showCarro()
+    } else {
+        hideCarro()
+    }
+}
+
+function checkBoxToggleHoraSaida () {
+    var cbHoraSaida = $('#cbHoraSaida')
+
+    if (cbHoraSaida.prop('checked')) {
+        showHoraSaida()
+    } else {
+        hideHoraSaida()
+    }
+}
+
+function checkBoxToggleHoraEntrada () {
+    var cbHoraEntrada = $('#cbHoraEntrada')
+
+    if (cbHoraEntrada.prop('checked')) {
+        showHoraEntrada()
+    } else {
+        hideHoraEntrada()
+    }
+}
+
+// Functions for the checkboxes
+
+function showCarro () {
+    var placaDiv = $('#placaDiv')
+    placaDiv.removeClass('hidden')
+}
+
+function hideCarro () {
     var placaDiv = $('#placaDiv')
     placaDiv.addClass('hidden')
 }
@@ -53,11 +125,6 @@ function showHoraEntrada () {
 
 function hideHoraEntrada () {
     var horaEntradaDiv = $('#horaEntradaDiv')
-    var horaEntradaInput = $('#horaEntrada')
-
-    horaEntradaInput.val('')
-    horaEntradaDiv.toggleClass('hidden')
-}
 
     horaEntradaDiv.addClass('hidden')
 }
