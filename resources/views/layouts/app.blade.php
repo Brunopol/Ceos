@@ -21,7 +21,7 @@
 
     <!-- Prod -->
 
-        <link rel="stylesheet" href="https://dev.ufoway.com.br/v4/build/assets/app-e221511c.css" />  
+        <link rel="stylesheet" href="{{ asset('build/assets/build.css') }}" />  
         
         
         
@@ -47,6 +47,6 @@
 
     <!-- Prod -->
 
-        <script src="https://dev.ufoway.com.br/v4/build/assets/app-1cfa0830.js" ></script> 
+        <script src="{{ asset('build/assets/app-eb31eb2e.js') }}" ></script> 
     </body>
 </html>
