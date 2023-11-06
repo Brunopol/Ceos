@@ -240,14 +240,7 @@
 <script type="module">
     $(document).ready(function() {
         $('#myTable').DataTable({
-            dom: 'Pfrtip',
-    buttons: [
-        'copy', 'excel', 'pdf'
-    ],
-    searchPanes:{
-        
-    },
-    
+
             processing: true,
             serverSide: true,
             ajax: "controleDeAcesso",   
@@ -318,4 +311,4 @@
 </script>
 
 
-<script src="http://localhost/javascript/controleDeAcesso.js" type="text/javascript"></script>
+<script src="http://localhost/v4/javascript/controleDeAcesso.js" type="text/javascript"></script>
