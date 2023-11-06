@@ -1,0 +1,1 @@
+[06-Nov-2023 13:17:04 America/Sao_Paulo] PHP Fatal error:  Cannot redeclare App\Http\Controllers\ControleDeAcessoController::update() in /home/ufowayco/CeosV4/Ceos/app/Http/Controllers/ControleDeAcessoController.php on line 109

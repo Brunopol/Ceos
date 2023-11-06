@@ -183,6 +183,14 @@
         </div>
     </div>
 
+    
+        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('encaixe')): ?>
+            <input value="1" class="hidden" id="encaixePermission">
+        <?php else: ?>
+            <input value="0" class="hidden" id="encaixePermission">
+        <?php endif; ?>
+    
+
  <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54)): ?>
@@ -247,7 +255,10 @@
 
                         var actionsData = data
 
-                        return `
+                        console.log(data);
+
+                        if (data.canEdit) {
+                            return `
                             <button class="bg-blue-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                 type="button" data-url="${actionsData.url_show}" data-referencia="${actionsData.referencia}"
                                 data-date="${actionsData.date}"
@@ -260,6 +271,16 @@
                                 Deletar
                             </button>
                         `;
+                        } else {
+                            return `<button class="bg-blue-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                type="button" data-url="${actionsData.url_show}" data-referencia="${actionsData.referencia}"
+                                data-date="${actionsData.date}"
+                                onclick="toggleModal('modal-id', '${actionsData.url_show}', '${actionsData.referencia}', '${actionsData.date}')">
+                                Mostrar
+                            </button>`;
+                        }
+
+                        
                     }
                 }
 
