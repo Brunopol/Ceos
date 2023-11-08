@@ -47,6 +47,6 @@
 
     <!-- Prod -->
 
-        <script src="{{ asset('build/assets/app-eb31eb2e.js') }}" ></script> 
+        <script src="{{ asset('build/assets/build.js') }}" ></script> 
     </body>
 </html>

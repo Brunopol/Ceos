@@ -1,6 +1,13 @@
 import jQuery from 'jquery';
 window.$ = window.jQuery = jQuery;
 
+import Alpine from 'alpinejs';
+
+window.Alpine = Alpine;
+
+Alpine.start();
+
+
 // Import DataTables and DataTables Buttons
 import 'datatables.net-dt'; // Main DataTables library
 import 'datatables.net-buttons-dt'; // DataTables Buttons extension
@@ -18,8 +25,3 @@ import 'datatables.net-searchbuilder-dt';
 import 'datatables.net-searchpanes-dt';
 import 'datatables.net-select-dt';
 
-import Alpine from 'alpinejs';
-
-window.Alpine = Alpine;
-
-Alpine.start();
