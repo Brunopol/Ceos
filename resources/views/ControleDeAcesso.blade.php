@@ -310,5 +310,5 @@
     });
 </script>
 
+<script src="{{ asset('javascript/controleDeAcesso.js') }}" ></script> 
 
-<script src="http://localhost/v4/javascript/controleDeAcesso.js" type="text/javascript"></script>
