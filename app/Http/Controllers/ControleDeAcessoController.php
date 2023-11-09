@@ -27,6 +27,7 @@ class ControleDeAcessoController extends Controller
                     'nome' => $acesso->nome,
                     'rgCpf' => $acesso->rgCpf,
                     'empresa' => $acesso->transportadora,
+                    'placa' => $acesso->placa,
                     'pessoaResponsavel' => $acesso->pessoaResponsavel,
                     'setorResponsavel' => $acesso->setorResponsavel,
                     'horaEntrada' => $acesso->horaEntrada,

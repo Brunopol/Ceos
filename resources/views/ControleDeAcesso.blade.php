@@ -29,14 +29,16 @@
                         <thead>
                             <tr>
                                 <th>DATA</th>
+                                <th>ENTRADA</th>
+                                <th>SAÍDA</th>
                                 <th>NOME</th>
                                 <th>RG/CPF</th>
                                 <th>EMPRESA</th>
-                                <th>ENTRADA</th>
-                                <th>SAÍDA</th>
-                                <th>PESSOA</th>
-                                <th>SETOR</th>
+                                <th>PLACA</th>
                                 <th>AÇÕES</th>
+                                <th class="none">PESSOA RESPONSÁVEL</th>
+                                <th class="none">SETOR RESPONSÁVEL</th>
+                                
                             </tr>
                         </thead>
                         <tbody>
@@ -99,20 +101,18 @@
                                         <div class="mb-4">
                                             <label for="pessoaResponsavel"
                                                 class="block text-sm font-medium text-gray-700">
-                                               PESSOA RESPONSÁVEL
+                                                PESSOA RESPONSÁVEL
                                             </label>
-                                            <input type="text" id="pessoaResponsavel"
-                                                name="pessoaResponsavel"
+                                            <input type="text" id="pessoaResponsavel" name="pessoaResponsavel"
                                                 class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
                                         </div>
 
                                         <div class="mb-4">
                                             <label for="setorResponsavel"
                                                 class="block text-sm font-medium text-gray-700">
-                                               SETOR RESPONSÁVEL
+                                                SETOR RESPONSÁVEL
                                             </label>
-                                            <input type="text" id="setorResponsavel"
-                                                name="setorResponsavel"
+                                            <input type="text" id="setorResponsavel" name="setorResponsavel"
                                                 class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
                                         </div>
 
@@ -255,7 +255,7 @@
             responsive: true,
             processing: true,
             serverSide: true,
-            ajax: "controleDeAcesso",   
+            ajax: "controleDeAcesso",
             columnDefs: [{
                     className: "align-left",
                     "targets": 0,
@@ -263,22 +263,16 @@
                         return new Date(data).toLocaleDateString();
                     }
                 },
+                
+                { "width": "20%", "targets": 3 },
+                { "width": "20%", "targets": 4 },
+                { "width": "20%", "targets": 5 },
+                { "width": "20%", "targets": 6 },
 
             ],
             columns: [{
                     data: 'created_at',
                     orderable: true
-                }, {
-                    data: 'nome',
-                    name: 'nome'
-                },
-                {
-                    data: 'rgCpf',
-                    orderable: false
-                },
-                {
-                    data: 'empresa',
-                    orderable: false
                 },
                 {
                     data: 'horaEntrada',
@@ -299,12 +293,21 @@
                         return data
                     }
                 },
+
                 {
-                    data: 'pessoaResponsavel',
+                    data: 'nome',
+                    name: 'nome'
+                },
+                {
+                    data: 'rgCpf',
                     orderable: false
                 },
                 {
-                    data: 'setorResponsavel',
+                    data: 'empresa',
+                    orderable: false
+                },
+                {
+                    data: 'placa',
                     orderable: false
                 },
                 {
@@ -323,39 +326,47 @@
                         `;
                     }
                 },
+                {
+                    data: 'pessoaResponsavel',
+                    orderable: false
+                },
+                {
+                    data: 'setorResponsavel',
+                    orderable: false
+                }
+                
             ],
 
             "language": {
-            
-            "decimal": "",
-            "emptyTable": "Nenhum dado disponível na tabela",
-            "info": "Mostrando _START_ até _END_ de _TOTAL_ entradas",
-            "infoEmpty": "Mostrando 0 até 0 de 0 entradas",
-            "infoFiltered": "(filtrado de um total de _MAX_ entradas)",
-            "infoPostFix": "",
-            "thousands": ",",
-            "lengthMenu": "Mostrar _MENU_ entradas",
-            "loadingRecords": "Carregando...",
-            "processing": "",
-            "search": "Buscar:",
-            "zeroRecords": "Nenhum registro correspondente encontrado",
-            "paginate": {
-                "first": "Primeira",
-                "last": "Última",
-                "next": "Próxima",
-                "previous": "Anterior"
-            },
-            "aria": {
-                "sortAscending": ": ativar para ordenar coluna de forma ascendente",
-                "sortDescending": ": ativar para ordenar coluna de forma descendente"
-            }
 
-        }
+                "decimal": "",
+                "emptyTable": "Nenhum dado disponível na tabela",
+                "info": "Mostrando _START_ até _END_ de _TOTAL_ entradas",
+                "infoEmpty": "Mostrando 0 até 0 de 0 entradas",
+                "infoFiltered": "(filtrado de um total de _MAX_ entradas)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Mostrar _MENU_ entradas",
+                "loadingRecords": "Carregando...",
+                "processing": "",
+                "search": "Buscar:",
+                "zeroRecords": "Nenhum registro correspondente encontrado",
+                "paginate": {
+                    "first": "Primeira",
+                    "last": "Última",
+                    "next": "Próxima",
+                    "previous": "Anterior"
+                },
+                "aria": {
+                    "sortAscending": ": ativar para ordenar coluna de forma ascendente",
+                    "sortDescending": ": ativar para ordenar coluna de forma descendente"
+                }
+
+            }
 
         });
 
     });
 </script>
 
-<script src="{{ asset('javascript/controleDeAcesso.js') }}" ></script> 
-
+<script src="{{ asset('javascript/controleDeAcesso.js') }}"></script>
