@@ -207,6 +207,7 @@ function atualizarAcesso (event, url) {
             console.log(response.message)
             closeModal('modal-id-add')
             $('#formAddAcesso')[0].reset()
+            location.reload();
         },
         error: function (error) {
             console.log(error.responseJSON.message)
