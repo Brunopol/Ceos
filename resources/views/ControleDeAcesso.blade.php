@@ -34,6 +34,8 @@
                                 <th>EMPRESA</th>
                                 <th>ENTRADA</th>
                                 <th>SAÍDA</th>
+                                <th>PESSOA</th>
+                                <th>SETOR</th>
                                 <th>AÇÕES</th>
                             </tr>
                         </thead>
@@ -95,12 +97,22 @@
                                         </div>
 
                                         <div class="mb-4">
-                                            <label for="setorResponsavelPessoa"
+                                            <label for="pessoaResponsavel"
                                                 class="block text-sm font-medium text-gray-700">
-                                                SETOR/PESSOA RESPONSÁVEL
+                                               PESSOA RESPONSÁVEL
                                             </label>
-                                            <input type="text" id="setorResponsavelPessoa"
-                                                name="setorResponsavelPessoa"
+                                            <input type="text" id="pessoaResponsavel"
+                                                name="pessoaResponsavel"
+                                                class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label for="setorResponsavel"
+                                                class="block text-sm font-medium text-gray-700">
+                                               SETOR RESPONSÁVEL
+                                            </label>
+                                            <input type="text" id="setorResponsavel"
+                                                name="setorResponsavel"
                                                 class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
                                         </div>
 
@@ -286,6 +298,14 @@
 
                         return data
                     }
+                },
+                {
+                    data: 'pessoaResponsavel',
+                    orderable: false
+                },
+                {
+                    data: 'setorResponsavel',
+                    orderable: false
                 },
                 {
                     data: 'actions',

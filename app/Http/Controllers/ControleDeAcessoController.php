@@ -27,6 +27,8 @@ class ControleDeAcessoController extends Controller
                     'nome' => $acesso->nome,
                     'rgCpf' => $acesso->rgCpf,
                     'empresa' => $acesso->transportadora,
+                    'pessoaResponsavel' => $acesso->pessoaResponsavel,
+                    'setorResponsavel' => $acesso->setorResponsavel,
                     'horaEntrada' => $acesso->horaEntrada,
                     'horaSaida' => [
                         'saida' => $acesso->horaSaida,
@@ -56,7 +58,8 @@ class ControleDeAcessoController extends Controller
             'placa' => 'nullable',
             'horaEntrada' => 'nullable',
             'horaSaida' => 'nullable',
-            'setorResponsavelPessoa' => 'nullable'
+            'pessoaResponsavel' => 'nullable',
+            'setorResponsavel' => 'nullable'
         ]);
 
         $acesso = Controle_de_acesso::create([
@@ -66,7 +69,8 @@ class ControleDeAcessoController extends Controller
             'placa' => strtoupper($validatedData['placa']),
             'horaEntrada' => $validatedData['horaEntrada'],
             'horaSaida' => $validatedData['horaSaida'],
-            'setorResponsavelPessoa' => strtoupper($validatedData['setorResponsavelPessoa']),
+            'pessoaResponsavel' => strtoupper($validatedData['pessoaResponsavel']),
+            'setorResponsavel' => strtoupper($validatedData['setorResponsavel'])
         ]);
         
 
@@ -87,7 +91,8 @@ class ControleDeAcessoController extends Controller
             'placa' => 'nullable',
             'horaEntrada' => 'nullable',
             'horaSaida' => 'nullable',
-            'setorResponsavelPessoa' => 'nullable'
+            'pessoaResponsavel' => 'nullable',
+            'setorResponsavel' => 'nullable',
         ]);
 
         $acesso = Controle_de_acesso::find($id);
@@ -99,7 +104,8 @@ class ControleDeAcessoController extends Controller
             'placa' => strtoupper($validatedData['placa']),
             'horaEntrada' => $validatedData['horaEntrada'],
             'horaSaida' => $validatedData['horaSaida'],
-            'setorResponsavelPessoa' => strtoupper($validatedData['setorResponsavelPessoa'])
+            'pessoaResponsavel' => strtoupper($validatedData['pessoaResponsavel']),
+            'setorResponsavel' => strtoupper($validatedData['setorResponsavel']),
         ]);
 
         return response()->json([

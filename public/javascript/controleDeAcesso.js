@@ -233,7 +233,8 @@ function mostrarAcesso (url) {
             $('#nome').val(response.nome)
             $('#rgCpf').val(response.rgCpf)
             $('#transportadora').val(response.transportadora)
-            $('#setorResponsavelPessoa').val(response.setorResponsavelPessoa)
+            $('#setorResponsavel').val(response.setorResponsavel)
+            $('#pessoaResponsavel').val(response.pessoaResponsavel)
 
             $('#horaEntrada').val(response.horaEntrada)
             $('#horaSaida').val(response.horaSaida)
