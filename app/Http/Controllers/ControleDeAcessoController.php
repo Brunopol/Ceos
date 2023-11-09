@@ -7,6 +7,7 @@ use App\Models\Encaixe;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
+
 class ControleDeAcessoController extends Controller
 {
 
@@ -59,15 +60,15 @@ class ControleDeAcessoController extends Controller
         ]);
 
         $acesso = Controle_de_acesso::create([
-            'nome' => $validatedData['nome'],
-            'rgCpf' => $validatedData['rgCpf'],
-            'transportadora' => $validatedData['transportadora'],
-            'placa' => $validatedData['placa'],
+            'nome' => strtoupper($validatedData['nome']),
+            'rgCpf' => strtoupper($validatedData['rgCpf']),
+            'transportadora' => strtoupper($validatedData['transportadora']),
+            'placa' => strtoupper($validatedData['placa']),
             'horaEntrada' => $validatedData['horaEntrada'],
             'horaSaida' => $validatedData['horaSaida'],
-            'setorResponsavelPessoa' => $validatedData['setorResponsavelPessoa'],
+            'setorResponsavelPessoa' => strtoupper($validatedData['setorResponsavelPessoa']),
         ]);
-
+        
 
         return response()->json([
             'message' => "Encaixe '$acesso->nome' foi adicionando com sucesso",
@@ -92,13 +93,13 @@ class ControleDeAcessoController extends Controller
         $acesso = Controle_de_acesso::find($id);
 
         $acesso->update([
-            'nome' => $validatedData['nome'],
+            'nome' => strtoupper($validatedData['nome']),
             'rgCpf' => $validatedData['rgCpf'],
-            'transportadora' => $validatedData['transportadora'],
-            'placa' => $validatedData['placa'],
+            'transportadora' => strtoupper($validatedData['transportadora']),
+            'placa' => strtoupper($validatedData['placa']),
             'horaEntrada' => $validatedData['horaEntrada'],
             'horaSaida' => $validatedData['horaSaida'],
-            'setorResponsavelPessoa' => $validatedData['setorResponsavelPessoa']
+            'setorResponsavelPessoa' => strtoupper($validatedData['setorResponsavelPessoa'])
         ]);
 
         return response()->json([
