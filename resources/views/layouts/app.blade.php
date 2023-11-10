@@ -20,8 +20,11 @@
 
 
     <!-- Prod -->
+        <link rel="stylesheet" href="{{ asset('build/assets/build.css') }}" /> 
+        <script src="{{ asset('build/assets/build.js') }}" ></script> 
+    <!-- dev -->
 
-        <link rel="stylesheet" href="{{ asset('build/assets/build.css') }}" />  
+    <!-- @vite(['resources/css/app.scss', 'resources/js/app.js']) -->
         
         
         
@@ -47,6 +50,6 @@
 
     <!-- Prod -->
 
-        <script src="{{ asset('build/assets/build.js') }}" ></script> 
+        
     </body>
 </html>
