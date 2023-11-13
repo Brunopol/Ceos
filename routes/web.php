@@ -44,6 +44,7 @@ Route::get('/controleDeAcesso/{id}', [ControleDeAcessoController::class, 'show']
 Route::put('/controleDeAcesso/{id}', [ControleDeAcessoController::class, 'update'])->middleware(['auth', 'verified','permission:controleDeAcessos'])->name('controleDeAcessos.update');
 Route::put('/controleDeAcesso/reg/{id}', [ControleDeAcessoController::class, 'updateReg'])->middleware(['auth', 'verified','permission:controleDeAcessos'])->name('controleDeAcessos.updateReg');
 Route::delete('/controleDeAcesso/{id}', [ControleDeAcessoController::class, 'delete'])->middleware(['auth', 'verified','permission:controleDeAcessos'])->name('controleDeAcessos.delete');
+Route::get('/controleDeAcesso/getNomeAcessos/{nome}', [ControleDeAcessoController::class, 'getAcessosPeloNome'])->middleware(['auth', 'verified','permission:controleDeAcessos'])->name('controleDeAcessos.getNomes');
 
 
 Route::middleware('auth')->group(function () {

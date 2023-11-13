@@ -70,119 +70,139 @@
                                 </div>
 
                                 <form id="formAddAcesso" class="p-4">
-                                    <div class="grid grid-cols-4 gap-4">
-
-                                        <input type="text" value="" id="id" class="hidden">
+                                    <div class="grid grid-cols-2 gap-4">
 
                                         <div class="mb-4">
-                                            <label for="nome" class="block text-sm font-medium text-gray-700">
-                                                NOME
-                                            </label>
-                                            <input type="text" id="nome" name="nome"
-                                                class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                            <input type="text" value="" id="id" class="hidden">
+
+                                            <div class="mb-4">
+                                                <label for="nome" class="block text-sm font-medium text-gray-700">
+                                                    NOME
+                                                </label>
+                                                <input type="text" id="nome" name="nome" value="" autocomplete="off" oninput="pegarAcessoNomes('{{ url('') }}')"
+                                                    class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                                
+                                                <div id="divNomeAcessos" class="rounded-md py-2 px-3 max-h-60 overflow-y-auto border border-gray-300">
+
+
+                                                </div>
+                                                
+                                            </div>
+
                                         </div>
 
-                                        <div class="mb-4">
-                                            <label for="rgCpf" class="block text-sm font-medium text-gray-700">
-                                                RG ou CPF
-                                            </label>
-                                            <input type="text" id="rgCpf" name="rgCpf"
-                                                class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
-                                        </div>
+                                        <div class="grid grid-cols-2 gap-4">
 
-                                        <div class="mb-4">
-                                            <label for="transportadora" class="block text-sm font-medium text-gray-700">
-                                                EMPRESA
-                                            </label>
-                                            <input type="text" id="transportadora" name="transportadora"
-                                                class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
-                                        </div>
+                                            <div class="mb-4">
+                                                <label for="rgCpf" class="block text-sm font-medium text-gray-700">
+                                                    RG ou CPF
+                                                </label>
+                                                <input type="text" id="rgCpf" name="rgCpf"
+                                                    class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                            </div>
 
-                                        <div class="mb-4">
-                                            <label for="pessoaResponsavel"
-                                                class="block text-sm font-medium text-gray-700">
-                                                PESSOA RESPONSÁVEL
-                                            </label>
-                                            <input type="text" id="pessoaResponsavel" name="pessoaResponsavel"
-                                                class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
-                                        </div>
+                                            <div class="mb-4">
+                                                <label for="transportadora" class="block text-sm font-medium text-gray-700">
+                                                    EMPRESA
+                                                </label>
+                                                <input type="text" id="transportadora" name="transportadora"
+                                                    class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                            </div>
 
-                                        <div class="mb-4">
-                                            <label for="setorResponsavel"
-                                                class="block text-sm font-medium text-gray-700">
-                                                SETOR RESPONSÁVEL
-                                            </label>
-                                            <input type="text" id="setorResponsavel" name="setorResponsavel"
-                                                class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
-                                        </div>
+                                            <div class="mb-4">
+                                                <label for="setorResponsavel"
+                                                    class="block text-sm font-medium text-gray-700">
+                                                    SETOR RESPONSÁVEL
+                                                </label>
+                                                <input type="text" id="setorResponsavel" name="setorResponsavel"
+                                                    class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                            </div>
 
-                                        <div class="mb-4 hidden" id="placaDiv">
-                                            <label for="placa" class="block text-sm font-medium text-gray-700">
-                                                PLACA
-                                            </label>
-                                            <input type="text" id="placa" name="placa"
-                                                class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
-                                        </div>
+                                            <div class="mb-4">
+                                                <label for="pessoaResponsavel"
+                                                    class="block text-sm font-medium text-gray-700">
+                                                    PESSOA RESPONSÁVEL
+                                                </label>
+                                                <input type="text" id="pessoaResponsavel" name="pessoaResponsavel"
+                                                    class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                            </div>
 
-                                        <div class="mb-4 hidden" id="horaSaidaDiv">
-                                            <label for="horaSaida" class="block text-sm font-medium text-gray-700">
-                                                HORA SAÍDA
-                                            </label>
-                                            <input type="time" id="horaSaida" name="horaSaida"
-                                                class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
-                                        </div>
+                                            <div class="mb-4 " id="placaDiv">
+                                                <label for="placa" class="block text-sm font-medium text-gray-700">
+                                                    PLACA
+                                                </label>
+                                                <input type="text" id="placa" name="placa"
+                                                    class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                            </div>
 
-                                        <div class="mb-4 hidden" id="horaEntradaDiv">
-                                            <label for="horaEntrada" class="block text-sm font-medium text-gray-700">
-                                                HORA ENTRADA
-                                            </label>
-                                            <input type="time" id="horaEntrada" name="horaEntrada"
-                                                class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
-                                        </div>
+                                            <div class="mb-4 " id="placaDiv">
+                                                <label for="placa" class="block text-sm font-medium text-gray-700">
+                                                    USUÁRIO
+                                                </label>
+                                                <input type="text" value="NÃO FUNC AINDA" readonly
+                                                    class="bg-gray-200 w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                            </div>
 
-                                        <!-- Error Message -->
-                                        <div id="errorMessage" class="bg-red-500 text-white p-2 rounded-md mb-4 hidden">
-                                            <span>Error, preencha corretamente todos os campos</span>
+                                            <div class="mb-4 " id="horaSaidaDiv">
+                                                <label for="horaSaida" class="block text-sm font-medium text-gray-700">
+                                                    HORA SAÍDA
+                                                </label>
+                                                <input type="time" id="horaSaida" name="horaSaida"
+                                                    class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                            </div>
+
+                                            <div class="mb-4 " id="horaEntradaDiv">
+                                                <label for="horaEntrada" class="block text-sm font-medium text-gray-700">
+                                                    HORA ENTRADA
+                                                </label>
+                                                <input type="time" id="horaEntrada" name="horaEntrada"
+                                                    class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                            </div>
+
+                                            <!-- Error Message -->
+                                            <div id="errorMessage" class="bg-red-500 text-white p-2 rounded-md mb-4 hidden">
+                                                <span>Error, preencha corretamente todos os campos</span>
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <!-- Buttons -->
+                                        <!-- Buttons -->
 
 
-                                    <div class="p-5 border-t border-slate-200 rounded-b">
-                                        <div class="grid grid-cols-1 md:grid-cols-1 md:grid-rows-3 md:gap-3">
-                                            <label class="inline-flex items-center">
-                                                <input id="cbCarro" type="checkbox" onclick="checkBoxToggleCarro()"
-                                                    class="form-checkbox h-5 w-5 text-emerald-500">
-                                                <span class="ml-2 text-gray-800">CARRO</span>
-                                            </label>
-                                            <label class="inline-flex items-center">
-                                                <input id="cbHoraSaida" type="checkbox"
-                                                    onclick="checkBoxToggleHoraSaida()"
-                                                    class="form-checkbox h-5 w-5 text-emerald-500">
-                                                <span class="ml-2 text-gray-800">HORÁRIO SAÍDA</span>
-                                            </label>
-                                            <label class="inline-flex items-center">
-                                                <input id="cbHoraEntrada" type="checkbox"
-                                                    onclick="checkBoxToggleHoraEntrada()"
-                                                    class="form-checkbox h-5 w-5 text-emerald-500">
-                                                <span class="ml-2 text-gray-800">HORÁRIO ENTRADA</span>
-                                            </label>
+                                        <div class="p-5 border-t border-slate-200 rounded-b">
+                                            <div class="grid grid-cols-1 md:grid-cols-1 md:grid-rows-3 md:gap-3">
+                                                <label class="inline-flex items-center">
+                                                    <input id="cbCarro" type="checkbox" onclick="checkBoxToggleCarro()"
+                                                        class="form-checkbox h-5 w-5 text-emerald-500">
+                                                    <span class="ml-2 text-gray-800">PLACA</span>
+                                                </label>
+                                                <label class="inline-flex items-center">
+                                                    <input id="cbHoraSaida" type="checkbox"
+                                                        onclick="checkBoxToggleHoraSaida()"
+                                                        class="form-checkbox h-5 w-5 text-emerald-500">
+                                                    <span class="ml-2 text-gray-800">HORÁRIO SAÍDA</span>
+                                                </label>
+                                                <label class="inline-flex items-center">
+                                                    <input id="cbHoraEntrada" type="checkbox"
+                                                        onclick="checkBoxToggleHoraEntrada()"
+                                                        class="form-checkbox h-5 w-5 text-emerald-500">
+                                                    <span class="ml-2 text-gray-800">HORÁRIO ENTRADA</span>
+                                                </label>
+                                            </div>
+                                            <div class="flex justify-end mt-3">
+                                                <button
+                                                    class="text-red-500 font-bold text-sm mr-3 focus:outline-none hover:text-red-700"
+                                                    type="button" onclick="closeModal('modal-id-add')">FECHAR</button>
+                                                <button id="adicionarButton"
+                                                    class="hidden bg-emerald-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
+                                                    onclick="adicionarAcesso(event, '{{ url('') }}')">ADICIONAR</button>
+
+                                                <button id="atualizarButton"
+                                                    class="hidden bg-emerald-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
+                                                    onclick="atualizarAcesso(event, '{{ url('') }}')">ATUALIZAR</button>
+                                            </div>
                                         </div>
-                                        <div class="flex justify-end mt-3">
-                                            <button
-                                                class="text-red-500 font-bold text-sm mr-3 focus:outline-none hover:text-red-700"
-                                                type="button" onclick="closeModal('modal-id-add')">FECHAR</button>
-                                            <button id="adicionarButton"
-                                                class="hidden bg-emerald-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
-                                                onclick="adicionarAcesso(event, '{{ url('') }}')">ADICIONAR</button>
-
-                                            <button id="atualizarButton"
-                                                class="hidden bg-emerald-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
-                                                onclick="atualizarAcesso(event, '{{ url('') }}')">ATUALIZAR</button>
-                                        </div>
-                                    </div>
-
+                                    
 
                                 </form>
                             </div>

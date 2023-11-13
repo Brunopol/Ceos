@@ -149,4 +149,31 @@ class ControleDeAcessoController extends Controller
 
         return response()->json($acesso);
     }
+
+
+    //search api
+
+    public function getAcessosPeloNome($nome)
+    {
+
+        $query = $nome;
+
+        // Replace this logic with your actual database query to get MOVIMENTO suggestions
+
+        try {
+
+            $suggestions = Controle_de_acesso::where('nome', 'like', '%' . $query . '%')->pluck('nome');
+            return response()->json($suggestions);
+
+
+        } catch (\Exception $e) {
+            return response()->json('null');
+        }
+
+
+
+    }
+
+
+
 }

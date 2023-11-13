@@ -96,37 +96,39 @@ function checkBoxToggleHoraEntrada () {
 // Functions for the checkboxes
 
 function showCarro () {
-    var placaDiv = $('#placaDiv')
-    placaDiv.removeClass('hidden')
+    var placaDiv = $('#placa')
+    placaDiv.prop('readonly', false)
+    placaDiv.removeClass('bg-gray-200')
 }
 
 function hideCarro () {
-    var placaDiv = $('#placaDiv')
-    placaDiv.addClass('hidden')
+    var placaDiv = $('#placa')
+    placaDiv.prop('readonly', true)
+    placaDiv.addClass('bg-gray-200')
 }
 
 function showHoraSaida () {
-    var horaSaidaDiv = $('#horaSaidaDiv')
-
-    horaSaidaDiv.removeClass('hidden')
+    var horaSaidaDiv = $('#horaSaida')
+    horaSaidaDiv.prop('readonly', true)
+    horaSaidaDiv.removeClass('bg-gray-200')
 }
 
 function hideHoraSaida () {
-    var horaSaidaDiv = $('#horaSaidaDiv')
-
-    horaSaidaDiv.addClass('hidden')
+    var horaSaidaDiv = $('#horaSaida')
+    horaSaidaDiv.prop('readonly', true)
+    horaSaidaDiv.addClass('bg-gray-200')
 }
 
 function showHoraEntrada () {
-    var horaEntradaDiv = $('#horaEntradaDiv')
-
-    horaEntradaDiv.removeClass('hidden')
+    var horaEntradaDiv = $('#horaEntrada')
+    horaEntradaDiv.prop('readonly', true)
+    horaEntradaDiv.removeClass('bg-gray-200')
 }
 
 function hideHoraEntrada () {
-    var horaEntradaDiv = $('#horaEntradaDiv')
-
-    horaEntradaDiv.addClass('hidden')
+    var horaEntradaDiv = $('#horaEntrada')
+    horaEntradaDiv.prop('readonly', true)
+    horaEntradaDiv.addClass('bg-gray-200')
 }
 
 function setCurrentTime (id) {
@@ -170,7 +172,7 @@ function adicionarAcesso (event, url) {
             console.log(response.message)
             closeModal('modal-id-add')
             $('#formAddAcesso')[0].reset()
-            location.reload();
+            location.reload()
         },
         error: function (error) {
             console.log(error.responseJSON.message)
@@ -207,7 +209,7 @@ function atualizarAcesso (event, url) {
             console.log(response.message)
             closeModal('modal-id-add')
             $('#formAddAcesso')[0].reset()
-            location.reload();
+            location.reload()
         },
         error: function (error) {
             console.log(error.responseJSON.message)
@@ -296,5 +298,72 @@ function registrarSaidaAcesso (event, url) {
             console.log(error.responseJSON.message)
         }
     })
+}
 
+//get nomes
+
+function pegarAcessoNomes (url) {
+    let query = $('#nome').val()
+    console.log('im here')
+    fetchSuggestions(url, query)
+}
+
+function fetchSuggestions (url, query) {
+    url = url + '/controleDeAcesso/getNomeAcessos/' + query
+
+    $.ajax({
+        url: url,
+        method: 'GET',
+        success: function (data) {
+            updateDatalist(data)
+        },
+        error: function (error) {
+            console.error('Error fetching data:', error)
+        }
+    })
+}
+
+function updateDatalist (suggestions) {
+    let datalist = $('#divNomeAcessos')
+
+    // Remove existing child elements
+    datalist.empty()
+
+    // Check if suggestions is an array
+    if (Array.isArray(suggestions)) {
+        // Create a new <ul> and append <li> elements
+
+        datalist.append(
+            '<ul id="suggestionsList" class="border rounded-md overflow-hidden shadow-md">'
+        )
+
+        suggestions.forEach(function (suggestion) {
+            datalist
+                .find('#suggestionsList')
+                .append(
+                    `<li class="suggestion-item py-2 px-4 cursor-pointer hover:bg-gray-100">${suggestion}</li>`
+                )
+        })
+
+        datalist.append('</ul>')
+
+        // Event delegation for click event
+        datalist.on('click', '.suggestion-item', function () {
+            var selectedValue = $(this).text()
+            preencherDados(selectedValue)
+        })
+
+        // Append the new <ul> to the div
+    } else {
+        console.error('Invalid suggestions data:', suggestions)
+    }
+
+
+
+
+}
+
+
+function preencherDados(selectedValue) {
+   
 }

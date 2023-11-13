@@ -59,18 +59,31 @@ class EncaixeController extends Controller
         //$responseAPIMOD = $curl->to("https://mod.ufoway.com.br/api.php?ref2=" . $encaixe->referencia)
                         //->get();
         //$responseAPIMOD = Http::withOptions(['verify' => false])->get("https://mod.ufoway.com.br/api.php?ref2=" . $encaixe->referencia);
-        
-            $responseAPIMOD = DB::connection('modelagem_db')
-            ->table('registro_ufo')
-            ->select('*')
-            ->where('referencia', '=', $encaixe->referencia)
-            ->get();
-        
+            
+            
+
+            try {
+
+                $responseAPIMOD = DB::connection('modelagem_db')
+                ->table('registro_ufo')
+                ->select('*')
+                ->where('referencia', '=', $encaixe->referencia)
+                ->get();
+
+            } catch (\Exception $e) {
+                $responseAPIMOD = null;
+            }
+            
+            
+            if ($responseAPIMOD != null) {
+                
+                $responseAPIMODjson = $responseAPIMOD;
+
+                $encaixe->modelagemData = $responseAPIMODjson;
+            }
 
 
-        $responseAPIMODjson = $responseAPIMOD;
-
-        $encaixe->modelagemData = $responseAPIMODjson;
+       
 
 
         return response()->json($encaixe);
