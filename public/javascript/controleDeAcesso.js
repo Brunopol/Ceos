@@ -109,7 +109,7 @@ function hideCarro () {
 
 function showHoraSaida () {
     var horaSaidaDiv = $('#horaSaida')
-    horaSaidaDiv.prop('readonly', true)
+    horaSaidaDiv.prop('readonly', false)
     horaSaidaDiv.removeClass('bg-gray-200')
 }
 
@@ -121,7 +121,7 @@ function hideHoraSaida () {
 
 function showHoraEntrada () {
     var horaEntradaDiv = $('#horaEntrada')
-    horaEntradaDiv.prop('readonly', true)
+    horaEntradaDiv.prop('readonly', false)
     horaEntradaDiv.removeClass('bg-gray-200')
 }
 
@@ -217,7 +217,11 @@ function atualizarAcesso (event, url) {
     })
 }
 
-function mostrarAcesso (url) {
+function mostrarAcesso (url, list) {
+
+    let datalist = $('#divNomeAcessos')
+    datalist.empty();
+
     $.ajax({
         url: url,
         type: 'GET',
@@ -227,10 +231,26 @@ function mostrarAcesso (url) {
         success: function (response) {
             console.log(response)
 
-            $('#formAddAcesso')[0].reset()
-            toggleModal('modal-id-add', true)
+            if (!list) {
+                $('#formAddAcesso')[0].reset()
+                toggleModal('modal-id-add', true)
 
-            checkBoxes(response)
+                $('#id').val(response.id)
+                $('#horaEntrada').val(response.horaEntrada)
+                $('#horaSaida').val(response.horaSaida)
+                checkBoxes(response)
+            }
+
+            var cbCarro = $('#cbCarro')
+            if (response.placa) {
+                showCarro()
+                cbCarro.prop('checked', true)
+            } else {
+                hideCarro()
+                cbCarro.prop('checked', false)
+            }
+
+            
 
             $('#nome').val(response.nome)
             $('#rgCpf').val(response.rgCpf)
@@ -238,11 +258,10 @@ function mostrarAcesso (url) {
             $('#setorResponsavel').val(response.setorResponsavel)
             $('#pessoaResponsavel').val(response.pessoaResponsavel)
 
-            $('#horaEntrada').val(response.horaEntrada)
-            $('#horaSaida').val(response.horaSaida)
+           
             $('#placa').val(response.placa)
 
-            $('#id').val(response.id)
+            
         },
         error: function (error) {
             console.log(error)
@@ -315,6 +334,7 @@ function fetchSuggestions (url, query) {
         url: url,
         method: 'GET',
         success: function (data) {
+            console.log(data);
             updateDatalist(data)
         },
         error: function (error) {
@@ -331,27 +351,35 @@ function updateDatalist (suggestions) {
 
     // Check if suggestions is an array
     if (Array.isArray(suggestions)) {
-        // Create a new <ul> and append <li> elements
+        
+        
+
+        let uniqueNamesSet = new Set();
+
+        // Use filter to create a new array with unique objects based on 'nome'
+        let uniqueSuggestions = suggestions.filter(obj => {
+            if (!uniqueNamesSet.has(obj.nome)) {
+                uniqueNamesSet.add(obj.nome);
+                return true;
+            }
+            return false;
+        });
+
 
         datalist.append(
             '<ul id="suggestionsList" class="border rounded-md overflow-hidden shadow-md">'
         )
 
-        suggestions.forEach(function (suggestion) {
+        uniqueSuggestions.forEach(function (suggestion) {
             datalist
                 .find('#suggestionsList')
                 .append(
-                    `<li class="suggestion-item py-2 px-4 cursor-pointer hover:bg-gray-100">${suggestion}</li>`
+                    `<li onclick="preencherDados(${suggestion.id})" class="py-2 px-4 cursor-pointer hover:bg-gray-100">${suggestion.nome}</li>`
                 )
         })
 
         datalist.append('</ul>')
 
-        // Event delegation for click event
-        datalist.on('click', '.suggestion-item', function () {
-            var selectedValue = $(this).text()
-            preencherDados(selectedValue)
-        })
 
         // Append the new <ul> to the div
     } else {
@@ -364,6 +392,12 @@ function updateDatalist (suggestions) {
 }
 
 
-function preencherDados(selectedValue) {
-   
+function preencherDados(id) {
+
+   let currentURL = window.location.href;
+
+    let url = currentURL + '/' + id
+
+   mostrarAcesso(url, true)
+
 }

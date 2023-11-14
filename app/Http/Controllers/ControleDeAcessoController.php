@@ -162,7 +162,7 @@ class ControleDeAcessoController extends Controller
 
         try {
 
-            $suggestions = Controle_de_acesso::where('nome', 'like', '%' . $query . '%')->pluck('nome');
+            $suggestions = Controle_de_acesso::where('nome', 'like', '%' . $query . '%')->select('id', 'nome')->get();
             return response()->json($suggestions);
 
 
