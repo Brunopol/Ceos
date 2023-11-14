@@ -293,7 +293,7 @@
             columns: [{
                     data: 'created_at',
                     orderable: true
-                },
+                }, 
                 {
                     data: 'horaEntrada',
                     orderable: true
@@ -355,6 +355,10 @@
                     orderable: false
                 }
                 
+            ],
+            order: [
+                
+                [2, 'asc']
             ],
 
             "language": {
