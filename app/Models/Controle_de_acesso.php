@@ -16,6 +16,7 @@ class Controle_de_acesso extends Model
         'placa',
         'horaEntrada',
         'horaSaida',
+        'dataSaida',
         'setorResponsavel',
         'pessoaResponsavel'
     ];

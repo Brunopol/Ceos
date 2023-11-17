@@ -145,6 +145,16 @@ function setCurrentTime (id) {
     horaEntradaInput.value = formattedTime
 }
 
+function setCurrentDate(id) {
+    var dataEntradaInput = document.getElementById(id);
+    var currentDate = new Date();
+    
+    // Format the date as "yyyy-MM-dd"
+    var formattedDate = currentDate.toISOString().split('T')[0];
+    
+    dataEntradaInput.value = formattedDate;
+}
+
 //ajax add acesso
 
 function adicionarAcesso (event, url) {
@@ -290,6 +300,7 @@ function registrarHoraSaida (id) {
     toggleModal('modal-id-reg')
     $('#idReg').val(id)
     setCurrentTime('horaSaidaReg')
+    setCurrentDate('dataSaidaReg')
 }
 
 function registrarSaidaAcesso (event, url) {

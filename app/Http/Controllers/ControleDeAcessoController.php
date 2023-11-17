@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Controle_de_acesso;
 use App\Models\Encaixe;
+use DateTime;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 
 class ControleDeAcessoController extends Controller
@@ -22,6 +24,13 @@ class ControleDeAcessoController extends Controller
 
             $data = [];
             foreach ($acessos as $acesso) {
+
+                $dataSaida = null;
+                if ($acesso->dataSaida != null) {
+                    $dateTime = new DateTime($acesso->dataSaida);
+                    $dataSaida = $dateTime->format('d/m/Y');
+                }
+
                 $row = [
                     'created_at' => $acesso->created_at->toISOString(),
                     'nome' => $acesso->nome,
@@ -38,7 +47,8 @@ class ControleDeAcessoController extends Controller
                     'actions' => [
                         'url_show' => route('controleDeAcessos.show', $acesso->id),
                         'url_delete' => route('controleDeAcessos.delete', $acesso->id)
-                    ]
+                    ],
+                    'dataSaida' => $dataSaida
                 ];
 
                 $data[] = $row;
@@ -94,6 +104,7 @@ class ControleDeAcessoController extends Controller
             'horaSaida' => 'nullable',
             'pessoaResponsavel' => 'nullable',
             'setorResponsavel' => 'nullable',
+            'dataSaida' => 'nullable'
         ]);
 
         $acesso = Controle_de_acesso::find($id);
@@ -105,6 +116,7 @@ class ControleDeAcessoController extends Controller
             'placa' => strtoupper($validatedData['placa']),
             'horaEntrada' => $validatedData['horaEntrada'],
             'horaSaida' => $validatedData['horaSaida'],
+            'dataSaida' => $validatedData['dataSaida'],
             'pessoaResponsavel' => strtoupper($validatedData['pessoaResponsavel']),
             'setorResponsavel' => strtoupper($validatedData['setorResponsavel']),
         ]);
@@ -118,13 +130,18 @@ class ControleDeAcessoController extends Controller
     {
 
         $validatedData = $request->validate([
-            'horaSaida' => 'nullable'
+            'horaSaida' => 'nullable',
+            'dataSaida' => 'nullable'
         ]);
+
+
+        Log::debug($validatedData['dataSaida']);
 
         $acesso = Controle_de_acesso::find($id);
 
         $acesso->update([
-            'horaSaida' => $validatedData['horaSaida']
+            'horaSaida' => $validatedData['horaSaida'],
+            'dataSaida' => $validatedData['dataSaida']
         ]);
 
         return response()->json([

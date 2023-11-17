@@ -38,7 +38,7 @@
                                 <th>AÇÕES</th>
                                 <th class="none">PESSOA RESPONSÁVEL</th>
                                 <th class="none">SETOR RESPONSÁVEL</th>
-                                
+
                             </tr>
                         </thead>
                         <tbody>
@@ -79,14 +79,16 @@
                                                 <label for="nome" class="block text-sm font-medium text-gray-700">
                                                     NOME
                                                 </label>
-                                                <input type="text" id="nome" name="nome" value="" autocomplete="off" oninput="pegarAcessoNomes('{{ url('') }}')"
+                                                <input type="text" id="nome" name="nome" value=""
+                                                    autocomplete="off" oninput="pegarAcessoNomes('{{ url('') }}')"
                                                     class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
-                                                
-                                                <div id="divNomeAcessos" class="rounded-md py-2 px-3 max-h-60 overflow-y-auto border border-gray-300">
+
+                                                <div id="divNomeAcessos"
+                                                    class="rounded-md py-2 px-3 max-h-60 overflow-y-auto border border-gray-300">
 
 
                                                 </div>
-                                                
+
                                             </div>
 
                                         </div>
@@ -102,7 +104,8 @@
                                             </div>
 
                                             <div class="mb-4">
-                                                <label for="transportadora" class="block text-sm font-medium text-gray-700">
+                                                <label for="transportadora"
+                                                    class="block text-sm font-medium text-gray-700">
                                                     EMPRESA
                                                 </label>
                                                 <input type="text" id="transportadora" name="transportadora"
@@ -152,7 +155,8 @@
                                             </div>
 
                                             <div class="mb-4 " id="horaEntradaDiv">
-                                                <label for="horaEntrada" class="block text-sm font-medium text-gray-700">
+                                                <label for="horaEntrada"
+                                                    class="block text-sm font-medium text-gray-700">
                                                     HORA ENTRADA
                                                 </label>
                                                 <input type="time" id="horaEntrada" name="horaEntrada"
@@ -160,49 +164,50 @@
                                             </div>
 
                                             <!-- Error Message -->
-                                            <div id="errorMessage" class="bg-red-500 text-white p-2 rounded-md mb-4 hidden">
+                                            <div id="errorMessage"
+                                                class="bg-red-500 text-white p-2 rounded-md mb-4 hidden">
                                                 <span>Error, preencha corretamente todos os campos</span>
                                             </div>
                                         </div>
                                     </div>
 
-                                        <!-- Buttons -->
+                                    <!-- Buttons -->
 
 
-                                        <div class="p-5 border-t border-slate-200 rounded-b">
-                                            <div class="grid grid-cols-1 md:grid-cols-1 md:grid-rows-3 md:gap-3">
-                                                <label class="inline-flex items-center">
-                                                    <input id="cbCarro" type="checkbox" onclick="checkBoxToggleCarro()"
-                                                        class="form-checkbox h-5 w-5 text-emerald-500">
-                                                    <span class="ml-2 text-gray-800">PLACA</span>
-                                                </label>
-                                                <label class="inline-flex items-center">
-                                                    <input id="cbHoraSaida" type="checkbox"
-                                                        onclick="checkBoxToggleHoraSaida()"
-                                                        class="form-checkbox h-5 w-5 text-emerald-500">
-                                                    <span class="ml-2 text-gray-800">HORÁRIO SAÍDA</span>
-                                                </label>
-                                                <label class="inline-flex items-center">
-                                                    <input id="cbHoraEntrada" type="checkbox"
-                                                        onclick="checkBoxToggleHoraEntrada()"
-                                                        class="form-checkbox h-5 w-5 text-emerald-500">
-                                                    <span class="ml-2 text-gray-800">HORÁRIO ENTRADA</span>
-                                                </label>
-                                            </div>
-                                            <div class="flex justify-end mt-3">
-                                                <button
-                                                    class="text-red-500 font-bold text-sm mr-3 focus:outline-none hover:text-red-700"
-                                                    type="button" onclick="closeModal('modal-id-add')">FECHAR</button>
-                                                <button id="adicionarButton"
-                                                    class="hidden bg-emerald-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
-                                                    onclick="adicionarAcesso(event, '{{ url('') }}')">ADICIONAR</button>
-
-                                                <button id="atualizarButton"
-                                                    class="hidden bg-emerald-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
-                                                    onclick="atualizarAcesso(event, '{{ url('') }}')">ATUALIZAR</button>
-                                            </div>
+                                    <div class="p-5 border-t border-slate-200 rounded-b">
+                                        <div class="grid grid-cols-1 md:grid-cols-1 md:grid-rows-3 md:gap-3">
+                                            <label class="inline-flex items-center">
+                                                <input id="cbCarro" type="checkbox" onclick="checkBoxToggleCarro()"
+                                                    class="form-checkbox h-5 w-5 text-emerald-500">
+                                                <span class="ml-2 text-gray-800">PLACA</span>
+                                            </label>
+                                            <label class="inline-flex items-center">
+                                                <input id="cbHoraSaida" type="checkbox"
+                                                    onclick="checkBoxToggleHoraSaida()"
+                                                    class="form-checkbox h-5 w-5 text-emerald-500">
+                                                <span class="ml-2 text-gray-800">HORÁRIO SAÍDA</span>
+                                            </label>
+                                            <label class="inline-flex items-center">
+                                                <input id="cbHoraEntrada" type="checkbox"
+                                                    onclick="checkBoxToggleHoraEntrada()"
+                                                    class="form-checkbox h-5 w-5 text-emerald-500">
+                                                <span class="ml-2 text-gray-800">HORÁRIO ENTRADA</span>
+                                            </label>
                                         </div>
-                                    
+                                        <div class="flex justify-end mt-3">
+                                            <button
+                                                class="text-red-500 font-bold text-sm mr-3 focus:outline-none hover:text-red-700"
+                                                type="button" onclick="closeModal('modal-id-add')">FECHAR</button>
+                                            <button id="adicionarButton"
+                                                class="hidden bg-emerald-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
+                                                onclick="adicionarAcesso(event, '{{ url('') }}')">ADICIONAR</button>
+
+                                            <button id="atualizarButton"
+                                                class="hidden bg-emerald-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
+                                                onclick="atualizarAcesso(event, '{{ url('') }}')">ATUALIZAR</button>
+                                        </div>
+                                    </div>
+
 
                                 </form>
                             </div>
@@ -237,6 +242,14 @@
                                 <form id="formRegistrarSaida" class="p-4">
 
                                     <input type="text" value="" id="idReg" class="hidden">
+
+                                    <div class="mb-4" id="">
+                                        <label for="horaSaida" class="block text-sm font-medium text-gray-700">
+                                            DATA SAÍDA
+                                        </label>
+                                        <input type="date" id="dataSaidaReg" name="dataSaida"
+                                            class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                    </div>
 
                                     <div class="mb-4" id="">
                                         <label for="horaSaida" class="block text-sm font-medium text-gray-700">
@@ -283,17 +296,29 @@
                         return new Date(data).toLocaleDateString();
                     }
                 },
-                
-                { "width": "20%", "targets": 3 },
-                { "width": "20%", "targets": 4 },
-                { "width": "20%", "targets": 5 },
-                { "width": "20%", "targets": 6 },
+
+                {
+                    "width": "20%",
+                    "targets": 3
+                },
+                {
+                    "width": "20%",
+                    "targets": 4
+                },
+                {
+                    "width": "20%",
+                    "targets": 5
+                },
+                {
+                    "width": "20%",
+                    "targets": 6
+                },
 
             ],
             columns: [{
                     data: 'created_at',
                     orderable: true
-                }, 
+                },
                 {
                     data: 'horaEntrada',
                     orderable: true
@@ -308,6 +333,17 @@
                             return `<button onclick="registrarHoraSaida(${row.horaSaida.id})" class="bg-yellow-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
                                      Registrar
                                     </button>`
+                        }
+
+                        var createdDate = new Date(row.created_at);
+                        var formattedCreatedDate =
+                            `${createdDate.getDate()}/${createdDate.getMonth() + 1}/${createdDate.getFullYear()}`;
+
+                        console.log(formattedCreatedDate);
+                        console.log(row.dataSaida);
+
+                        if (row.dataSaida != formattedCreatedDate && row.dataSaida != null) {
+                            return `${row.dataSaida} às ${data}`;
                         }
 
                         return data
@@ -354,10 +390,10 @@
                     data: 'setorResponsavel',
                     orderable: false
                 }
-                
+
             ],
             order: [
-                
+
                 [2, 'asc']
             ],
 
