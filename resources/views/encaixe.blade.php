@@ -43,10 +43,10 @@
                             style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>referencia</th>
-                                    <th>tecidos</th>
-                                    <th>created_at</th>
-                                    <th>actions</th>
+                                    <th>REFERENCIA</th>
+                                    <th>TECIDOS</th>
+                                    <th>CRIADO EM</th>
+                                    <th>AÇÕES</th>
                                 </tr>
                             </thead>
                             <tbody>
