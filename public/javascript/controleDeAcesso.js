@@ -330,11 +330,63 @@ function registrarSaidaAcesso (event, url) {
     })
 }
 
+
+function buscarempresas(url) {
+    let query = $('#transportadora').val()
+    fetchSuggestionsEmpresas(url, query);
+}
+
+function fetchSuggestionsEmpresas (url, query) {
+    url = url + '/controleDeAcesso/getEmpresasAcessos/' + query
+
+    $.ajax({
+        url: url,
+        method: 'GET',
+        success: function (data) {
+            updateDatalistEmpresas(data)
+        },
+        error: function (error) {
+            console.error('Error fetching data:', error)
+        }
+    })
+}
+
+function updateDatalistEmpresas(suggestions) {
+    let datalist = $('#empresasDatalist');
+    datalist.empty()
+
+    if (Array.isArray(suggestions)) {
+        
+        
+
+        let uniqueNamesSet = new Set();
+
+        // Use filter to create a new array with unique objects based on 'nome'
+        let uniqueSuggestions = suggestions.filter(obj => {
+            if (!uniqueNamesSet.has(obj.transportadora)) {
+                uniqueNamesSet.add(obj.transportadora);
+                return true;
+            }
+            return false;
+        });
+
+        uniqueSuggestions.forEach(function (suggestion) {
+
+            console.log(suggestion);
+
+            datalist.append(`<option value="${suggestion.transportadora}">`)
+
+        })
+
+    }
+
+}
+
+
 //get nomes
 
 function pegarAcessoNomes (url) {
     let query = $('#nome').val()
-    console.log('im here')
     fetchSuggestions(url, query)
 }
 
@@ -345,7 +397,6 @@ function fetchSuggestions (url, query) {
         url: url,
         method: 'GET',
         success: function (data) {
-            console.log(data);
             updateDatalist(data)
         },
         error: function (error) {
@@ -402,7 +453,6 @@ function updateDatalist (suggestions) {
 
 }
 
-
 function preencherDados(id) {
 
    let currentURL = window.location.href;
@@ -412,3 +462,4 @@ function preencherDados(id) {
    mostrarAcesso(url, true)
 
 }
+

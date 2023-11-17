@@ -191,6 +191,19 @@ class ControleDeAcessoController extends Controller
 
     }
 
+    public function getAcessosPelaEmpresa($empresa)
+{
+    $query = $empresa;
+
+    try {
+        $suggestions = Controle_de_acesso::where('transportadora', 'like', '%' . $query . '%')->get(['transportadora']);
+        return response()->json($suggestions);
+    } catch (\Exception $e) {
+        return response()->json(null);
+    }
+}
+
+
 
 
 }

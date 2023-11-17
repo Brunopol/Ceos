@@ -108,8 +108,11 @@
                                                     class="block text-sm font-medium text-gray-700">
                                                     EMPRESA
                                                 </label>
-                                                <input type="text" id="transportadora" name="transportadora"
-                                                    class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                                <input type="text" id="transportadora" name="transportadora" list="empresasDatalist" oninput="buscarempresas('{{ url('') }}')"
+                                                    class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400" autocomplete="off">
+                                                <datalist id="empresasDatalist">
+                                                   
+                                                </datalist>
                                             </div>
 
                                             <div class="mb-4">
