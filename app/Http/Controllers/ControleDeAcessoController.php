@@ -223,4 +223,30 @@ class ControleDeAcessoController extends Controller
             return response()->json(null);
         }
     }
+
+    public function getAcessosPelaPessoa($pessoa, $setor)
+    {
+        if ($pessoa == '*') {
+            try {
+                $suggestions = Controle_de_acesso::where('setorResponsavel', 'like', $setor)->get(['pessoaResponsavel']);
+                return response()->json($suggestions);
+            } catch (\Exception $e) {
+                return response()->json(null);
+            }
+        }
+
+
+        $pessoaQuery = '%' . $pessoa . '%';
+        $setorQuery = '%' . $setor . '%';
+
+        try {
+            $suggestions = Controle_de_acesso::where('pessoaResponsavel', 'like', $pessoaQuery)
+                ->where('setorResponsavel', 'like', $setorQuery)
+                ->get(['pessoaResponsavel']);
+
+            return response()->json($suggestions);
+        } catch (\Exception $e) {
+            return response()->json(null);
+        }
+    }
 }

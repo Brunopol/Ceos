@@ -349,8 +349,7 @@
                         var formattedCreatedDate =
                             `${createdDate.getDate()}/${createdDate.getMonth() + 1}/${createdDate.getFullYear()}`;
 
-                        console.log(formattedCreatedDate);
-                        console.log(row.dataSaida);
+    
 
                         if (row.dataSaida != formattedCreatedDate && row.dataSaida != null) {
                             return `${row.dataSaida} às ${data}`;

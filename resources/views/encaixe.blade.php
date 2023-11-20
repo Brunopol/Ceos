@@ -241,7 +241,6 @@
 
                         var actionsData = data
 
-                        console.log(data);
 
                         if (data.canEdit) {
                             return `

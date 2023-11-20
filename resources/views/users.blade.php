@@ -172,7 +172,6 @@
 
         var formData = $('#updateUserForm').serialize();
         var userId = $('#userId').val();
-        console.log(formData);
 
         $.ajax({
             url: '/v4/users/' + userId,

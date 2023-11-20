@@ -163,7 +163,6 @@ function adicionarAcesso (event, url) {
     var horaEntradaInput = document.getElementById('horaEntrada')
 
     if (horaEntradaInput.value == null || horaEntradaInput.value == '') {
-        console.log('im here')
         setCurrentTime('horaEntrada')
     }
 
@@ -179,7 +178,6 @@ function adicionarAcesso (event, url) {
             'X-CSRF-TOKEN': csrfToken
         },
         success: function (response) {
-            console.log(response.message)
             closeModal('modal-id-add')
             $('#formAddAcesso')[0].reset()
             location.reload()
@@ -198,13 +196,11 @@ function atualizarAcesso (event, url) {
     var id = document.getElementById('id')
 
     if (horaEntradaInput.value == null || horaEntradaInput.value == '') {
-        console.log('im here')
         setCurrentTime('horaEntrada')
     }
 
     url = url + '/controleDeAcesso/' + id.value
 
-    console.log(url)
 
     var formData = $('#formAddAcesso').serialize()
 
@@ -216,7 +212,6 @@ function atualizarAcesso (event, url) {
             'X-CSRF-TOKEN': csrfToken
         },
         success: function (response) {
-            console.log(response.message)
             closeModal('modal-id-add')
             $('#formAddAcesso')[0].reset()
             location.reload()
@@ -238,7 +233,6 @@ function mostrarAcesso (url, list) {
             'X-CSRF-TOKEN': csrfToken
         },
         success: function (response) {
-            console.log(response)
 
             if (!list) {
                 $('#formAddAcesso')[0].reset()
@@ -313,7 +307,6 @@ function registrarSaidaAcesso (event, url) {
             'X-CSRF-TOKEN': csrfToken
         },
         success: function (response) {
-            console.log(response.message)
             closeModal('modal-id-reg')
             $('#formRegistrarSaida')[0].reset()
             location.reload()
@@ -323,6 +316,75 @@ function registrarSaidaAcesso (event, url) {
         }
     })
 }
+
+
+function buscarpessoas(url) {
+    let query = $('#pessoaResponsavel').val()
+    setor = $('#setorResponsavel').val()
+
+
+    if (query != '' || query != ' ' && setor != '' || setor != ' ') {
+
+        fetchSuggestionsPessoas(url, query)
+        
+    }
+}
+
+function fetchSuggestionsPessoas(url, query) {
+
+
+    setor = $('#setorResponsavel').val()
+
+
+    if (query == null || query == '' || query == ' ') {
+        query = '*'
+    }
+
+    if (query != null && setor != null) {
+        url = `${url}/controleDeAcesso/getPessoasAcessos/${query}/${setor}`
+
+        $.ajax({
+            url: url,
+            method: 'GET',
+            success: function (data) {
+                updateDatalistPessoas(data)
+            },
+            error: function (error) {
+                console.error('Error fetching data:', error)
+            }
+        })
+    }
+
+}
+
+function updateDatalistPessoas (suggestions) {
+    let datalist = $('#PessoaResponsavelDataList')
+    datalist.empty()
+
+
+    if (Array.isArray(suggestions)) {
+        let uniqueNamesSet = new Set()
+
+        let uniqueSuggestions = suggestions.filter(obj => {
+            if (!uniqueNamesSet.has(obj.pessoaResponsavel)) {
+                uniqueNamesSet.add(obj.pessoaResponsavel)
+                return true
+            }
+            return false
+        })
+
+        
+
+        uniqueSuggestions.forEach(function (suggestion) {
+
+            datalist.append(`<option value="${suggestion.pessoaResponsavel}">`)
+        })
+    }
+}
+
+
+
+//buscar setores
 
 function buscarsetores (url) {
     let query = $('#setorResponsavel').val()
@@ -344,9 +406,6 @@ function fetchSuggestionsSetores (url, query) {
     if (query == null || query == '' || query == ' ') {
         query = '*'
     }
-
-    console.log(query);
-    console.log(empresa);
 
     if (query != null && empresa != null) {
         url = `${url}/controleDeAcesso/getSetoresAcessos/${query}/${empresa}`
@@ -427,7 +486,6 @@ function updateDatalistEmpresas (suggestions) {
         })
 
         uniqueSuggestions.forEach(function (suggestion) {
-            console.log(suggestion)
 
             datalist.append(`<option value="${suggestion.transportadora}">`)
         })

@@ -175,7 +175,6 @@ function processJSONResponse (response) {
             movimentoUser = movimento.user.name
         }
 
-        console.log(index)
 
         //LISTA DO MOVIMENTOS (HEADER)
         var liHtml = `
