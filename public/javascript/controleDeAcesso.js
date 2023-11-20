@@ -145,14 +145,14 @@ function setCurrentTime (id) {
     horaEntradaInput.value = formattedTime
 }
 
-function setCurrentDate(id) {
-    var dataEntradaInput = document.getElementById(id);
-    var currentDate = new Date();
-    
+function setCurrentDate (id) {
+    var dataEntradaInput = document.getElementById(id)
+    var currentDate = new Date()
+
     // Format the date as "yyyy-MM-dd"
-    var formattedDate = currentDate.toISOString().split('T')[0];
-    
-    dataEntradaInput.value = formattedDate;
+    var formattedDate = currentDate.toISOString().split('T')[0]
+
+    dataEntradaInput.value = formattedDate
 }
 
 //ajax add acesso
@@ -228,9 +228,8 @@ function atualizarAcesso (event, url) {
 }
 
 function mostrarAcesso (url, list) {
-
     let datalist = $('#divNomeAcessos')
-    datalist.empty();
+    datalist.empty()
 
     $.ajax({
         url: url,
@@ -260,18 +259,13 @@ function mostrarAcesso (url, list) {
                 cbCarro.prop('checked', false)
             }
 
-            
-
             $('#nome').val(response.nome)
             $('#rgCpf').val(response.rgCpf)
             $('#transportadora').val(response.transportadora)
             $('#setorResponsavel').val(response.setorResponsavel)
             $('#pessoaResponsavel').val(response.pessoaResponsavel)
 
-           
             $('#placa').val(response.placa)
-
-            
         },
         error: function (error) {
             console.log(error)
@@ -330,10 +324,75 @@ function registrarSaidaAcesso (event, url) {
     })
 }
 
+function buscarsetores (url) {
+    let query = $('#setorResponsavel').val()
+    empresa = $('#transportadora').val()
 
-function buscarempresas(url) {
+
+    if (query != '' || query != ' ' && empresa != '' || empresa != ' ') {
+
+        fetchSuggestionsSetores(url, query)
+        
+    }
+
+}
+
+function fetchSuggestionsSetores (url, query) {
+    empresa = $('#transportadora').val()
+
+
+    if (query == null || query == '' || query == ' ') {
+        query = '*'
+    }
+
+    console.log(query);
+    console.log(empresa);
+
+    if (query != null && empresa != null) {
+        url = `${url}/controleDeAcesso/getSetoresAcessos/${query}/${empresa}`
+
+        $.ajax({
+            url: url,
+            method: 'GET',
+            success: function (data) {
+                updateDatalistSetores(data)
+            },
+            error: function (error) {
+                console.error('Error fetching data:', error)
+            }
+        })
+    }
+}
+
+function updateDatalistSetores (suggestions) {
+    let datalist = $('#SetorResponsavelDataList')
+    datalist.empty()
+
+    if (Array.isArray(suggestions)) {
+        let uniqueNamesSet = new Set()
+
+        let uniqueSuggestions = suggestions.filter(obj => {
+            if (!uniqueNamesSet.has(obj.setorResponsavel)) {
+                uniqueNamesSet.add(obj.setorResponsavel)
+                return true
+            }
+            return false
+        })
+
+        
+
+        uniqueSuggestions.forEach(function (suggestion) {
+
+            datalist.append(`<option value="${suggestion.setorResponsavel}">`)
+        })
+    }
+}
+
+//buscar empresas
+
+function buscarempresas (url) {
     let query = $('#transportadora').val()
-    fetchSuggestionsEmpresas(url, query);
+    fetchSuggestionsEmpresas(url, query)
 }
 
 function fetchSuggestionsEmpresas (url, query) {
@@ -351,37 +410,29 @@ function fetchSuggestionsEmpresas (url, query) {
     })
 }
 
-function updateDatalistEmpresas(suggestions) {
-    let datalist = $('#empresasDatalist');
+function updateDatalistEmpresas (suggestions) {
+    let datalist = $('#empresasDatalist')
     datalist.empty()
 
     if (Array.isArray(suggestions)) {
-        
-        
-
-        let uniqueNamesSet = new Set();
+        let uniqueNamesSet = new Set()
 
         // Use filter to create a new array with unique objects based on 'nome'
         let uniqueSuggestions = suggestions.filter(obj => {
             if (!uniqueNamesSet.has(obj.transportadora)) {
-                uniqueNamesSet.add(obj.transportadora);
-                return true;
+                uniqueNamesSet.add(obj.transportadora)
+                return true
             }
-            return false;
-        });
-
-        uniqueSuggestions.forEach(function (suggestion) {
-
-            console.log(suggestion);
-
-            datalist.append(`<option value="${suggestion.transportadora}">`)
-
+            return false
         })
 
+        uniqueSuggestions.forEach(function (suggestion) {
+            console.log(suggestion)
+
+            datalist.append(`<option value="${suggestion.transportadora}">`)
+        })
     }
-
 }
-
 
 //get nomes
 
@@ -413,20 +464,16 @@ function updateDatalist (suggestions) {
 
     // Check if suggestions is an array
     if (Array.isArray(suggestions)) {
-        
-        
-
-        let uniqueNamesSet = new Set();
+        let uniqueNamesSet = new Set()
 
         // Use filter to create a new array with unique objects based on 'nome'
         let uniqueSuggestions = suggestions.filter(obj => {
             if (!uniqueNamesSet.has(obj.nome)) {
-                uniqueNamesSet.add(obj.nome);
-                return true;
+                uniqueNamesSet.add(obj.nome)
+                return true
             }
-            return false;
-        });
-
+            return false
+        })
 
         datalist.append(
             '<ul id="suggestionsList" class="border rounded-md overflow-hidden shadow-md">'
@@ -442,24 +489,16 @@ function updateDatalist (suggestions) {
 
         datalist.append('</ul>')
 
-
         // Append the new <ul> to the div
     } else {
         console.error('Invalid suggestions data:', suggestions)
     }
-
-
-
-
 }
 
-function preencherDados(id) {
-
-   let currentURL = window.location.href;
+function preencherDados (id) {
+    let currentURL = window.location.href
 
     let url = currentURL + '/' + id
 
-   mostrarAcesso(url, true)
-
+    mostrarAcesso(url, true)
 }
-

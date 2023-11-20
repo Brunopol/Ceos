@@ -120,8 +120,11 @@
                                                     class="block text-sm font-medium text-gray-700">
                                                     SETOR RESPONSÁVEL
                                                 </label>
-                                                <input type="text" id="setorResponsavel" name="setorResponsavel"
-                                                    class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                                <input type="text" id="setorResponsavel" name="setorResponsavel" list="SetorResponsavelDataList" oninput="buscarsetores('{{ url('') }}')" onclick="buscarsetores('{{ url('') }}')"
+                                                    class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400" autocomplete="off">
+                                                    <datalist id="SetorResponsavelDataList">
+                                                       
+                                                    </datalist>
                                             </div>
 
                                             <div class="mb-4">
@@ -129,8 +132,12 @@
                                                     class="block text-sm font-medium text-gray-700">
                                                     PESSOA RESPONSÁVEL
                                                 </label>
-                                                <input type="text" id="pessoaResponsavel" name="pessoaResponsavel"
+                                                <input type="text" id="pessoaResponsavel" name="pessoaResponsavel" list="PessoaResponsavelDataList" oninput="buscarpessoas('{{ url('') }}')" onclick="buscarpessoas('{{ url('') }}')"
                                                     class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                                    <datalist id="PessoaResponsavelDataList">
+                                                       
+                                                    </datalist>
+
                                             </div>
 
                                             <div class="mb-4 " id="placaDiv">

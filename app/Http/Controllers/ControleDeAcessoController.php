@@ -83,7 +83,7 @@ class ControleDeAcessoController extends Controller
             'pessoaResponsavel' => strtoupper($validatedData['pessoaResponsavel']),
             'setorResponsavel' => strtoupper($validatedData['setorResponsavel'])
         ]);
-        
+
 
         return response()->json([
             'message' => "Encaixe '$acesso->nome' foi adicionando com sucesso",
@@ -179,29 +179,48 @@ class ControleDeAcessoController extends Controller
 
             $suggestions = Controle_de_acesso::where('nome', 'like', '%' . $query . '%')->select('id', 'nome')->get();
             return response()->json($suggestions);
-
-
         } catch (\Exception $e) {
             return response()->json('null');
         }
-
-
-
     }
 
     public function getAcessosPelaEmpresa($empresa)
-{
-    $query = $empresa;
+    {
+        $query = $empresa;
 
-    try {
-        $suggestions = Controle_de_acesso::where('transportadora', 'like', '%' . $query . '%')->get(['transportadora']);
-        return response()->json($suggestions);
-    } catch (\Exception $e) {
-        return response()->json(null);
+        try {
+            $suggestions = Controle_de_acesso::where('transportadora', 'like', '%' . $query . '%')->get(['transportadora']);
+            return response()->json($suggestions);
+        } catch (\Exception $e) {
+            return response()->json(null);
+        }
     }
-}
+
+    public function getAcessosPeloSetor($setor, $empresa)
+    {
 
 
+        if ($setor == '*') {
+            try {
+                $suggestions = Controle_de_acesso::where('transportadora', 'like', $empresa)->get(['setorResponsavel', 'transportadora']);
+                return response()->json($suggestions);
+            } catch (\Exception $e) {
+                return response()->json(null);
+            }
+        }
 
 
+        $setorQuery = '%' . $setor . '%';
+        $empresaQuery = '%' . $empresa . '%';
+
+        try {
+            $suggestions = Controle_de_acesso::where('setorResponsavel', 'like', $setorQuery)
+                ->where('transportadora', 'like', $empresaQuery)
+                ->get(['setorResponsavel', 'transportadora']);
+
+            return response()->json($suggestions);
+        } catch (\Exception $e) {
+            return response()->json(null);
+        }
+    }
 }
