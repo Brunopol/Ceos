@@ -103,8 +103,7 @@ class ControleDeAcessoController extends Controller
             'horaEntrada' => 'nullable',
             'horaSaida' => 'nullable',
             'pessoaResponsavel' => 'nullable',
-            'setorResponsavel' => 'nullable',
-            'dataSaida' => 'nullable'
+            'setorResponsavel' => 'nullable'
         ]);
 
         $acesso = Controle_de_acesso::find($id);
@@ -116,7 +115,6 @@ class ControleDeAcessoController extends Controller
             'placa' => strtoupper($validatedData['placa']),
             'horaEntrada' => $validatedData['horaEntrada'],
             'horaSaida' => $validatedData['horaSaida'],
-            'dataSaida' => $validatedData['dataSaida'],
             'pessoaResponsavel' => strtoupper($validatedData['pessoaResponsavel']),
             'setorResponsavel' => strtoupper($validatedData['setorResponsavel']),
         ]);
