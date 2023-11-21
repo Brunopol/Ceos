@@ -108,10 +108,13 @@
                                                     class="block text-sm font-medium text-gray-700">
                                                     EMPRESA
                                                 </label>
-                                                <input type="text" id="transportadora" name="transportadora" list="empresasDatalist" oninput="buscarempresas('{{ url('') }}')"
-                                                    class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400" autocomplete="off">
+                                                <input type="text" id="transportadora" name="transportadora"
+                                                    list="empresasDatalist"
+                                                    oninput="buscarempresas('{{ url('') }}')"
+                                                    class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                                                    autocomplete="off">
                                                 <datalist id="empresasDatalist">
-                                                   
+
                                                 </datalist>
                                             </div>
 
@@ -120,11 +123,15 @@
                                                     class="block text-sm font-medium text-gray-700">
                                                     SETOR RESPONSÁVEL
                                                 </label>
-                                                <input type="text" id="setorResponsavel" name="setorResponsavel" list="SetorResponsavelDataList" oninput="buscarsetores('{{ url('') }}')" onclick="buscarsetores('{{ url('') }}')"
-                                                    class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400" autocomplete="off">
-                                                    <datalist id="SetorResponsavelDataList">
-                                                       
-                                                    </datalist>
+                                                <input type="text" id="setorResponsavel" name="setorResponsavel"
+                                                    list="SetorResponsavelDataList"
+                                                    oninput="buscarsetores('{{ url('') }}')"
+                                                    onclick="buscarsetores('{{ url('') }}')"
+                                                    class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                                                    autocomplete="off">
+                                                <datalist id="SetorResponsavelDataList">
+
+                                                </datalist>
                                             </div>
 
                                             <div class="mb-4">
@@ -132,11 +139,14 @@
                                                     class="block text-sm font-medium text-gray-700">
                                                     PESSOA RESPONSÁVEL
                                                 </label>
-                                                <input type="text" id="pessoaResponsavel" name="pessoaResponsavel" list="PessoaResponsavelDataList" oninput="buscarpessoas('{{ url('') }}')" onclick="buscarpessoas('{{ url('') }}')"
+                                                <input type="text" id="pessoaResponsavel" name="pessoaResponsavel"
+                                                    list="PessoaResponsavelDataList"
+                                                    oninput="buscarpessoas('{{ url('') }}')"
+                                                    onclick="buscarpessoas('{{ url('') }}')"
                                                     class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
-                                                    <datalist id="PessoaResponsavelDataList">
-                                                       
-                                                    </datalist>
+                                                <datalist id="PessoaResponsavelDataList">
+
+                                                </datalist>
 
                                             </div>
 
@@ -148,16 +158,18 @@
                                                     class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
                                             </div>
 
-                                            <div class="mb-4 " id="placaDiv">
+                                            <div class="mb-4 " id="">
                                                 <label for="placa" class="block text-sm font-medium text-gray-700">
                                                     USUÁRIO
                                                 </label>
-                                                <input type="text" value="NÃO FUNC AINDA" readonly
+                                                <input type="text" value="Antes do dia 21/11/23" id="usuario"
+                                                    readonly
                                                     class="bg-gray-200 w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
                                             </div>
 
                                             <div class="mb-4 " id="horaSaidaDiv">
-                                                <label for="horaSaida" class="block text-sm font-medium text-gray-700">
+                                                <label for="horaSaida"
+                                                    class="block text-sm font-medium text-gray-700">
                                                     HORA SAÍDA
                                                 </label>
                                                 <input type="time" id="horaSaida" name="horaSaida"
@@ -290,6 +302,11 @@
         </div>
     </div>
 
+    @if (auth()->check())
+    <div class="hidden">
+        <input id="currentLogedInUser" value="{{auth()->user()->name}}">
+    </div>
+    @endif
 </x-app-layout>
 
 <script type="module">
@@ -349,7 +366,7 @@
                         var formattedCreatedDate =
                             `${createdDate.getDate()}/${createdDate.getMonth() + 1}/${createdDate.getFullYear()}`;
 
-    
+
 
                         if (row.dataSaida != formattedCreatedDate && row.dataSaida != null) {
                             return `${row.dataSaida} às ${data}`;

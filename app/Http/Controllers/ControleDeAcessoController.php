@@ -62,6 +62,10 @@ class ControleDeAcessoController extends Controller
 
     public function add(Request $request)
     {
+
+        $user = auth()->user();
+
+
         $validatedData = $request->validate([
             'nome' => 'required',
             'rgCpf' => 'required',
@@ -84,6 +88,8 @@ class ControleDeAcessoController extends Controller
             'setorResponsavel' => strtoupper($validatedData['setorResponsavel'])
         ]);
 
+        $acesso->user_id = $user->id;
+        $acesso->save();
 
         return response()->json([
             'message' => "Encaixe '$acesso->nome' foi adicionando com sucesso",
@@ -160,7 +166,7 @@ class ControleDeAcessoController extends Controller
     public function show($id)
     {
 
-        $acesso = Controle_de_acesso::find($id);
+        $acesso = Controle_de_acesso::with('user')->find($id);
 
         return response()->json($acesso);
     }

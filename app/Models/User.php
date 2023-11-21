@@ -52,6 +52,10 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function controleDeAcessos(): HasMany
+    {
+        return $this->hasMany(Controle_de_acesso::class);
+    }
     public function encaixes(): HasMany
     {
         return $this->hasMany(Encaixe::class);

@@ -17,6 +17,12 @@ function toggleModal (modalID, type) {
         $('#modalTitle').text('Adicionar Acesso')
         atualizarButton.addClass('hidden')
         adicionarButton.removeClass('hidden')
+
+        userLoggedIn = $('#currentLogedInUser').val();
+
+        console.log(userLoggedIn);
+
+        $('#usuario').val(userLoggedIn)
     }
 
     $('#' + modalID).toggleClass('hidden flex')
@@ -258,6 +264,11 @@ function mostrarAcesso (url, list) {
             $('#transportadora').val(response.transportadora)
             $('#setorResponsavel').val(response.setorResponsavel)
             $('#pessoaResponsavel').val(response.pessoaResponsavel)
+
+            if (response.user != null) {
+                $('#usuario').val(response.user.name)
+            }
+           
 
             $('#placa').val(response.placa)
         },
