@@ -30,14 +30,29 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {   
      
-        $data = $request->validate([
-            'name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $user->id,
-            'phone' => 'required|string|max:255',
-            'ramal' => 'required|string|max:255',
-            // Add validation rules for other fields here
-        ]);
+        
+        if ($request->password != null || $request->password != '') {
+       
+            $data = $request->validate([
+                'name' => 'required|string|max:255',
+                'last_name' => 'required|string|max:255',
+                'email' => 'required|email|unique:users,email,' . $user->id,
+                'phone' => 'required|string|max:255',
+                'ramal' => 'required|string|max:255',
+                'password' => 'string|max:255'
+            ]);
+        } else {
+            $data = $request->validate([
+                'name' => 'required|string|max:255',
+                'last_name' => 'required|string|max:255',
+                'email' => 'required|email|unique:users,email,' . $user->id,
+                'phone' => 'required|string|max:255',
+                'ramal' => 'required|string|max:255',
+            ]);
+    
+        }
+            
+     
 
         
         $user->update($data);

@@ -90,6 +90,10 @@
                                             <label for="ramal" class="block text-sm font-medium text-gray-700">Ramal</label>
                                             <input type="text" id="ramal" name="ramal" class="form-control" placeholder="Ramal">
                                         </div>
+                                        <div>
+                                            <label for="password" class="block text-sm font-medium text-gray-700">Nova Senha</label>
+                                            <input type="text" id="password" name="password" class="form-control">
+                                        </div>
                                         <!-- Checkboxes -->
                                         <div class="col-span-2">
                                             <label class="block text-sm font-medium text-gray-700">Permissões</label>
