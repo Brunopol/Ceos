@@ -12,8 +12,8 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Prod -->
-         <link rel="stylesheet" href="{{ asset('build/assets/build.css') }}" />
-         <script src="{{ asset('build/assets/build.js') }}" ></script> 
+         <link rel="stylesheet" href="{{ asset('build/assets/build1.css') }}" />
+         <script src="{{ asset('build/assets/build1.js') }}" ></script> 
          
          <!-- dev -->
 
