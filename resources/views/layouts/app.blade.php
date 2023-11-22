@@ -20,11 +20,11 @@
 
 
     <!-- Prod -->
-        <link rel="stylesheet" href="{{ asset('build/assets/build.css') }}" /> 
+       <link rel="stylesheet" href="{{ asset('build/assets/build.css') }}" /> 
         <script src="{{ asset('build/assets/build.js') }}" ></script> 
     <!-- dev -->
 
-    <!-- @vite(['resources/css/app.scss', 'resources/js/app.js']) -->
+    <!--  @vite(['resources/css/app.scss', 'resources/js/app.js']) -->
         
         
         
@@ -46,10 +46,13 @@
         <main>
             {{ $slot }}
         </main>
-    </div>
 
-    <!-- Prod -->
 
         
+
+    </div>
+
+
+    @include('layouts.footer')
     </body>
 </html>
