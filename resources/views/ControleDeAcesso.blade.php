@@ -185,7 +185,7 @@
                                                     class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
                                             </div>
 
-                                           
+
 
                                             <!-- Error Message -->
                                             <div id="errorMessage"
@@ -221,12 +221,11 @@
                                             </label>
 
                                             <label class="inline-flex items-center">
-                                                <input id="cbRgCpf" type="checkbox"
-                                                    onclick="checkBoxToggleRgCpf()"
+                                                <input id="cbRgCpf" type="checkbox" onclick="checkBoxToggleRgCpf()"
                                                     class="form-checkbox h-5 w-5 text-emerald-500">
                                                 <span class="ml-2 text-gray-800">MOSTRAR RG/CPF</span>
                                             </label>
-                                            
+
                                         </div>
                                         <div class="flex justify-end mt-3">
                                             <button
@@ -400,10 +399,10 @@
                         if (data.length < 4 || !/^\d+$/.test(data)) {
                             return data;
                         } else {
-                            
-                            let prefix = data.substring(0, 4);
-
-                            let dataModified = prefix + '*******';
+                            // Assuming data is a string with only numeric characters
+                            let prefix = data.substring(0, 3);
+                            let suffix = data.substring(data.length - 3);
+                            let dataModified = prefix + '*******' + suffix;
 
                             return dataModified;
                         }
