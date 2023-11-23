@@ -9,11 +9,16 @@ function toggleModal (modalID, type) {
         $('#modalTitle').text('Atualizar Acesso')
         atualizarButton.removeClass('hidden')
         adicionarButton.addClass('hidden')
+        hideRgCpf()
+        $('#cbRgCpf').prop('checked', false)
     } else {
         $('#formAddAcesso')[0].reset()
         hideCarro()
         hideHoraSaida()
         hideHoraEntrada()
+        showRgCpf()
+        $('#cbRgCpf').prop('checked', true)
+
         $('#modalTitle').text('Adicionar Acesso')
         atualizarButton.addClass('hidden')
         adicionarButton.removeClass('hidden')
@@ -570,4 +575,34 @@ function preencherDados (id) {
     let url = currentURL + '/' + id
 
     mostrarAcesso(url, true)
+}
+
+
+//toggle cpf
+
+function checkBoxToggleRgCpf() {
+    
+
+
+    var checkbox = $('#cbRgCpf')
+
+    if (checkbox.prop('checked')) {
+        showRgCpf()
+
+    } else {
+        hideRgCpf()
+    }
+
+}
+
+function showRgCpf() {
+    var checkbox = $('#rgCpf')
+
+    checkbox.attr("type", "text");
+}
+
+function hideRgCpf() {
+    var checkbox = $('#rgCpf')    
+    checkbox.attr("type", "password");
+
 }

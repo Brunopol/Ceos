@@ -167,6 +167,15 @@
                                                     class="bg-gray-200 w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
                                             </div>
 
+                                            <div class="mb-4 " id="horaEntradaDiv">
+                                                <label for="horaEntrada"
+                                                    class="block text-sm font-medium text-gray-700">
+                                                    HORA ENTRADA
+                                                </label>
+                                                <input type="time" id="horaEntrada" name="horaEntrada"
+                                                    class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                            </div>
+
                                             <div class="mb-4 " id="horaSaidaDiv">
                                                 <label for="horaSaida"
                                                     class="block text-sm font-medium text-gray-700">
@@ -176,14 +185,7 @@
                                                     class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
                                             </div>
 
-                                            <div class="mb-4 " id="horaEntradaDiv">
-                                                <label for="horaEntrada"
-                                                    class="block text-sm font-medium text-gray-700">
-                                                    HORA ENTRADA
-                                                </label>
-                                                <input type="time" id="horaEntrada" name="horaEntrada"
-                                                    class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
-                                            </div>
+                                           
 
                                             <!-- Error Message -->
                                             <div id="errorMessage"
@@ -203,18 +205,28 @@
                                                     class="form-checkbox h-5 w-5 text-emerald-500">
                                                 <span class="ml-2 text-gray-800">PLACA</span>
                                             </label>
-                                            <label class="inline-flex items-center">
-                                                <input id="cbHoraSaida" type="checkbox"
-                                                    onclick="checkBoxToggleHoraSaida()"
-                                                    class="form-checkbox h-5 w-5 text-emerald-500">
-                                                <span class="ml-2 text-gray-800">HORÁRIO SAÍDA</span>
-                                            </label>
+
                                             <label class="inline-flex items-center">
                                                 <input id="cbHoraEntrada" type="checkbox"
                                                     onclick="checkBoxToggleHoraEntrada()"
                                                     class="form-checkbox h-5 w-5 text-emerald-500">
                                                 <span class="ml-2 text-gray-800">HORÁRIO ENTRADA</span>
                                             </label>
+
+                                            <label class="inline-flex items-center">
+                                                <input id="cbHoraSaida" type="checkbox"
+                                                    onclick="checkBoxToggleHoraSaida()"
+                                                    class="form-checkbox h-5 w-5 text-emerald-500">
+                                                <span class="ml-2 text-gray-800">HORÁRIO SAÍDA</span>
+                                            </label>
+
+                                            <label class="inline-flex items-center">
+                                                <input id="cbRgCpf" type="checkbox"
+                                                    onclick="checkBoxToggleRgCpf()"
+                                                    class="form-checkbox h-5 w-5 text-emerald-500">
+                                                <span class="ml-2 text-gray-800">MOSTRAR RG/CPF</span>
+                                            </label>
+                                            
                                         </div>
                                         <div class="flex justify-end mt-3">
                                             <button
@@ -303,9 +315,9 @@
     </div>
 
     @if (auth()->check())
-    <div class="hidden">
-        <input id="currentLogedInUser" value="{{auth()->user()->name}}">
-    </div>
+        <div class="hidden">
+            <input id="currentLogedInUser" value="{{ auth()->user()->name }}">
+        </div>
     @endif
 </x-app-layout>
 
@@ -382,7 +394,21 @@
                 },
                 {
                     data: 'rgCpf',
-                    orderable: false
+                    orderable: false,
+                    render: function(data, type, row) {
+
+                        if (data.length < 4 || !/^\d+$/.test(data)) {
+                            return data;
+                        } else {
+                            
+                            let prefix = data.substring(0, 4);
+
+                            let dataModified = prefix + '*******';
+
+                            return dataModified;
+                        }
+
+                    }
                 },
                 {
                     data: 'empresa',
