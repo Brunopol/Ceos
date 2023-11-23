@@ -481,4 +481,4 @@
     });
 </script>
 
-<script src="{{ asset('javascript/controleDeAcesso.js') }}"></script>
+<script src="{{ asset('javascript/controleDeAcesso1.js') }}"></script>

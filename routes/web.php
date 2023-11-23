@@ -37,6 +37,8 @@ Route::post('/encaixe', [EncaixeController::class, 'addEncaixe'])->middleware(['
 Route::post('/encaixeMovimento', [EncaixeController::class, 'addMovimento'])->middleware(['auth', 'verified','permission:encaixe'])->name('encaixeMovimento.add');
 Route::delete('/encaixeMovimento/{id}', [EncaixeController::class, 'deletarMovimento'])->middleware(['auth', 'verified','permission:encaixe'])->name('encaixeMovimento.delete');
 Route::delete('/encaixeConsumo/{id}', [EncaixeController::class, 'deletarConsumo'])->middleware(['auth', 'verified','permission:encaixe'])->name('encaixeConsumo.delete');
+Route::get('/encaixe/getNomeMovimentos/{nome}', [EncaixeController::class, 'getNomeMovimentos'])->middleware(['auth', 'verified','permission:encaixe'])->name('encaixe.getmovimentos');
+Route::get('/encaixe/getMovimentoTecidos/{tecido}', [EncaixeController::class, 'getMovimentoTecidos'])->middleware(['auth', 'verified','permission:encaixe'])->name('encaixe.getMovimentoTecidos');
 
 Route::get('/controleDeAcesso', [ControleDeAcessoController::class, 'index'])->middleware(['auth', 'verified','permission:controleDeAcessos'])->name('controleDeAcessos');
 Route::post('/controleDeAcesso/add', [ControleDeAcessoController::class, 'add'])->middleware(['auth', 'verified','permission:controleDeAcessos'])->name('controleDeAcessos.add');

@@ -236,4 +236,34 @@ class EncaixeController extends Controller
 
         ]);
     }
+
+    public function getNomeMovimentos($nome) 
+    {
+
+        $query = $nome;
+
+        try {
+
+            $suggestions = Encaixe_movimento::where('nome', 'like', '%' . $query . '%')->select('nome')->get();
+            return response()->json($suggestions);
+        } catch (\Exception $e) {
+            return response()->json('null');
+        }
+    }
+
+    public function getMovimentoTecidos($tecido) 
+    {
+
+        $query = $tecido;
+
+        try {
+
+            $suggestions = Encaixe_movimento::where('tecido', 'like', '%' . $query . '%')->select('tecido')->get();
+            return response()->json($suggestions);
+        } catch (\Exception $e) {
+            return response()->json('null');
+        }
+    }
+
+    
 }

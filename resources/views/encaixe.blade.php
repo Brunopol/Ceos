@@ -305,5 +305,5 @@
 
 
 
+<script src="{{ asset('javascript/encaixe1.js') }}" type="text/javascript"></script>
 
-<script src="https://dev.ufoway.com.br/v4/javascript/encaixe.js" type="text/javascript"></script>

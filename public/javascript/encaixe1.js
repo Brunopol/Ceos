@@ -175,7 +175,6 @@ function processJSONResponse (response) {
             movimentoUser = movimento.user.name
         }
 
-
         //LISTA DO MOVIMENTOS (HEADER)
         var liHtml = `
         <li class="-mb-px last:mr-0 flex-auto text-center p-1 relative" id="tabMovimento${movimentoId}">
@@ -363,10 +362,9 @@ function processJSONResponse (response) {
 
       `
 
-      if (checkIfCanEdit()) {
-        $('#tabMovimento' + movimentoId).prepend(deleteMovimento)
-
-      }
+        if (checkIfCanEdit()) {
+            $('#tabMovimento' + movimentoId).prepend(deleteMovimento)
+        }
         //tab2ContentsFooter.append(deleteMovimento)
 
         //BOTÕES SALVAR E FECHAR MODEL
@@ -385,10 +383,9 @@ function processJSONResponse (response) {
       
       `
 
-      if (checkIfCanEdit()) {
-        tab2ContentsFooter.append(footer)
-        
-      }
+        if (checkIfCanEdit()) {
+            tab2ContentsFooter.append(footer)
+        }
     })
 
     //------------------PARTE PARA ADICIONAR MAIS MOVIMENTOS------------------\\
@@ -425,13 +422,10 @@ function processJSONResponse (response) {
                         <div class="grid grid-cols-2 gap-4">
                             <div class="flex flex-col">
                                 <label for="nome" class="block text-sm font-medium text-gray-700">MOVIMENTO</label>
-                                <input type="text" tabindex="1" id="nome" name="nome" class="form-control text-sm" value="" list="nomes" autocomplete="on">
-                                <datalist id="nomes">
-                                    <option value="CONSUMO">
-                                    <option value="LIBERAÇÃO">
-                                    <option value="DESENVOLVIMENTO">
-                                    <option value="SIMULAÇÃO">
-                                    <option value="MOSTRUÁRIO">
+                                <input type="text" tabindex="1" id="nomeAdd" name="nome" class="form-control text-sm" value="" list="nomeDatalist" autocomplete="off" oninput="buscarMovimentos()">
+                                <datalist id="nomeDatalist">
+                                    
+
                                 </datalist>
                             </div>
 
@@ -442,7 +436,11 @@ function processJSONResponse (response) {
 
                             <div class="flex flex-col">
                                 <label for="tecido" class="block text-sm font-medium text-gray-700">TECIDO</label>
-                                <input type="text" tabindex="3" id="tecido" name="tecido" class="form-control text-sm" value="" autocomplete="on">
+                                <input type="text" tabindex="3" id="tecidoAdd" name="tecido" class="form-control text-sm" value="" autocomplete="off" list="tecidoDatalist" oninput="buscarTecidos()">
+                                <datalist id="tecidoDatalist">
+                                    
+
+                                </datalist>
                             </div>
 
                             <div class="flex flex-col">
@@ -836,7 +834,7 @@ function deletarEncaixe (url) {
 function deletarConsumo (event, consumoID, url) {
     event.preventDefault()
 
-    url = url + '/v4/encaixeConsumo/' + consumoID;
+    url = url + '/v4/encaixeConsumo/' + consumoID
 
     $.ajax({
         url: url,
@@ -886,3 +884,98 @@ function checkIfCanEdit () {
         return false
     }
 }
+
+// busca no movimento existestes para add movimento
+
+function buscarMovimentos () {
+    let query = $('#nomeAdd').val()
+    console.log(query);
+    var url = window.location.href
+    fetchSuggestions(url, query)
+}
+
+function fetchSuggestions (url, query) {
+    url = url + '/getNomeMovimentos/' + query
+
+    $.ajax({
+        url: url,
+        method: 'GET',
+        success: function (data) {
+            updateDatalist(data)
+            console.log(data);
+        },
+        error: function (error) {
+            console.error('Error fetching data:', error)
+        }
+    })
+}
+
+function updateDatalist (suggestions) {
+    let datalist = $('#nomeDatalist')
+    datalist.empty()
+
+    if (Array.isArray(suggestions)) {
+        let uniqueNamesSet = new Set()
+
+        // Use filter to create a new array with unique objects based on 'nome'
+        let uniqueSuggestions = suggestions.filter(obj => {
+            if (!uniqueNamesSet.has(obj.nome)) {
+                uniqueNamesSet.add(obj.nome)
+                return true
+            }
+            return false
+        })
+
+        uniqueSuggestions.forEach(function (suggestion) {
+
+            datalist.append(`<option value="${suggestion.nome}">`)
+        })
+    }
+}
+
+// busca no tecidos existentes para add movimentos
+
+function buscarTecidos() {
+    let query =  $('#tecidoAdd').val()
+    var url = window.location.href
+    fetchSuggestionsTecidos(url, query)
+}
+
+function fetchSuggestionsTecidos (url, query) {
+    url = url + '/getMovimentoTecidos/' + query
+
+    $.ajax({
+        url: url,
+        method: 'GET',
+        success: function (data) {
+            updateDatalistTecidos(data)
+            console.log(data);
+        },
+        error: function (error) {
+            console.error('Error fetching data:', error)
+        }
+    })
+}
+
+function updateDatalistTecidos (suggestions) {
+    let datalist = $('#tecidoDatalist')
+    datalist.empty()
+
+    if (Array.isArray(suggestions)) {
+        let uniqueNamesSet = new Set()
+
+        let uniqueSuggestions = suggestions.filter(obj => {
+            if (!uniqueNamesSet.has(obj.tecido)) {
+                uniqueNamesSet.add(obj.tecido)
+                return true
+            }
+            return false
+        })
+
+        uniqueSuggestions.forEach(function (suggestion) {
+
+            datalist.append(`<option value="${suggestion.tecido}">`)
+        })
+    }
+}
+
