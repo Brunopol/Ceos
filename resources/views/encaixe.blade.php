@@ -9,21 +9,22 @@
     <script>
         var csrfToken = '{{ csrf_token() }}';
     </script>
-    
 
-    <div id="loadingOverlay" class="hidden fixed top-0 left-0 w-full h-full z-50 flex items-center justify-center bg-black bg-opacity-25">
+
+    <div id="loadingOverlay"
+        class="hidden fixed top-0 left-0 w-full h-full z-50 flex items-center justify-center bg-black bg-opacity-25">
         <div class="bg-white p-4 rounded-lg shadow-lg animate-pulse">
-          <div class="flex items-center space-x-2">
-            <svg class="w-6 h-6 animate-spin text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-            </svg>
-            <span class="text-blue-600 text-lg font-semibold">Carregando...</span>
-          </div>
+            <div class="flex items-center space-x-2">
+                <svg class="w-6 h-6 animate-spin text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                </svg>
+                <span class="text-blue-600 text-lg font-semibold">Carregando...</span>
+            </div>
         </div>
-      </div>
-      
-    
+    </div>
+
+
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -31,12 +32,15 @@
                 <div class="p-6 text-gray-900">
 
                     <div class="flex flex-col">
-                        <button
-                            class="self-start bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300 mb-4"
-                            type="button"
-                            onclick="toggleModal('modal-id-add', $(this).data('url'), $(this).data('referencia'))">
-                            Novo
-                        </button>
+
+                        @can('encaixe')
+                            <button
+                                class="self-start bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300 mb-4"
+                                type="button"
+                                onclick="toggleModal('modal-id-add', $(this).data('url'), $(this).data('referencia'))">
+                                Novo
+                            </button>
+                        @endcan
 
 
                         <table id="myTable" class="table table-striped nowrap cell-border hover stripe"
@@ -174,13 +178,13 @@
         </div>
     </div>
 
-    
-        @can('encaixe')
-            <input value="1" class="hidden" id="encaixePermission">
-        @else
-            <input value="0" class="hidden" id="encaixePermission">
-        @endcan
-    
+
+    @can('encaixe')
+        <input value="1" class="hidden" id="encaixePermission">
+    @else
+        <input value="0" class="hidden" id="encaixePermission">
+    @endcan
+
 
 </x-app-layout>
 
@@ -198,6 +202,10 @@
                     return new Date(data).toLocaleString();
                 }
             }, ],
+            order: [
+
+                [2, 'desc']
+            ],
 
             columns: [{
                     data: 'referencia',
@@ -265,38 +273,38 @@
                             </button>`;
                         }
 
-                        
+
                     }
                 }
 
             ],
 
             "language": {
-            
-            "decimal": "",
-            "emptyTable": "Nenhum dado disponível na tabela",
-            "info": "Mostrando _START_ até _END_ de _TOTAL_ entradas",
-            "infoEmpty": "Mostrando 0 até 0 de 0 entradas",
-            "infoFiltered": "(filtrado de um total de _MAX_ entradas)",
-            "infoPostFix": "",
-            "thousands": ",",
-            "lengthMenu": "Mostrar _MENU_ entradas",
-            "loadingRecords": "Carregando...",
-            "processing": "",
-            "search": "Buscar:",
-            "zeroRecords": "Nenhum registro correspondente encontrado",
-            "paginate": {
-                "first": "Primeira",
-                "last": "Última",
-                "next": "Próxima",
-                "previous": "Anterior"
-            },
-            "aria": {
-                "sortAscending": ": ativar para ordenar coluna de forma ascendente",
-                "sortDescending": ": ativar para ordenar coluna de forma descendente"
-            }
 
-        }
+                "decimal": "",
+                "emptyTable": "Nenhum dado disponível na tabela",
+                "info": "Mostrando _START_ até _END_ de _TOTAL_ entradas",
+                "infoEmpty": "Mostrando 0 até 0 de 0 entradas",
+                "infoFiltered": "(filtrado de um total de _MAX_ entradas)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Mostrar _MENU_ entradas",
+                "loadingRecords": "Carregando...",
+                "processing": "",
+                "search": "Buscar:",
+                "zeroRecords": "Nenhum registro correspondente encontrado",
+                "paginate": {
+                    "first": "Primeira",
+                    "last": "Última",
+                    "next": "Próxima",
+                    "previous": "Anterior"
+                },
+                "aria": {
+                    "sortAscending": ": ativar para ordenar coluna de forma ascendente",
+                    "sortDescending": ": ativar para ordenar coluna de forma descendente"
+                }
+
+            }
 
         });
 
@@ -306,4 +314,3 @@
 
 
 <script src="{{ asset('javascript/encaixe1.js') }}" type="text/javascript"></script>
-
