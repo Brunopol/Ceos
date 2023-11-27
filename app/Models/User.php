@@ -71,6 +71,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Permission::class);
     }
 
+    public function solicitacoes(): BelongsToMany
+    {
+        return $this->belongsToMany(Solicitacoe::class);
+    }
+
     public function givePermissionTo(string $permission): void 
     {
         $p = Permission::query()->firstOrCreate(compact('permission'));

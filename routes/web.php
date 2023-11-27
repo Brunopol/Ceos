@@ -28,6 +28,9 @@ Route::get('/painel', function () {
 Route::get('/users', [UserController::class, 'index'])->middleware(['auth', 'verified','permission:users'])->name('users');
 Route::get('/users/{id}', [UserController::class, 'show'])->middleware(['auth', 'verified','permission:users'])->name('users.show');
 Route::put('/users/{user}', [UserController::class, 'update'])->middleware(['auth', 'verified','permission:users'])->name('users.update');
+Route::get('/indexForSolicitacoes', [UserController::class, 'indexForSolicitacoes'])->middleware(['auth', 'verified','permission:users'])->name('indexForSolicitacoes');
+
+
 
 Route::get('/encaixe', [EncaixeController::class, 'index'])->middleware(['auth', 'verified','permission:encaixeVisualizar'])->name('encaixe');
 Route::get('/encaixes/{id}', [EncaixeController::class, 'show'])->middleware(['auth', 'verified','permission:encaixeVisualizar'])->name('encaixe.show');
@@ -50,6 +53,7 @@ Route::get('/controleDeAcesso/getNomeAcessos/{nome}', [ControleDeAcessoControlle
 Route::get('/controleDeAcesso/getEmpresasAcessos/{empresa}', [ControleDeAcessoController::class, 'getAcessosPelaEmpresa'])->middleware(['auth', 'verified','permission:controleDeAcessos'])->name('controleDeAcessos.getEmpresas');
 Route::get('/controleDeAcesso/getSetoresAcessos/{setor}/{empresa}', [ControleDeAcessoController::class, 'getAcessosPeloSetor'])->middleware(['auth', 'verified','permission:controleDeAcessos'])->name('controleDeAcessos.getSetores');
 Route::get('/controleDeAcesso/getPessoasAcessos/{pessoa}/{setor}', [ControleDeAcessoController::class, 'getAcessosPelaPessoa'])->middleware(['auth', 'verified','permission:controleDeAcessos'])->name('controleDeAcessos.getPessoas');
+Route::post('/controleDeAcesso/solicitarDeletagem', [ControleDeAcessoController::class, 'solicitarDeletagem'])->middleware(['auth', 'verified','permission:controleDeAcessos'])->name('controleDeAcessos.solicitarDeletagem');
 
 
 Route::middleware('auth')->group(function () {

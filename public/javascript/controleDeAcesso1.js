@@ -606,3 +606,41 @@ function hideRgCpf() {
     checkbox.attr("type", "password");
 
 }
+
+// solicitar deletagem
+
+
+
+function solicitarDeletagemButton(nome, id) {
+    toggleModal('modal-id-delete', true)
+    $('#nomeAcesso').val(nome)
+    $('#idAcesso').val(id)
+}
+
+
+function solicitarDeletagem(event, url) {
+    event.preventDefault()
+
+    url = url + '/controleDeAcesso/solicitarDeletagem'
+
+    var formData = $('#formSolicitarDeletagem').serialize()
+
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: formData,
+        headers: {
+            'X-CSRF-TOKEN': csrfToken
+        },
+        success: function (response) {
+            closeModal('modal-id-delete')
+            $('#formSolicitarDeletagem')[0].reset()
+            //location.reload()
+        },
+        error: function (error) {
+            console.log(error.responseJSON.message)
+        }
+    })
+
+    
+}

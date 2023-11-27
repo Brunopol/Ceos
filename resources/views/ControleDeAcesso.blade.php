@@ -303,6 +303,56 @@
                         </div>
                     </div>
 
+                    <!-- Modal Solicitar Deletagem -->
+                    <div class="fixed z-50 inset-0 flex items-center justify-center overflow-auto bg-black bg-opacity-50 hidden"
+                        id="modal-id-delete">
+                        <div class="relative w-3/5 my-6 mx-auto">
+                            <div
+                                class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+
+                                <div class="flex items-start justify-between p-5 border-b border-slate-200 rounded-t">
+                                    <h3 class="text-3xl font-semibold" id="modalTitle">
+                                        Solicitar Deletagem
+                                    </h3>
+
+                                    <input type="text" id="nomeAcesso" readonly
+                                        class="bg-gray-200 border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+
+
+                                    <button class="text-slate-600 hover:text-slate-800 focus:outline-none"
+                                        type="button" onclick="closeModal('modal-id-delete')">
+                                        <svg class="h-6 w-6" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M6 18L18 6M6 6l12 12"></path>
+                                        </svg>
+                                    </button>
+
+                                </div>
+
+
+                                <form id="formSolicitarDeletagem" class="p-4">
+
+                                    <input type="text" name="id" id="idAcesso" class="hidden">
+
+                                    <label for="motivo">MOTIVO PARA SOLICITAR DELETAGEM</label>
+
+                                    <div class="mb-4">
+                                        <textarea name="motivo" id="motivo" class="w-full px-3 py-2 border rounded-md"></textarea>
+                                    </div>
+
+                                    <div class="flex justify-end mt-3">
+                                        <button id=""
+                                            class="bg-emerald-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
+                                            onclick="solicitarDeletagem(event, '{{ url('') }}')">SOLICITAR</button>
+                                    </div>
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
 
 
 
@@ -428,6 +478,11 @@
                             <button class="bg-blue-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                 onclick="mostrarAcesso('${ actionsData.url_show }')">
                                EDITAR
+                            </button>
+
+                            <button class="bg-red-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                onclick="solicitarDeletagemButton('${row.nome}', '${row.horaSaida.id}')">
+                               DELETAR
                             </button>
                             
                         `;

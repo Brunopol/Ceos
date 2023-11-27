@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Controle_de_acesso;
 use App\Models\Encaixe;
+use App\Models\Solicitacoe;
 use DateTime;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -252,7 +253,21 @@ class ControleDeAcessoController extends Controller
 
             return response()->json($suggestions);
         } catch (\Exception $e) {
-            return response()->json(null);
+            return response()->json($e);
         }
+    }
+
+    public function solicitarDeletagem(Request $request) 
+    {
+        
+        $user = auth()->user();
+
+        Solicitacoe::create([
+            'user_id' => $user->id,
+            'acesso_id' => $request->id,
+            'acesso_motivo' => $request->motivo
+        ]);
+        
+
     }
 }

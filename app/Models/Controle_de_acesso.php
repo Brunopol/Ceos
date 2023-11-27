@@ -15,6 +15,11 @@ class Controle_de_acesso extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function solicitacao(): BelongsTo
+    {
+        return $this->belongsTo(Solicitacoe::class);
+    }
+
     protected $fillable = [
         'nome',
         'rgCpf',

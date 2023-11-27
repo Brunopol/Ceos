@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Solicitacoe;
 use App\Models\User;
+use DateTime;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -68,4 +70,34 @@ class UserController extends Controller
 
         return response()->json(['message' => 'User updated successfully']);
     }
+
+
+    public function indexForSolicitacoes(Request $request)
+    {
+        if ($request->ajax()) {
+            $solicitacoes = Solicitacoe::all();
+
+
+
+            $data = [];
+            foreach ($solicitacoes as $solicitacao) {
+
+               // $userName = User::find($solicitacao->user_id)->nome;
+
+                $row = [
+                    'created_at' => $solicitacao->created_at->toISOString(),
+                    'nomeUsuario' => 'test',
+                    'motivo' => $solicitacao->motivo,
+                    'actions' => [
+                    ],
+                ];
+
+                $data[] = $row;
+            }
+
+            return datatables()->of($data)->toJson();
+        }
+    }
+
+
 }
