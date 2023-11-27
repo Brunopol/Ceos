@@ -308,6 +308,14 @@
             processing: true,
             serverSide: true,
             ajax: "indexForSolicitacoes",
+            columnDefs: [{
+                    className: "align-left",
+                    "targets": 0,
+                    render: function(data) {
+                        return new Date(data).toLocaleDateString();
+                    }
+                },
+            ],
 
             columns: [{
                     data: 'created_at',

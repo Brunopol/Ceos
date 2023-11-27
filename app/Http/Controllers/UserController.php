@@ -82,11 +82,11 @@ class UserController extends Controller
             $data = [];
             foreach ($solicitacoes as $solicitacao) {
 
-               // $userName = User::find($solicitacao->user_id)->nome;
+                $userName = User::find($solicitacao->user_id);
 
                 $row = [
                     'created_at' => $solicitacao->created_at->toISOString(),
-                    'nomeUsuario' => 'test',
+                    'nomeUsuario' => $userName->name,
                     'motivo' => $solicitacao->motivo,
                     'actions' => [
                     ],
