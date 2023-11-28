@@ -29,6 +29,7 @@ Route::get('/users', [UserController::class, 'index'])->middleware(['auth', 'ver
 Route::get('/users/{id}', [UserController::class, 'show'])->middleware(['auth', 'verified','permission:users'])->name('users.show');
 Route::put('/users/{user}', [UserController::class, 'update'])->middleware(['auth', 'verified','permission:users'])->name('users.update');
 Route::get('/indexForSolicitacoes', [UserController::class, 'indexForSolicitacoes'])->middleware(['auth', 'verified','permission:users'])->name('indexForSolicitacoes');
+Route::get('/users/controleDeAcesso/{id}', [ControleDeAcessoController::class, 'show'])->middleware(['auth', 'verified','permission:users'])->name('controleDeAcessosUsers.show');
 
 
 

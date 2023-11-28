@@ -85,9 +85,10 @@ class UserController extends Controller
                 $userName = User::find($solicitacao->user_id);
 
                 $row = [
+                    'id' => $solicitacao->id,
                     'created_at' => $solicitacao->created_at->toISOString(),
                     'nomeUsuario' => $userName->name,
-                    'motivo' => $solicitacao->motivo,
+                    'motivo' => $solicitacao->acesso_motivo,
                     'actions' => [
                     ],
                 ];
