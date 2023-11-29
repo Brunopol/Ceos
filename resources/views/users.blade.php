@@ -65,7 +65,7 @@
             <!-- Solicitacoes Table -->
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg max-w-xl">
                 <div class="p-6 text-gray-900 flex flex-col items-center">
-                    <h1 class="text-2xl font-bold mb-4">Solicitações para Deletagem de Acessos </h1>
+                    <h1 class="text-2xl font-bold mb-4">Solicitações para Exclusão de Acessos</h1>
                     <div class="">
                         <div class="overflow-hidden max-w-5xl mx-auto">
                             <table id="tableSolicitacoes"
@@ -219,8 +219,8 @@
                 class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
 
                 <div class="flex items-start justify-between p-5 border-b border-slate-200 rounded-t">
-                    <h3 class="text-3xl font-semibold" id="modalTitle">
-                        Solicitar Deletagem
+                    <h3 class="text-xl font-semibold" id="modalTitle">
+                        SOLICITAÇÃO DE EXCLUSÃO PELO USUÁRIO :
                     </h3>
 
                     <input type="text" id="nomeAcesso" readonly
@@ -242,16 +242,98 @@
 
                     <input type="text" name="id" id="idAcesso" class="hidden">
 
-                    <label for="motivo">SOLICITAÇÃO DE DELETAGEM DO USUÁRIO:    </label>
 
-                    <div class="mb-4">
-                        <textarea name="motivo" id="motivo" class="w-96 px-3 py-2 border rounded-md"></textarea>
+                    <div class="grid grid-cols-2 gap-4">
+
+
+                        <div class="mb-4 " id="">
+                            <label for="placa" class="block text-sm font-medium text-gray-700">
+                                NOME
+                            </label>
+                            <input type="text" value="" id="formNome" readonly
+                                class="bg-gray-200 w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                        </div>
+
+                        <div class="mb-4 " id="">
+                            <label for="placa" class="block text-sm font-medium text-gray-700">
+                                RG OU CPF
+                            </label>
+                            <input type="text" value="" id="formRgCpf" readonly
+                                class="bg-gray-200 w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                        </div>
+
+                        <div class="mb-4 " id="">
+                            <label for="placa" class="block text-sm font-medium text-gray-700">
+                                EMPRESA
+                            </label>
+                            <input type="text" value="" id="formEmpresa" readonly
+                                class="bg-gray-200 w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                        </div>
+
+                        <div class="mb-4 " id="">
+                            <label for="placa" class="block text-sm font-medium text-gray-700">
+                                SETOR RESPONSÁVEL
+                            </label>
+                            <input type="text" value="" id="formSetorResponsavel" readonly
+                                class="bg-gray-200 w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                        </div>
+
+                        <div class="mb-4 " id="">
+                            <label for="placa" class="block text-sm font-medium text-gray-700">
+                                PESSOA RESPONSÁVEL
+                            </label>
+                            <input type="text" value="" id="formPessoaResponsavel" readonly
+                                class="bg-gray-200 w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                        </div>
+
+                        <div class="mb-4 " id="">
+                            <label for="placa" class="block text-sm font-medium text-gray-700">
+                                PLACA
+                            </label>
+                            <input type="text" value="" id="formPlaca" readonly
+                                class="bg-gray-200 w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                        </div>
+
+                        <div class="mb-4 " id="">
+                            <label for="placa" class="block text-sm font-medium text-gray-700">
+                                HORA ENTRADA
+                            </label>
+                            <input type="time" value="" id="formHoraEntrada" readonly
+                                class="bg-gray-200 w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                        </div>
+
+                        <div class="mb-4 " id="">
+                            <label for="placa" class="block text-sm font-medium text-gray-700">
+                                HORA SAÍDA
+                            </label>
+                            <input type="time" value="" id="formHoraSaida" readonly
+                                class="bg-gray-200 w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                        </div>
+
+
                     </div>
 
-                    <div class="flex justify-end mt-3">
-                        <button id=""
-                            class="bg-emerald-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
-                            onclick="solicitarDeletagem(event, '{{ url('') }}')">SOLICITAR</button>
+
+                    <label for="motivo"> MOTIVO: </label>
+
+                    <div class="mb-4">
+                        <textarea readonly name="motivo" id="formMotivo" class="w-full px-3 py-2 border rounded-md bg-gray-200"></textarea>
+                    </div>
+
+
+
+                    <div class="flex justify-end">
+                        <div class="mt-3 p-2">
+                            <button id=""
+                                class="bg-red-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
+                                onclick="solicitarDeletagem(event, '{{ url('') }}')">REJEITAR</button>
+                        </div>
+                        <div class="mt-3 p-2">
+                            <button id=""
+                                class="bg-emerald-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
+                                onclick="solicitarDeletagem(event, '{{ url('') }}')">ACEITAR</button>
+                        </div>
+
                     </div>
 
 
@@ -341,7 +423,18 @@
                     },
                     {
                         data: 'motivo',
+                        ordable: false,
+                        render: function(data, type, row) {
+                            if (data.length > 15) {
+                               
+                                return data.substring(0, 15) + '...';
+                            } else {
+
+                                return data;
+                            }
+                        }
                     },
+
                     {
                         data: 'actions',
                         orderable: false,
@@ -457,6 +550,23 @@
         function mostrarSolicitacao(id) {
             var url = window.location.href;
 
+            var nome = $('#formNome');
+            var rgCpf = $('#formRgCpf');
+            var empresa = $('#formEmpresa');
+            var setorResponsavel = $('#formSetorResponsavel');
+            var pessoaResponsavel = $('#formPessoaResponsavel');
+            var placa = $('#formPlaca');
+            var horaEntrada = $('#formHoraEntrada');
+            var horaSaida = $('#formHoraSaida');
+
+            nome.val('');
+            rgCpf.val('');
+            empresa.val('');
+            setorResponsavel.val('');
+            pessoaResponsavel.val('');
+            placa.val('');
+            horaEntrada.val('');
+            horaSaida.val('');
 
             url = url + '/controleDeAcesso/' + id
 
@@ -465,7 +575,18 @@
                 type: 'GET',
                 success: function(response) {
 
+                    nome.val(response.nome);
+                    rgCpf.val(response.rgCpf);
+                    empresa.val(response.transportadora);
+                    setorResponsavel.val(response.setorResponsavel);
+                    pessoaResponsavel.val(response.pessoaResponsavel);
+                    placa.val(response.placa);
+                    horaEntrada.val(response.horaEntrada);
+                    horaSaida.val(response.horaSaida);
+
                     toggleModalDelete('modal-id-delete')
+
+
 
                 },
                 error: function(error) {
