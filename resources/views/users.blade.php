@@ -65,7 +65,7 @@
             <!-- Solicitacoes Table -->
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg max-w-xl">
                 <div class="p-6 text-gray-900 flex flex-col items-center">
-                    <h1 class="text-2xl font-bold mb-4">Solicitações para Exclusão de Acessos</h1>
+                    <h1 class="text-2xl font-bold mb-4">Exclusões de Acessos</h1>
                     <div class="">
                         <div class="overflow-hidden max-w-5xl mx-auto">
                             <table id="tableSolicitacoes"
@@ -219,9 +219,9 @@
                 class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
 
                 <div class="flex items-start justify-between p-5 border-b border-slate-200 rounded-t">
-                    <h3 class="text-xl font-semibold" id="modalTitle">
-                        SOLICITAÇÃO DE EXCLUSÃO PELO USUÁRIO :
-                    </h3>
+                    <h2 class="text-xl font-semibold" id="modalTitle">
+                        EXCLUIDO PELO O USUÁRIO :
+                    </h2>
 
                     <input type="text" id="nomeAcesso" readonly
                         class="bg-gray-200 border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
@@ -238,10 +238,17 @@
 
                 </div>
 
+                <h3 class="text-xl font-semibold ml-6 mt-3" id="modalTitle">
+                    DADOS DO ACESSO
+                </h3>
+
                 <div class="p-6">
 
-                    <input type="text" name="id" id="idAcesso" class="hidden">
-
+                    <form id="restaurarForm">
+                        @csrf
+                        <input type="text" name="idAcesso" id="idAcesso" class="hidden">
+                        <input type="text" name="idSolicitacao" id="idSolicitacao" class="hidden">
+                    </form>
 
                     <div class="grid grid-cols-2 gap-4">
 
@@ -325,13 +332,8 @@
                     <div class="flex justify-end">
                         <div class="mt-3 p-2">
                             <button id=""
-                                class="bg-red-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
-                                onclick="solicitarDeletagem(event, '{{ url('') }}')">REJEITAR</button>
-                        </div>
-                        <div class="mt-3 p-2">
-                            <button id=""
                                 class="bg-emerald-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
-                                onclick="solicitarDeletagem(event, '{{ url('') }}')">ACEITAR</button>
+                                onclick="restaurarExclusao(event, '{{ url('') }}')">Restaurar</button>
                         </div>
 
                     </div>
@@ -346,7 +348,171 @@
             </div>
         </div>
     </div>
+    
 
+    <script type="text/javascript">
+        function toggleModal(modalID, userURL) {
+            $.get(userURL, function(data) {
+                $('#userId').val(data.id);
+                $('#name').val(data.name);
+                $('#last_name').val(data.last_name);
+                $('#email').val(data.email);
+                $('#phone').val(data.phone);
+                $('#ramal').val(data.ramal);
+
+                // Check fixed checkboxes
+                $('#controleDeAcessosCheckbox').prop('checked', data.permissions.some(permission => permission
+                    .permission === 'controleDeAcessos'));
+                $('#usersCheckbox').prop('checked', data.permissions.some(permission => permission.permission ===
+                    'users'));
+                $('#encaixeCheckbox').prop('checked', data.permissions.some(permission => permission.permission ===
+                    'encaixe'));
+                $('#encaixeVisualizarCheckbox').prop('checked', data.permissions.some(permission => permission
+                    .permission === 'encaixeVisualizar'));
+
+
+
+                // Show the modal using the toggleModal function
+                $("#" + modalID).toggleClass("hidden flex");
+                $("#" + modalID + "-backdrop").toggleClass("hidden flex");
+            });
+        }
+
+        function closeModal(modalID) {
+            $("#" + modalID).toggleClass("hidden flex");
+            $("#" + modalID + "-backdrop").toggleClass("hidden flex");
+        }
+
+        function updateUser(event) {
+            // Prevent the default form submission behavior
+            event.preventDefault();
+
+            var formData = $('#updateUserForm').serialize();
+            var userId = $('#userId').val();
+
+            $.ajax({
+                url: '/v4/users/' + userId,
+                type: 'PUT',
+                data: formData,
+                success: function(response) {
+
+                    // Display success message
+                    $('#successMessage').removeClass('hidden'); // Show the success div
+
+                    // Hide the modal
+                    closeModal('modal-id');
+
+                    // Optional: You can clmostrarSolicitacaoear the form inputs if needed
+                    $('#updateUserForm')[0].reset();
+                },
+                error: function(error) {
+                    // Handle error here
+                    console.log(error);
+                    $('#errorMessage').removeClass('hidden'); // Show the success div
+
+                }
+            });
+        }
+
+        function mostrarSolicitacao(id, idSolicitacaoNum, userName, motivo) {
+            var url = window.location.href;
+
+            var nome = $('#formNome');
+            var rgCpf = $('#formRgCpf');
+            var empresa = $('#formEmpresa');
+            var setorResponsavel = $('#formSetorResponsavel');
+            var pessoaResponsavel = $('#formPessoaResponsavel');
+            var placa = $('#formPlaca');
+            var horaEntrada = $('#formHoraEntrada');
+            var horaSaida = $('#formHoraSaida');
+            var userNameinput = $('#nomeAcesso');
+            var motivoinput = $('#formMotivo');
+
+            var idAcesso = $('#idAcesso');
+            var idSolicitacao = $('#idSolicitacao');
+
+            idAcesso.val('');
+            idSolicitacao.val('');
+
+            nome.val('');
+            rgCpf.val('');
+            empresa.val('');
+            setorResponsavel.val('');
+            pessoaResponsavel.val('');
+            placa.val('');
+            horaEntrada.val('');
+            horaSaida.val('');
+            userNameinput.val('');
+            motivoinput.val('');
+
+            url = url + '/controleDeAcesso/' + id
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(response) {
+
+                    nome.val(response.nome);
+                    rgCpf.val(response.rgCpf);
+                    empresa.val(response.transportadora);
+                    setorResponsavel.val(response.setorResponsavel);
+                    pessoaResponsavel.val(response.pessoaResponsavel);
+                    placa.val(response.placa);
+                    horaEntrada.val(response.horaEntrada);
+                    horaSaida.val(response.horaSaida);
+                    userNameinput.val(userName);
+                    motivoinput.val(motivo);
+
+                    idAcesso.val(id);
+                    idSolicitacao.val(idSolicitacaoNum);
+
+                    toggleModalDelete('modal-id-delete')
+
+
+
+                },
+                error: function(error) {
+                    // Handle error here
+                    console.log(error);
+                    $('#errorMessage').removeClass('hidden'); // Show the success div
+
+                }
+            });
+
+        }
+
+        function restaurarExclusao(event, url) {
+            event.preventDefault();
+
+            var formData = $('#restaurarForm').serialize();
+
+
+            url =  url + '/users/restaurarAcesso';
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+
+                    
+                },
+                error: function(error) {
+                    console.log(error);
+                    
+
+                }
+            });
+
+            
+        }
+
+        function toggleModalDelete(modalID) {
+            $("#" + modalID).toggleClass("hidden flex");
+            $("#" + modalID + "-backdrop").toggleClass("hidden flex");
+        }
+    </script>
+    
     <script type="module">
         $('document').ready(function() {
             $('#myTable').DataTable({
@@ -425,6 +591,11 @@
                         data: 'motivo',
                         ordable: false,
                         render: function(data, type, row) {
+
+                            if (data == null) {
+                                return null
+                            }
+
                             if (data.length > 15) {
                                
                                 return data.substring(0, 15) + '...';
@@ -440,9 +611,11 @@
                         orderable: false,
                         render: function(data, type, row) {
 
+                            console.log(row);
+
                             return `
                             <button class="bg-blue-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                onclick="mostrarSolicitacao(${row.id})">
+                                onclick="mostrarSolicitacao(${row.id},${row.idSolicitacao},'${row.nomeUsuario}','${row.motivo}')">
                                Mostrar
                             </button>
                             
@@ -483,126 +656,5 @@
         });
     </script>
 
-    <script type="text/javascript">
-        function toggleModal(modalID, userURL) {
-            $.get(userURL, function(data) {
-                $('#userId').val(data.id);
-                $('#name').val(data.name);
-                $('#last_name').val(data.last_name);
-                $('#email').val(data.email);
-                $('#phone').val(data.phone);
-                $('#ramal').val(data.ramal);
-
-                // Check fixed checkboxes
-                $('#controleDeAcessosCheckbox').prop('checked', data.permissions.some(permission => permission
-                    .permission === 'controleDeAcessos'));
-                $('#usersCheckbox').prop('checked', data.permissions.some(permission => permission.permission ===
-                    'users'));
-                $('#encaixeCheckbox').prop('checked', data.permissions.some(permission => permission.permission ===
-                    'encaixe'));
-                $('#encaixeVisualizarCheckbox').prop('checked', data.permissions.some(permission => permission
-                    .permission === 'encaixeVisualizar'));
-
-
-
-                // Show the modal using the toggleModal function
-                $("#" + modalID).toggleClass("hidden flex");
-                $("#" + modalID + "-backdrop").toggleClass("hidden flex");
-            });
-        }
-
-        function closeModal(modalID) {
-            $("#" + modalID).toggleClass("hidden flex");
-            $("#" + modalID + "-backdrop").toggleClass("hidden flex");
-        }
-
-        function updateUser(event) {
-            // Prevent the default form submission behavior
-            event.preventDefault();
-
-            var formData = $('#updateUserForm').serialize();
-            var userId = $('#userId').val();
-
-            $.ajax({
-                url: '/v4/users/' + userId,
-                type: 'PUT',
-                data: formData,
-                success: function(response) {
-
-                    // Display success message
-                    $('#successMessage').removeClass('hidden'); // Show the success div
-
-                    // Hide the modal
-                    closeModal('modal-id');
-
-                    // Optional: You can clear the form inputs if needed
-                    $('#updateUserForm')[0].reset();
-                },
-                error: function(error) {
-                    // Handle error here
-                    console.log(error);
-                    $('#errorMessage').removeClass('hidden'); // Show the success div
-
-                }
-            });
-        }
-
-        function mostrarSolicitacao(id) {
-            var url = window.location.href;
-
-            var nome = $('#formNome');
-            var rgCpf = $('#formRgCpf');
-            var empresa = $('#formEmpresa');
-            var setorResponsavel = $('#formSetorResponsavel');
-            var pessoaResponsavel = $('#formPessoaResponsavel');
-            var placa = $('#formPlaca');
-            var horaEntrada = $('#formHoraEntrada');
-            var horaSaida = $('#formHoraSaida');
-
-            nome.val('');
-            rgCpf.val('');
-            empresa.val('');
-            setorResponsavel.val('');
-            pessoaResponsavel.val('');
-            placa.val('');
-            horaEntrada.val('');
-            horaSaida.val('');
-
-            url = url + '/controleDeAcesso/' + id
-
-            $.ajax({
-                url: url,
-                type: 'GET',
-                success: function(response) {
-
-                    nome.val(response.nome);
-                    rgCpf.val(response.rgCpf);
-                    empresa.val(response.transportadora);
-                    setorResponsavel.val(response.setorResponsavel);
-                    pessoaResponsavel.val(response.pessoaResponsavel);
-                    placa.val(response.placa);
-                    horaEntrada.val(response.horaEntrada);
-                    horaSaida.val(response.horaSaida);
-
-                    toggleModalDelete('modal-id-delete')
-
-
-
-                },
-                error: function(error) {
-                    // Handle error here
-                    console.log(error);
-                    $('#errorMessage').removeClass('hidden'); // Show the success div
-
-                }
-            });
-
-        }
-
-
-        function toggleModalDelete(modalID) {
-            $("#" + modalID).toggleClass("hidden flex");
-            $("#" + modalID + "-backdrop").toggleClass("hidden flex");
-        }
-    </script>
+    
 </x-app-layout>

@@ -29,6 +29,7 @@ class Controle_de_acesso extends Model
         'horaSaida',
         'dataSaida',
         'setorResponsavel',
-        'pessoaResponsavel'
+        'pessoaResponsavel',
+        'deletado'
     ];
 }

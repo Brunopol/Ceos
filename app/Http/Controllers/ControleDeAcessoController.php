@@ -19,9 +19,7 @@ class ControleDeAcessoController extends Controller
     {
 
         if ($request->ajax()) {
-            $acessos = Controle_de_acesso::all();
-
-
+            $acessos = Controle_de_acesso::where('deletado', false)->get();
 
             $data = [];
             foreach ($acessos as $acesso) {
@@ -260,6 +258,13 @@ class ControleDeAcessoController extends Controller
     public function solicitarDeletagem(Request $request) 
     {
         
+        $acesso = Controle_de_acesso::find($request->id);
+
+
+        $acesso->update([
+            'deletado' => true,
+        ]);
+
         $user = auth()->user();
 
         Solicitacoe::create([

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Controle_de_acesso;
 use App\Models\Solicitacoe;
 use App\Models\User;
 use DateTime;
@@ -86,6 +87,7 @@ class UserController extends Controller
 
                 $row = [
                     'id' => $solicitacao->acesso_id,
+                    'idSolicitacao' => $solicitacao->id,
                     'created_at' => $solicitacao->created_at->toISOString(),
                     'nomeUsuario' => $userName->name,
                     'motivo' => $solicitacao->acesso_motivo,
@@ -98,6 +100,23 @@ class UserController extends Controller
 
             return datatables()->of($data)->toJson();
         }
+    }
+
+    public function restaurarAcesso(Request $request)
+    {
+
+        $acesso = Controle_de_acesso::find($request->idAcesso);
+        $solicitacao = Solicitacoe::find($request->idSolicitacao);
+
+        $acesso->update([
+            'deletado' => false
+        ]);
+
+        $solicitacao->delete();
+
+        
+        
+
     }
 
 
