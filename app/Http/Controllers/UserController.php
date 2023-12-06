@@ -12,30 +12,30 @@ use Illuminate\View\View;
 
 class UserController extends Controller
 {
-    
+
     public function index(Request $request): View
     {
         $users = User::all();
-        
+
         return view('users', [
             "users" => $users,
         ]);
     }
 
-    public function show($id) 
+    public function show($id)
     {
         $user = User::with('permissions')->find($id);
-    
+
         return response()->json($user);
     }
-    
+
 
     public function update(Request $request, User $user)
-    {   
-     
-        
+    {
+
+
         if ($request->password != null || $request->password != '') {
-       
+
             $data = $request->validate([
                 'name' => 'required|string|max:255',
                 'last_name' => 'required|string|max:255',
@@ -52,20 +52,18 @@ class UserController extends Controller
                 'phone' => 'required|string|max:255',
                 'ramal' => 'required|string|max:255',
             ]);
-    
         }
-            
-     
 
-        
+
+
+
         $user->update($data);
 
         $user->removAllPermissions();
 
         $permissions = $request->input('permissions', []);
 
-        foreach( $permissions as $permission)
-        {
+        foreach ($permissions as $permission) {
             $user->givePermissionTo($permission);
         }
 
@@ -91,8 +89,7 @@ class UserController extends Controller
                     'created_at' => $solicitacao->created_at->toISOString(),
                     'nomeUsuario' => $userName->name,
                     'motivo' => $solicitacao->acesso_motivo,
-                    'actions' => [
-                    ],
+                    'actions' => [],
                 ];
 
                 $data[] = $row;
@@ -114,10 +111,6 @@ class UserController extends Controller
 
         $solicitacao->delete();
 
-        
-        
-
+        return response()->json(['message' => 'Acesso restaurado com sucesso']);
     }
-
-
 }

@@ -348,7 +348,7 @@
             </div>
         </div>
     </div>
-    
+
 
     <script type="text/javascript">
         function toggleModal(modalID, userURL) {
@@ -487,7 +487,7 @@
             var formData = $('#restaurarForm').serialize();
 
 
-            url =  url + '/users/restaurarAcesso';
+            url = url + '/users/restaurarAcesso';
 
             $.ajax({
                 url: url,
@@ -495,24 +495,41 @@
                 data: formData,
                 success: function(response) {
 
-                    
+                    toggleModalDelete('modal-id-delete')
+                    location.reload();
+                    showNotification(response.message)
                 },
                 error: function(error) {
                     console.log(error);
-                    
+
 
                 }
             });
 
-            
+
         }
 
         function toggleModalDelete(modalID) {
             $("#" + modalID).toggleClass("hidden flex");
             $("#" + modalID + "-backdrop").toggleClass("hidden flex");
         }
+
+        //--------------------NOTIFICAÇÕES--------------------\\
+
+        function showNotification(message) {
+            var notification = $('<div>', {
+                class: 'fixed bottom-4 left-4 bg-gray-800 text-white px-4 py-2 rounded-md shadow-md z-50',
+                text: message
+            }).appendTo('body')
+
+            setTimeout(function() {
+                notification.fadeOut(300, function() {
+                    $(this).remove()
+                })
+            }, 5000)
+        }
     </script>
-    
+
     <script type="module">
         $('document').ready(function() {
             $('#myTable').DataTable({
@@ -579,6 +596,10 @@
                         "targets": 3
                     },
                 ],
+                order: [
+
+                    [0, 'desc']
+                ],
 
                 columns: [{
                         data: 'created_at',
@@ -597,7 +618,7 @@
                             }
 
                             if (data.length > 15) {
-                               
+
                                 return data.substring(0, 15) + '...';
                             } else {
 
@@ -656,5 +677,5 @@
         });
     </script>
 
-    
+
 </x-app-layout>

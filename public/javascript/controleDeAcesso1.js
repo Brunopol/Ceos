@@ -635,7 +635,8 @@ function solicitarDeletagem(event, url) {
         success: function (response) {
             closeModal('modal-id-delete')
             $('#formSolicitarDeletagem')[0].reset()
-            //location.reload()
+            showNotification(response.message)
+            location.reload()
         },
         error: function (error) {
             console.log(error.responseJSON.message)
@@ -643,4 +644,19 @@ function solicitarDeletagem(event, url) {
     })
 
     
+}
+
+ //--------------------NOTIFICAÇÕES--------------------\\
+
+ function showNotification (message) {
+    var notification = $('<div>', {
+        class: 'fixed bottom-4 left-4 bg-gray-800 text-white px-4 py-2 rounded-md shadow-md z-50',
+        text: message
+    }).appendTo('body')
+
+    setTimeout(function () {
+        notification.fadeOut(300, function () {
+            $(this).remove()
+        })
+    }, 5000)
 }

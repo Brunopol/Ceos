@@ -273,6 +273,7 @@ class ControleDeAcessoController extends Controller
             'acesso_motivo' => $request->motivo
         ]);
         
+        return response()->json(['message' => 'Acesso deletado com sucesso']);
 
     }
 }
