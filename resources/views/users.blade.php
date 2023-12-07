@@ -168,6 +168,11 @@
                                             class="form-checkbox" value="encaixeVisualizar">
                                         <label for="encaixeCheckbox">Encaixe Visualizar</label>
                                     </div>
+                                    <div class="flex items-center space-x-2">
+                                        <input type="checkbox" id="chavesCheckbox" name="permissions[]"
+                                            class="form-checkbox" value="chaves">
+                                        <label for="chavesCheckbox">Chaves</label>
+                                    </div>
                                 </div>
                                 <!-- Other form inputs -->
                             </div>
@@ -369,7 +374,8 @@
                     'encaixe'));
                 $('#encaixeVisualizarCheckbox').prop('checked', data.permissions.some(permission => permission
                     .permission === 'encaixeVisualizar'));
-
+                $('#chavesCheckbox').prop('checked', data.permissions.some(permission => permission
+                .permission === 'chaves'));
 
 
                 // Show the modal using the toggleModal function

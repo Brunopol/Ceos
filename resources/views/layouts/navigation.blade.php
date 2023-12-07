@@ -30,6 +30,11 @@
                         {{ __('Controle De Acesso') }}
                     </x-nav-link>
                     @endcan
+                    @can('chaves')
+                    <x-nav-link :href="route('chaves')" :active="request()->routeIs('chaves')">
+                        {{ __('Chaves') }}
+                    </x-nav-link>
+                    @endcan
                 </div>
             </div>
 
@@ -85,9 +90,9 @@
             <x-responsive-nav-link :href="route('painel')" :active="request()->routeIs('painel')">
                 {{ __('Painel') }}
             </x-responsive-nav-link>
-            @can('user')
-                <x-responsive-nav-link :href="route('users')" :active="request()->routeIs('users')">
-                {{ __('Users') }}
+            @can('users')
+            <x-responsive-nav-link :href="route('users')" :active="request()->routeIs('users')">
+            {{ __('Users') }}
             </x-responsive-nav-link>
             @endcan
             @can('encaixeVisualizar')
@@ -97,7 +102,12 @@
             @endcan
             @can('controleDeAcessos')
             <x-responsive-nav-link :href="route('controleDeAcessos')" :active="request()->routeIs('controleDeAcessos')">
-                {{ __('controle De Acessos') }}
+                {{ __('Controle De Acessos') }}
+            </x-responsive-nav-link>
+            @endcan
+            @can('chaves')
+            <x-responsive-nav-link :href="route('chaves')" :active="request()->routeIs('chaves')">
+                {{ __('Chaves') }}
             </x-responsive-nav-link>
             @endcan
         </div>
