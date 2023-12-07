@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChaveController;
 use App\Http\Controllers\ControleDeAcessoController;
 use App\Http\Controllers\EncaixeController;
 use App\Http\Controllers\ProfileController;
@@ -56,6 +57,9 @@ Route::get('/controleDeAcesso/getEmpresasAcessos/{empresa}', [ControleDeAcessoCo
 Route::get('/controleDeAcesso/getSetoresAcessos/{setor}/{empresa}', [ControleDeAcessoController::class, 'getAcessosPeloSetor'])->middleware(['auth', 'verified','permission:controleDeAcessos'])->name('controleDeAcessos.getSetores');
 Route::get('/controleDeAcesso/getPessoasAcessos/{pessoa}/{setor}', [ControleDeAcessoController::class, 'getAcessosPelaPessoa'])->middleware(['auth', 'verified','permission:controleDeAcessos'])->name('controleDeAcessos.getPessoas');
 Route::post('/controleDeAcesso/solicitarDeletagem', [ControleDeAcessoController::class, 'solicitarDeletagem'])->middleware(['auth', 'verified','permission:controleDeAcessos'])->name('controleDeAcessos.solicitarDeletagem');
+
+Route::get('/chaves', [ChaveController::class, 'index'])->middleware(['auth', 'verified','permission:chaves'])->name('chaves');
+
 
 
 Route::middleware('auth')->group(function () {
