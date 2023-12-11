@@ -27,9 +27,9 @@ class ChaveController extends Controller
                     'created_at' => $chave->created_at->toISOString(),
                     'nomePessoa' => $chave->nomePessoa,
                     'nomeChave' => $chave->nomeChave,
-                    'horaEntrada' => $chave->horaEntrada,
+                    'horaEntrada' => $chave->novaHoraEntrada,
                     'horaSaida' => [
-                        'saida' => $chave->horaSaida,
+                        'saida' => $chave->novaHoraSaida,
                         'id' => $chave->id
                     ],
                     'actions' => [
@@ -47,5 +47,50 @@ class ChaveController extends Controller
 
 
         return view('chaves');
+    }
+
+    public function add(Request $request) 
+    {
+
+        $validatedData = $request->validate([
+            'nomePessoa' => 'required',
+            'nomeChave' => 'required',
+            'horaEntrada' => 'required',
+            'horaSaida' => 'nullable'
+            
+        ]);
+
+        $chave = Chave::create([
+            'nomePessoa' => strtoupper($validatedData['nomePessoa']),
+            'nomeChave' => strtoupper($validatedData['nomeChave']),
+            'novaHoraEntrada' => $validatedData['horaEntrada'],
+            'novaHoraSaida' => $validatedData['horaSaida']
+        ]);
+
+        return response()->json([
+            'message' => "Chave '$chave->nomeChave' foi registrado com sucesso",
+            'id' => $chave->id,
+            'created_at' => $chave->created_at
+        ]);
+
+    }
+
+    public function regSaida(Request $request, $id) 
+    {
+        $validatedData = $request->validate([
+            'horaSaida' => 'nullable',
+            'dataSaida' => 'nullable'
+        ]);
+
+        $chave = Chave::find($id);
+
+        $chave->update([
+            'novaHoraSaida' => $validatedData['horaSaida'],
+            'dataSaida' => $validatedData['dataSaida']
+        ]);
+
+        return response()->json([
+            'message' => "Chave '$chave->nomeChave' atualizado com sucesso"
+        ]);
     }
 }

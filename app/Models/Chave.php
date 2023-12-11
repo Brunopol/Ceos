@@ -12,7 +12,8 @@ class Chave extends Model
     protected $fillable = [
         'nomePessoa',
         'nomeChave',
-        'horaEntrada',
-        'horaSaida'
+        'novaHoraEntrada',
+        'novaHoraSaida',
+        'dataSaida'
     ];
 }

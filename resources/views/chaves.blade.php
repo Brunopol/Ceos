@@ -7,7 +7,7 @@
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Módulo Controle De Acesso') }}
+            {{ __('Módulo Chaves') }}
         </h2>
     </x-slot>
 
@@ -31,10 +31,10 @@
                         <thead>
                             <tr>
                                 <th>DATA</th>
-                                <th>NOME PESSOA</th>
-                                <th>NOME CHAVE</th>
                                 <th>HORA ENTRADA</th>
                                 <th>HORA SAÍDA</th>
+                                <th>NOME CHAVE</th>
+                                <th>NOME PESSOA</th>
                                 <th>ACOES</th>
 
                             </tr>
@@ -54,12 +54,8 @@
 
                                 <div class="flex items-start justify-between p-5 border-b border-slate-200 rounded-t">
                                     <h3 class="text-3xl font-semibold" id="modalTitle">
-                                        EXCLUIR ACESSO:
+                                        REGISTRAR CHAVE
                                     </h3>
-
-                                    <input type="text" id="nomeAcesso" readonly
-                                        class="bg-gray-200 border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
-
 
                                     <button class="text-slate-600 hover:text-slate-800 focus:outline-none"
                                         type="button" onclick="toggleModal('modal-id-add')">
@@ -73,24 +69,123 @@
                                 </div>
 
 
-                                <form id="formSolicitarDeletagem" class="p-4">
+                                <form id="formAddChave" class="p-4">
 
                                     <input type="text" name="id" id="idAcesso" class="hidden">
 
-                                    <label for="motivo">MOTIVO PARA EXCLUSÃO</label>
+                                   
 
-                                    <div class="mb-4">
-                                        <textarea name="motivo" id="motivo" class="w-full px-3 py-2 border rounded-md"></textarea>
+                                    <div class="grid grid-cols-2 gap-4">
+
+                                        <div class="mb-4">
+                                            <label for="motivo">NOME</label>    
+                                            <input type="text" id="" name="nomePessoa"
+                                                class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label for="motivo">CHAVE</label>    
+                                            <input type="text" id="" name="nomeChave"
+                                                class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                        </div>
+
+                                        <div class="mb-4 " id="horaEntradaDiv">
+                                            <label for="horaEntrada"
+                                                class="block text-sm font-medium text-gray-700">
+                                                HORA ENTRADA
+                                            </label>
+                                            <input type="time" id="horaEntrada" name="horaEntrada"
+                                                class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                        </div>
+
+                                        <div class="mb-4 " id="horaSaidaDiv">
+                                            <label for="horaSaida"
+                                                class="block text-sm font-medium text-gray-700">
+                                                HORA SAÍDA
+                                            </label>
+                                            <input type="time" id="horaSaida" name="horaSaida"
+                                                class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="grid grid-cols-1">
+
+                                        <label class="inline-flex items-center p-1">
+                                            <input id="cbHoraEntrada" type="checkbox"
+                                                onclick="checkBoxToggleHoraEntrada()"
+                                                class="form-checkbox h-5 w-5 text-emerald-500">
+                                            <span class="ml-2 text-gray-800">HORÁRIO ENTRADA</span>
+                                        </label>
+
+                                        <label class="inline-flex items-center p-1">
+                                            <input id="cbHoraSaida" type="checkbox"
+                                                onclick="checkBoxToggleHoraSaida()"
+                                                class="form-checkbox h-5 w-5 text-emerald-500">
+                                            <span class="ml-2 text-gray-800">HORÁRIO SAÍDA</span>
+                                        </label>
+
+                                        <div class="flex justify-end mt-3">
+                                            <button id=""
+                                                class="bg-green-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
+                                                onclick="registrarChave(event, '{{ url('') }}')">REGISTRAR</button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Modal Registrar Saida -->
+                    <div class="fixed z-50 inset-0 flex items-center justify-center overflow-auto bg-black bg-opacity-50 hidden"
+                        id="modal-id-reg">
+                        <div class="relative w-3/5 my-6 mx-auto">
+                            <div
+                                class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+
+                                <div class="flex items-start justify-between p-5 border-b border-slate-200 rounded-t">
+                                    <h3 class="text-3xl font-semibold" id="modalTitle">
+                                        Registrar Saída Chave
+                                    </h3>
+                                    <button class="text-slate-600 hover:text-slate-800 focus:outline-none"
+                                        type="button" onclick="toggleModal('modal-id-reg')">
+                                        <svg class="h-6 w-6" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M6 18L18 6M6 6l12 12"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+
+                                <form id="formRegistrarSaida" class="p-4">
+
+                                    <input type="text" value="" id="idReg" class="hidden">
+
+                                    <div class="mb-4" id="">
+                                        <label for="horaSaida" class="block text-sm font-medium text-gray-700">
+                                            DATA SAÍDA
+                                        </label>
+                                        <input type="date" id="dataSaidaRegistarSaida" name="dataSaida"
+                                            class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                    </div>
+
+                                    <div class="mb-4" id="">
+                                        <label for="horaSaida" class="block text-sm font-medium text-gray-700">
+                                            HORA SAÍDA
+                                        </label>
+                                        <input type="time" id="horaSaidaRegistraSaida" name="horaSaida"
+                                            class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
                                     </div>
 
                                     <div class="flex justify-end mt-3">
                                         <button id=""
-                                            class="bg-red-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
-                                            onclick="solicitarDeletagem(event, '{{ url('') }}')">DELETAR</button>
+                                            class=" bg-emerald-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
+                                            onclick="registrarSaidaAcesso(event, '{{ url('') }}')">REGISTRAR</button>
+
                                     </div>
-
                                 </form>
-
                             </div>
                         </div>
                     </div>
@@ -126,21 +221,41 @@
                     orderable: true
                 },
                 {
-                    data: 'nomePessoa',
-                    orderable: true
-                },
-                {
-                    data: 'nomeChave',
-                    orderable: true
-                },
-                {
                     data: 'horaEntrada',
                     orderable: true
                 },
                 {
                     data: 'horaSaida.saida',
                     orderable: true,
-                   
+                    render: function(data, type, row) {
+
+
+                        if (data == null) {
+                            return `<button onclick="registrarHoraSaida(${row.horaSaida.id})" class="bg-yellow-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
+                                     Registrar
+                                    </button>`
+                        }
+
+                        var createdDate = new Date(row.created_at);
+                        var formattedCreatedDate =
+                            `${createdDate.getDate()}/${createdDate.getMonth() + 1}/${createdDate.getFullYear()}`;
+
+
+
+                        if (row.dataSaida != formattedCreatedDate && row.dataSaida != null) {
+                            return `${row.dataSaida} às ${data}`;
+                        }
+
+                        return data
+                    }
+                },
+                {
+                    data: 'nomeChave',
+                    orderable: true
+                },
+                {
+                    data: 'nomePessoa',
+                    orderable: true
                 },
                 {
                     data: 'actions',

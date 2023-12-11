@@ -20,11 +20,11 @@
 
 
     <!-- Prod -->
-      <!-- <link rel="stylesheet" href="{{ asset('build/assets/build1.css') }}" /> 
-        <script src="{{ asset('build/assets/build1.js') }}" ></script> -->
+       <link rel="stylesheet" href="{{ asset('build/assets/build1.css') }}" /> 
+        <script src="{{ asset('build/assets/build1.js') }}" ></script> 
     <!-- dev -->
 
-      @vite(['resources/css/app.scss', 'resources/js/app.js']) 
+     <!-- @vite(['resources/css/app.scss', 'resources/js/app.js']) -->
         
         
         

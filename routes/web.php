@@ -59,6 +59,8 @@ Route::get('/controleDeAcesso/getPessoasAcessos/{pessoa}/{setor}', [ControleDeAc
 Route::post('/controleDeAcesso/solicitarDeletagem', [ControleDeAcessoController::class, 'solicitarDeletagem'])->middleware(['auth', 'verified','permission:controleDeAcessos'])->name('controleDeAcessos.solicitarDeletagem');
 
 Route::get('/chaves', [ChaveController::class, 'index'])->middleware(['auth', 'verified','permission:chaves'])->name('chaves');
+Route::post('/chaves/add', [ChaveController::class, 'add'])->middleware(['auth', 'verified','permission:chaves'])->name('chaves.add');
+Route::put('/chaves/reg/{id}', [ChaveController::class, 'regSaida'])->middleware(['auth', 'verified','permission:chaves'])->name('chaves.reg');
 
 
 
