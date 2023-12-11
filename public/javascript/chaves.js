@@ -1,10 +1,31 @@
-function toggleModal (modalID) {
+function toggleModal (modalID, editar) {
+
     $('#formAddChave')[0].reset()
     $('#' + modalID).toggleClass('hidden flex')
     $('#' + modalID + '-backdrop').toggleClass('hidden flex')
-    hideHoraSaida()
-    hideHoraEntrada()
-    setCurrentTime('horaEntrada')
+
+    if (editar) {
+        
+        $('#modalTitleRg').text('EDITAR CHAVE')
+
+        var btnRegistrar = $('#btnRegistrar')
+        var btnAtualizar = $('#btnAtualizar')
+        btnRegistrar.addClass('hidden')
+        btnAtualizar.removeClass('hidden')
+
+         
+    } else {
+        
+        $('#modalTitleRg').text('REGISTRAR CHAVE')
+        $('#btnRegistrar').removeClass('hidden')
+        $('#btnAtualizar').addClass('hidden')
+
+        hideHoraSaida()
+        hideHoraEntrada()
+        setCurrentTime('horaEntrada')
+    }
+
+    
 }
 
 // checkbox hora entrada

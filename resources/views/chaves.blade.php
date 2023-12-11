@@ -53,7 +53,7 @@
                                 class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
 
                                 <div class="flex items-start justify-between p-5 border-b border-slate-200 rounded-t">
-                                    <h3 class="text-3xl font-semibold" id="modalTitle">
+                                    <h3 class="text-3xl font-semibold" id="modalTitleRg">
                                         REGISTRAR CHAVE
                                     </h3>
 
@@ -126,9 +126,13 @@
                                         </label>
 
                                         <div class="flex justify-end mt-3">
-                                            <button id=""
-                                                class="bg-green-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
+                                            <button id="btnRegistrar"
+                                                class="hidden bg-green-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
                                                 onclick="registrarChave(event, '{{ url('') }}')">REGISTRAR</button>
+
+                                            <button id="btnAtualizar"
+                                            class="hidden bg-green-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
+                                            onclick="registrarChave(event, '{{ url('') }}')">ATUALIZAR</button>
                                         </div>
                                     </div>
                                 </form>
@@ -209,11 +213,32 @@
             ajax: "chaves",
             columnDefs: [{
                     className: "align-left",
+                    "width": "10%",
                     "targets": 0,
                     render: function(data) {
                         return new Date(data).toLocaleDateString();
                     }
                  },
+                 {
+                    "width": "10%",
+                    "targets": 1
+                },
+                {
+                    "width": "10%",
+                    "targets": 2
+                },
+                {
+                    "width": "30%",
+                    "targets": 3
+                },
+                {
+                    "width": "30%",
+                    "targets": 4
+                },
+                {
+                    "width": "10%",
+                    "targets": 5
+                },
 
             ],
             columns: [{
@@ -265,7 +290,7 @@
 
                         return `
                             <button class="bg-blue-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                onclick="mostrarAcesso('')">
+                                onclick="toggleModal('modal-id-add', true)">
                                EDITAR
                             </button>
 
@@ -281,7 +306,7 @@
             ],
             order: [
 
-                [0, 'asc']
+                [2, 'asc']
             ],
 
             "language": {
