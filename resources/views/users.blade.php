@@ -147,28 +147,29 @@
                                 </div>
                                 <!-- Checkboxes -->
                                 <div class="col-span-2">
-                                    <label class="block text-sm font-medium text-gray-700">Permissões</label>
-                                    <div class="flex items-center space-x-2">
+                                    <label class="block text-sm font-medium text-gray-700 pb-4">Permissões</label>
+
+                                    <div class="flex items-center space-x-2 border-b-2 pb-1 ">
+                                        <input type="checkbox" id="usersCheckbox" name="permissions[]"
+                                            class="form-checkbox" value="users">
+                                        <label for="usersCheckbox">Users (Administrador)</label>
+                                    </div>
+                                    <div class="flex items-center space-x-2 border-b-2 pb-1">
                                         <input type="checkbox" id="controleDeAcessosCheckbox" name="permissions[]"
                                             class="form-checkbox" value="controleDeAcessos">
                                         <label for="controleDeAcessoCheckbox">Controle De Acessos</label>
                                     </div>
-                                    <div class="flex items-center space-x-2">
-                                        <input type="checkbox" id="usersCheckbox" name="permissions[]"
-                                            class="form-checkbox" value="users">
-                                        <label for="usersCheckbox">Users</label>
-                                    </div>
-                                    <div class="flex items-center space-x-2">
+
+                                    <div class="flex items-center space-x-2 border-b-2 pb-1">
+                                        <input type="checkbox" id="encaixeVisualizarCheckbox" name="permissions[]"
+                                            class="form-checkbox" value="encaixeVisualizar">
+                                        <label for="encaixeCheckbox">Encaixe Visualizar</label>
+
                                         <input type="checkbox" id="encaixeCheckbox" name="permissions[]"
                                             class="form-checkbox" value="encaixe">
                                         <label for="encaixeCheckbox">Encaixe Editar</label>
                                     </div>
-                                    <div class="flex items-center space-x-2">
-                                        <input type="checkbox" id="encaixeVisualizarCheckbox" name="permissions[]"
-                                            class="form-checkbox" value="encaixeVisualizar">
-                                        <label for="encaixeCheckbox">Encaixe Visualizar</label>
-                                    </div>
-                                    <div class="flex items-center space-x-2">
+                                    <div class="flex items-center space-x-2 border-b-2 pb-1">
                                         <input type="checkbox" id="chavesCheckbox" name="permissions[]"
                                             class="form-checkbox" value="chaves">
                                         <label for="chavesCheckbox">Chaves</label>
@@ -375,7 +376,7 @@
                 $('#encaixeVisualizarCheckbox').prop('checked', data.permissions.some(permission => permission
                     .permission === 'encaixeVisualizar'));
                 $('#chavesCheckbox').prop('checked', data.permissions.some(permission => permission
-                .permission === 'chaves'));
+                    .permission === 'chaves'));
 
 
                 // Show the modal using the toggleModal function
