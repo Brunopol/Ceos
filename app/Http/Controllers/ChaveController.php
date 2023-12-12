@@ -124,4 +124,19 @@ class ChaveController extends Controller
 
     }
 
+    public function chaveSugestao($input) {
+
+        $query = $input;
+
+
+        try {
+
+            $suggestions = Chave::where('nomeChave', 'like', '%' . $query . '%')->select('nomeChave')->get();
+            return response()->json($suggestions);
+        } catch (\Exception $e) {
+            return response()->json('null');
+        }
+
+    }
+
 }

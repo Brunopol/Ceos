@@ -197,7 +197,7 @@ function showChave (event, id) {
 function atualizarChave (event, url) {
     event.preventDefault()
 
-    url = url + '/chaves';
+    url = url + '/chaves'
 
     var formData = $('#formAddChave').serialize()
 
@@ -215,4 +215,49 @@ function atualizarChave (event, url) {
             console.log(error.responseJSON.message)
         }
     })
+}
+
+//sugestoes
+
+function mostrarSugestoesChave () {
+    url = window.location.href
+
+    input = $('#nomeChavei').val()
+
+    url = url + '/nomeChaveSugestao/' + input
+
+    $.ajax({
+        url: url,
+        type: 'GET',
+        headers: {
+            'X-CSRF-TOKEN': csrfToken
+        },
+        success: function (response) {
+            updateDatalistChaves(response)
+        },
+        error: function (error) {
+            console.log(error.responseJSON.message)
+        }
+    })
+}
+
+function updateDatalistChaves (suggestions) {
+    let datalist = $('#nomeChaveDatalist')
+    datalist.empty()
+
+    if (Array.isArray(suggestions)) {
+        let uniqueNamesSet = new Set()
+
+        let uniqueSuggestions = suggestions.filter(obj => {
+            if (!uniqueNamesSet.has(obj.nomeChave)) {
+                uniqueNamesSet.add(obj.nomeChave)
+                return true
+            }
+            return false
+        })
+
+        uniqueSuggestions.forEach(function (suggestion) {
+            datalist.append(`<option value="${suggestion.nomeChave}">`)
+        })
+    }
 }

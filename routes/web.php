@@ -63,6 +63,7 @@ Route::post('/chaves/add', [ChaveController::class, 'add'])->middleware(['auth',
 Route::put('/chaves/reg/{id}', [ChaveController::class, 'regSaida'])->middleware(['auth', 'verified','permission:chaves'])->name('chaves.reg');
 Route::get('/chaves/{id}', [ChaveController::class, 'show'])->middleware(['auth', 'verified','permission:chaves'])->name('chaves.show');
 Route::put('/chaves', [ChaveController::class, 'update'])->middleware(['auth', 'verified','permission:chaves'])->name('chaves.update');
+Route::get('/chaves/nomeChaveSugestao/{input}', [ChaveController::class, 'chaveSugestao'])->middleware(['auth', 'verified','permission:chaves'])->name('chaves.chaveSugestao');
 
 
 

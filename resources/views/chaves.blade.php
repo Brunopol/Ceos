@@ -31,10 +31,10 @@
                         <thead>
                             <tr>
                                 <th>DATA</th>
-                                <th>HORA ENTRADA</th>
-                                <th>HORA SAÍDA</th>
-                                <th>NOME CHAVE</th>
-                                <th>NOME PESSOA</th>
+                                <th>ENTRADA</th>
+                                <th>SAÍDA</th>
+                                <th>CHAVE</th>
+                                <th>PESSOA</th>
                                 <th>ACOES</th>
 
                             </tr>
@@ -78,14 +78,18 @@
                                     <div class="grid grid-cols-2 gap-4">
 
                                         <div class="mb-4">
-                                            <label for="motivo">NOME</label>    
-                                            <input type="text" id="nomePessoai" name="nomePessoa"
+                                            <label for="motivo">CHAVE</label>    
+                                            <input type="text" id="nomeChavei" name="nomeChave" autocomplete="off" list="nomeChaveDatalist" oninput="mostrarSugestoesChave()"
                                                 class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                            
+                                            <datalist id="nomeChaveDatalist">
+                                            
+                                            </datalist>
                                         </div>
 
                                         <div class="mb-4">
-                                            <label for="motivo">CHAVE</label>    
-                                            <input type="text" id="nomeChavei" name="nomeChave"
+                                            <label for="motivo">NOME</label>    
+                                            <input type="text" id="nomePessoai" name="nomePessoa" autocomplete="off"
                                                 class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
                                         </div>
 
