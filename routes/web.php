@@ -61,6 +61,8 @@ Route::post('/controleDeAcesso/solicitarDeletagem', [ControleDeAcessoController:
 Route::get('/chaves', [ChaveController::class, 'index'])->middleware(['auth', 'verified','permission:chaves'])->name('chaves');
 Route::post('/chaves/add', [ChaveController::class, 'add'])->middleware(['auth', 'verified','permission:chaves'])->name('chaves.add');
 Route::put('/chaves/reg/{id}', [ChaveController::class, 'regSaida'])->middleware(['auth', 'verified','permission:chaves'])->name('chaves.reg');
+Route::get('/chaves/{id}', [ChaveController::class, 'show'])->middleware(['auth', 'verified','permission:chaves'])->name('chaves.show');
+Route::put('/chaves', [ChaveController::class, 'update'])->middleware(['auth', 'verified','permission:chaves'])->name('chaves.update');
 
 
 

@@ -79,13 +79,13 @@
 
                                         <div class="mb-4">
                                             <label for="motivo">NOME</label>    
-                                            <input type="text" id="" name="nomePessoa"
+                                            <input type="text" id="nomePessoai" name="nomePessoa"
                                                 class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
                                         </div>
 
                                         <div class="mb-4">
                                             <label for="motivo">CHAVE</label>    
-                                            <input type="text" id="" name="nomeChave"
+                                            <input type="text" id="nomeChavei" name="nomeChave"
                                                 class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
                                         </div>
 
@@ -132,7 +132,7 @@
 
                                             <button id="btnAtualizar"
                                             class="hidden bg-green-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
-                                            onclick="registrarChave(event, '{{ url('') }}')">ATUALIZAR</button>
+                                            onclick="atualizarChave(event, '{{ url('') }}')">ATUALIZAR</button>
                                         </div>
                                     </div>
                                 </form>
@@ -290,15 +290,9 @@
 
                         return `
                             <button class="bg-blue-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                onclick="toggleModal('modal-id-add', true)">
+                                onclick="showChave(event, '${row.horaSaida.id}' )">
                                EDITAR
                             </button>
-
-                            <button class="bg-red-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                onclick="solicitarDeletagemButton('', '')">
-                               DELETAR
-                            </button>
-                            
                         `;
                     }
                 },

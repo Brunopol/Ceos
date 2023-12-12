@@ -93,4 +93,35 @@ class ChaveController extends Controller
             'message' => "Chave '$chave->nomeChave' atualizado com sucesso"
         ]);
     }
+
+    public function show($id) {
+        $chave = Chave::find($id);
+        return response()->json($chave);
+    }
+
+    public function update(Request $request) {
+
+        $validatedData = $request->validate([
+            'nomePessoa' => 'required',
+            'nomeChave' => 'required',
+            'horaEntrada' => 'required',
+            'horaSaida' => 'nullable'
+            
+        ]);
+
+        $chave = Chave::find($request->id);
+
+        $chave->update([
+            'nomePessoa' => strtoupper($validatedData['nomePessoa']),
+            'nomeChave' => strtoupper($validatedData['nomeChave']),
+            'novaHoraEntrada' => $validatedData['horaEntrada'],
+            'novaHoraSaida' => $validatedData['horaSaida']
+        ]);
+
+        return response()->json([
+            'message' => "Chave '$chave->nomeChave' atualizado com sucesso"
+        ]);
+
+    }
+
 }

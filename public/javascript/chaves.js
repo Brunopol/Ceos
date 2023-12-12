@@ -1,21 +1,16 @@
 function toggleModal (modalID, editar) {
-
     $('#formAddChave')[0].reset()
     $('#' + modalID).toggleClass('hidden flex')
     $('#' + modalID + '-backdrop').toggleClass('hidden flex')
 
     if (editar) {
-        
         $('#modalTitleRg').text('EDITAR CHAVE')
 
         var btnRegistrar = $('#btnRegistrar')
         var btnAtualizar = $('#btnAtualizar')
         btnRegistrar.addClass('hidden')
         btnAtualizar.removeClass('hidden')
-
-         
     } else {
-        
         $('#modalTitleRg').text('REGISTRAR CHAVE')
         $('#btnRegistrar').removeClass('hidden')
         $('#btnAtualizar').addClass('hidden')
@@ -24,8 +19,6 @@ function toggleModal (modalID, editar) {
         hideHoraEntrada()
         setCurrentTime('horaEntrada')
     }
-
-    
 }
 
 // checkbox hora entrada
@@ -75,7 +68,7 @@ function hideHoraSaida () {
     horaSaidaDiv.prop('readonly', true)
     horaSaidaDiv.addClass('bg-gray-200')
 }
-     
+
 // Registrar chave
 
 function registrarChave (event, url) {
@@ -105,9 +98,7 @@ function registrarChave (event, url) {
     })
 }
 
-
-// registrar hora saida 
-
+// registrar hora saida
 
 function registrarHoraSaida (id) {
     $('#formRegistrarSaida')[0].reset()
@@ -167,4 +158,61 @@ function setCurrentDate (id) {
     var formattedDate = currentDate.toISOString().split('T')[0]
 
     dataEntradaInput.value = formattedDate
+}
+
+// editar chaves
+
+function showChave (event, id) {
+    event.preventDefault()
+
+    url = window.location.href
+
+    url = url + '/' + id
+
+    $.ajax({
+        url: url,
+        type: 'GET',
+        headers: {
+            'X-CSRF-TOKEN': csrfToken
+        },
+        success: function (response) {
+            toggleModal('modal-id-add', true)
+
+            hideHoraEntrada()
+            hideHoraSaida()
+
+            $('#idAcesso').val(response.id)
+
+            $('#nomePessoai').val(response.nomePessoa)
+            $('#nomeChavei').val(response.nomeChave)
+            $('#horaEntrada').val(response.novaHoraEntrada)
+            $('#horaSaida').val(response.novaHoraSaida)
+        },
+        error: function (error) {
+            console.log(error.responseJSON.message)
+        }
+    })
+}
+
+function atualizarChave (event, url) {
+    event.preventDefault()
+
+    url = url + '/chaves';
+
+    var formData = $('#formAddChave').serialize()
+
+    $.ajax({
+        url: url,
+        type: 'PUT',
+        data: formData,
+        headers: {
+            'X-CSRF-TOKEN': csrfToken
+        },
+        success: function (response) {
+            location.reload()
+        },
+        error: function (error) {
+            console.log(error.responseJSON.message)
+        }
+    })
 }
