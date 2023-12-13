@@ -89,8 +89,12 @@
 
                                         <div class="mb-4">
                                             <label for="motivo">NOME</label>    
-                                            <input type="text" id="nomePessoai" name="nomePessoa" autocomplete="off"
-                                                class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                            <input type="text" id="nomePessoai" name="nomePessoa" autocomplete="off" onclick="buscarPessoas()" oninput="buscarPessoas()"
+                                               list="nomePessoaDatalist" class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+
+                                            <datalist id="nomePessoaDatalist">
+                                                
+                                            </datalist>
                                         </div>
 
                                         <div class="mb-4 " id="horaEntradaDiv">

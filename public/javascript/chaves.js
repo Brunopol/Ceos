@@ -261,3 +261,70 @@ function updateDatalistChaves (suggestions) {
         })
     }
 }
+
+//
+
+function buscarPessoas () {
+    let query = $('#nomePessoai').val()
+    empresa = $('#nomeChavei').val()
+
+    url = window.location.href
+
+
+    if (query != '' || query != ' ' && empresa != '' || empresa != ' ') {
+
+        fetchSuggestionsPessoas(url, query)
+        
+    }
+
+}
+
+function fetchSuggestionsPessoas (url, query) {
+    chave = $('#nomeChavei').val()
+
+
+    if (query == null || query == '' || query == ' ') {
+        query = '*'
+    }
+
+    if (query != null && chave != null) {
+        url = `${url}/nomePessoaSugestao/${query}/${chave}`
+
+        console.log(url);
+
+        $.ajax({
+            url: url,
+            method: 'GET',
+            success: function (data) {
+                updateDatalistPessoas(data)
+            },
+            error: function (error) {
+                console.error('Error fetching data:', error)
+            }
+        })
+    }
+}
+
+function updateDatalistPessoas (suggestions) {
+    let datalist = $('#nomePessoaDatalist')
+    datalist.empty()
+
+    if (Array.isArray(suggestions)) {
+        let uniqueNamesSet = new Set()
+
+        let uniqueSuggestions = suggestions.filter(obj => {
+            if (!uniqueNamesSet.has(obj.nomePessoa)) {
+                uniqueNamesSet.add(obj.nomePessoa)
+                return true
+            }
+            return false
+        })
+
+        
+
+        uniqueSuggestions.forEach(function (suggestion) {
+
+            datalist.append(`<option value="${suggestion.nomePessoa}">`)
+        })
+    }
+}

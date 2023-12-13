@@ -49,7 +49,7 @@ class ChaveController extends Controller
         return view('chaves');
     }
 
-    public function add(Request $request) 
+    public function add(Request $request)
     {
 
         $validatedData = $request->validate([
@@ -57,7 +57,7 @@ class ChaveController extends Controller
             'nomeChave' => 'required',
             'horaEntrada' => 'required',
             'horaSaida' => 'nullable'
-            
+
         ]);
 
         $chave = Chave::create([
@@ -72,10 +72,9 @@ class ChaveController extends Controller
             'id' => $chave->id,
             'created_at' => $chave->created_at
         ]);
-
     }
 
-    public function regSaida(Request $request, $id) 
+    public function regSaida(Request $request, $id)
     {
         $validatedData = $request->validate([
             'horaSaida' => 'nullable',
@@ -94,19 +93,21 @@ class ChaveController extends Controller
         ]);
     }
 
-    public function show($id) {
+    public function show($id)
+    {
         $chave = Chave::find($id);
         return response()->json($chave);
     }
 
-    public function update(Request $request) {
+    public function update(Request $request)
+    {
 
         $validatedData = $request->validate([
             'nomePessoa' => 'required',
             'nomeChave' => 'required',
             'horaEntrada' => 'required',
             'horaSaida' => 'nullable'
-            
+
         ]);
 
         $chave = Chave::find($request->id);
@@ -121,10 +122,10 @@ class ChaveController extends Controller
         return response()->json([
             'message' => "Chave '$chave->nomeChave' atualizado com sucesso"
         ]);
-
     }
 
-    public function chaveSugestao($input) {
+    public function chaveSugestao($input)
+    {
 
         $query = $input;
 
@@ -136,7 +137,31 @@ class ChaveController extends Controller
         } catch (\Exception $e) {
             return response()->json('null');
         }
-
     }
 
+    public function pessoaSugestao($pessoa, $chave)
+    {
+        if ($pessoa == '*') {
+            try {
+                $suggestions = Chave::where('nomeChave', 'like', $chave)->get(['nomePessoa']);
+                return response()->json($suggestions);
+            } catch (\Exception $e) {
+                return response()->json(null);
+            }
+        }
+
+
+        $pessoaQuery = '%' . $pessoa . '%';
+        $chaveQuery = '%' . $chave . '%';
+
+        try {
+            $suggestions = Chave::where('nomeChave', 'like', $chaveQuery)
+                ->where('nomePessoa', 'like', $pessoaQuery)
+                ->get(['nomePessoa']);
+
+            return response()->json($suggestions);
+        } catch (\Exception $e) {
+            return response()->json(null);
+        }
+    }
 }

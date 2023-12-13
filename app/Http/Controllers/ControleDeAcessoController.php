@@ -255,9 +255,9 @@ class ControleDeAcessoController extends Controller
         }
     }
 
-    public function solicitarDeletagem(Request $request) 
+    public function solicitarDeletagem(Request $request)
     {
-        
+
         $acesso = Controle_de_acesso::find($request->id);
 
 
@@ -272,8 +272,7 @@ class ControleDeAcessoController extends Controller
             'acesso_id' => $request->id,
             'acesso_motivo' => $request->motivo
         ]);
-        
-        return response()->json(['message' => 'Acesso deletado com sucesso']);
 
+        return response()->json(['message' => 'Acesso deletado com sucesso']);
     }
 }
