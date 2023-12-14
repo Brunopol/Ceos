@@ -270,18 +270,13 @@ function buscarPessoas () {
 
     url = window.location.href
 
-
-    if (query != '' || query != ' ' && empresa != '' || empresa != ' ') {
-
+    if (query != '' || (query != ' ' && empresa != '') || empresa != ' ') {
         fetchSuggestionsPessoas(url, query)
-        
     }
-
 }
 
 function fetchSuggestionsPessoas (url, query) {
     chave = $('#nomeChavei').val()
-
 
     if (query == null || query == '' || query == ' ') {
         query = '*'
@@ -289,8 +284,6 @@ function fetchSuggestionsPessoas (url, query) {
 
     if (query != null && chave != null) {
         url = `${url}/nomePessoaSugestao/${query}/${chave}`
-
-        console.log(url);
 
         $.ajax({
             url: url,
@@ -320,10 +313,7 @@ function updateDatalistPessoas (suggestions) {
             return false
         })
 
-        
-
         uniqueSuggestions.forEach(function (suggestion) {
-
             datalist.append(`<option value="${suggestion.nomePessoa}">`)
         })
     }
