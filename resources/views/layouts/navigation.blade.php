@@ -35,6 +35,11 @@
                         {{ __('Chaves') }}
                     </x-nav-link>
                     @endcan
+                    @can('controleDeFrotas')
+                    <x-nav-link :href="route('controleDeFrotas')" :active="request()->routeIs('controleDeFrotas')">
+                        {{ __('Controle De Frotas') }}
+                    </x-nav-link>
+                    @endcan
                 </div>
             </div>
 
@@ -110,6 +115,12 @@
                 {{ __('Chaves') }}
             </x-responsive-nav-link>
             @endcan
+            @can('controleDeFrotas')
+            <x-responsive-nav-link :href="route('controleDeFrotas')" :active="request()->routeIs('controleDeFrotas')">
+                {{ __('Controle De Frotas') }}
+            </x-responsive-nav-link>
+            @endcan
+            
         </div>
 
         <!-- Responsive Settings Options -->

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ChaveController;
 use App\Http\Controllers\ControleDeAcessoController;
+use App\Http\Controllers\ControleDeFrotasController;
 use App\Http\Controllers\EncaixeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -66,6 +67,7 @@ Route::put('/chaves', [ChaveController::class, 'update'])->middleware(['auth', '
 Route::get('/chaves/nomeChaveSugestao/{input}', [ChaveController::class, 'chaveSugestao'])->middleware(['auth', 'verified','permission:chaves'])->name('chaves.chaveSugestao');
 Route::get('/chaves/nomePessoaSugestao/{pessoa}/{chave}', [ChaveController::class, 'pessoaSugestao'])->middleware(['auth', 'verified','permission:chaves'])->name('chaves.pessoaSugestao');
 
+Route::get('/controleDeFrota', [ControleDeFrotasController::class, 'index'])->middleware(['auth', 'verified','permission:controleDeFrotas'])->name('controleDeFrotas');
 
 
 Route::middleware('auth')->group(function () {

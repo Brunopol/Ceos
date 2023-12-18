@@ -174,6 +174,11 @@
                                             class="form-checkbox" value="chaves">
                                         <label for="chavesCheckbox">Chaves</label>
                                     </div>
+                                    <div class="flex items-center space-x-2 border-b-2 pb-1">
+                                        <input type="checkbox" id="controleDeFrotasCheckbox" name="permissions[]"
+                                            class="form-checkbox" value="controleDeFrotas">
+                                        <label for="controleDeFrotasCheckbox">Controle De Frotas</label>
+                                    </div>
                                 </div>
                                 <!-- Other form inputs -->
                             </div>
@@ -338,7 +343,7 @@
                     <div class="flex justify-end">
                         <div class="mt-3 p-2">
                             <button id=""
-                                class="bg-emerald-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
+                                  class="bg-emerald-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
                                 onclick="restaurarExclusao(event, '{{ url('') }}')">Restaurar</button>
                         </div>
 
@@ -377,7 +382,8 @@
                     .permission === 'encaixeVisualizar'));
                 $('#chavesCheckbox').prop('checked', data.permissions.some(permission => permission
                     .permission === 'chaves'));
-
+                $('#controleDeFrotasCheckbox').prop('checked', data.permissions.some(permission => permission
+                    .permission === 'controleDeFrotas'));
 
                 // Show the modal using the toggleModal function
                 $("#" + modalID).toggleClass("hidden flex");
