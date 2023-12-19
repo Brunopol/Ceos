@@ -52,6 +52,11 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function cfs(): HasMany
+    {
+        return $this->hasMany(Cf::class);
+    }
+
     public function controleDeAcessos(): HasMany
     {
         return $this->hasMany(Controle_de_acesso::class);
