@@ -168,6 +168,15 @@
                                                     class="w-full rounded-md border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-400">
                                             </div>
 
+                                            <div class="mb-4" id="dataSaidaDiv">
+                                                <label for="dataSaida"
+                                                    class="block text-sm font-medium text-gray-700">
+                                                    DATA SAÍDA
+                                                </label>
+                                                <input type="date" id="dataSaida" name="dataSaida"
+                                                    class="w-full rounded-md border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                            </div>
+
                                             <div class="mb-4" id="horaSaidaDiv">
                                                 <label for="horaSaida"
                                                     class="block text-sm font-medium text-gray-700">

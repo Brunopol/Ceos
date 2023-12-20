@@ -106,6 +106,7 @@ class ControleDeAcessoController extends Controller
             'transportadora' => 'nullable',
             'placa' => 'nullable',
             'horaEntrada' => 'nullable',
+            'dataSaida' => 'nullable',
             'horaSaida' => 'nullable',
             'pessoaResponsavel' => 'nullable',
             'setorResponsavel' => 'nullable'
@@ -119,6 +120,7 @@ class ControleDeAcessoController extends Controller
             'transportadora' => strtoupper($validatedData['transportadora']),
             'placa' => strtoupper($validatedData['placa']),
             'horaEntrada' => $validatedData['horaEntrada'],
+            'dataSaida' => $validatedData['dataSaida'],
             'horaSaida' => $validatedData['horaSaida'],
             'pessoaResponsavel' => strtoupper($validatedData['pessoaResponsavel']),
             'setorResponsavel' => strtoupper($validatedData['setorResponsavel']),

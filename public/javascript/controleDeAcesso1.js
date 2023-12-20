@@ -10,9 +10,11 @@ function toggleModal (modalID, type) {
         atualizarButton.removeClass('hidden')
         adicionarButton.addClass('hidden')
         hideRgCpf()
+        showDataSaida()
         $('#cbRgCpf').prop('checked', false)
     } else {
         $('#formAddAcesso')[0].reset()
+        hideDataSaida()
         hideCarro()
         hideHoraSaida()
         hideHoraEntrada()
@@ -122,6 +124,16 @@ function showHoraSaida () {
     var horaSaidaDiv = $('#horaSaida')
     horaSaidaDiv.prop('readonly', false)
     horaSaidaDiv.removeClass('bg-gray-200')
+}
+
+function showDataSaida () {
+    var dataSaidaDiv = $('#dataSaidaDiv')
+    dataSaidaDiv.removeClass('hidden')
+}
+
+function hideDataSaida () {
+    var dataSaidaDiv = $('#dataSaidaDiv')
+    dataSaidaDiv.addClass('hidden')
 }
 
 function hideHoraSaida () {
@@ -273,11 +285,22 @@ function mostrarAcesso (url, list) {
             }
 
             $('#placa').val(response.placa)
+
+            if (response.dataSaida != null) {
+                $('#dataSaida').val(response.dataSaida)
+            } else {
+                $('#dataSaida').val(formatDate(response.created_at))
+            }
         },
         error: function (error) {
             console.log(error)
         }
     })
+}
+
+function formatDate (inputDate) {
+    var dateParts = inputDate.split('T')
+    return dateParts[0]
 }
 
 function deletarAcesso (url) {
