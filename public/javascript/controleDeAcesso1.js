@@ -23,9 +23,9 @@ function toggleModal (modalID, type) {
         atualizarButton.addClass('hidden')
         adicionarButton.removeClass('hidden')
 
-        userLoggedIn = $('#currentLogedInUser').val();
+        userLoggedIn = $('#currentLogedInUser').val()
 
-        console.log(userLoggedIn);
+        console.log(userLoggedIn)
 
         $('#usuario').val(userLoggedIn)
     }
@@ -212,7 +212,6 @@ function atualizarAcesso (event, url) {
 
     url = url + '/controleDeAcesso/' + id.value
 
-
     var formData = $('#formAddAcesso').serialize()
 
     $.ajax({
@@ -244,7 +243,6 @@ function mostrarAcesso (url, list) {
             'X-CSRF-TOKEN': csrfToken
         },
         success: function (response) {
-
             if (!list) {
                 $('#formAddAcesso')[0].reset()
                 toggleModal('modal-id-add', true)
@@ -273,7 +271,6 @@ function mostrarAcesso (url, list) {
             if (response.user != null) {
                 $('#usuario').val(response.user.name)
             }
-           
 
             $('#placa').val(response.placa)
         },
@@ -333,24 +330,17 @@ function registrarSaidaAcesso (event, url) {
     })
 }
 
-
-function buscarpessoas(url) {
+function buscarpessoas (url) {
     let query = $('#pessoaResponsavel').val()
     setor = $('#setorResponsavel').val()
 
-
-    if (query != '' || query != ' ' && setor != '' || setor != ' ') {
-
+    if (query != '' || (query != ' ' && setor != '') || setor != ' ') {
         fetchSuggestionsPessoas(url, query)
-        
     }
 }
 
-function fetchSuggestionsPessoas(url, query) {
-
-
+function fetchSuggestionsPessoas (url, query) {
     setor = $('#setorResponsavel').val()
-
 
     if (query == null || query == '' || query == ' ') {
         query = '*'
@@ -370,13 +360,11 @@ function fetchSuggestionsPessoas(url, query) {
             }
         })
     }
-
 }
 
 function updateDatalistPessoas (suggestions) {
     let datalist = $('#PessoaResponsavelDataList')
     datalist.empty()
-
 
     if (Array.isArray(suggestions)) {
         let uniqueNamesSet = new Set()
@@ -389,16 +377,11 @@ function updateDatalistPessoas (suggestions) {
             return false
         })
 
-        
-
         uniqueSuggestions.forEach(function (suggestion) {
-
             datalist.append(`<option value="${suggestion.pessoaResponsavel}">`)
         })
     }
 }
-
-
 
 //buscar setores
 
@@ -406,18 +389,13 @@ function buscarsetores (url) {
     let query = $('#setorResponsavel').val()
     empresa = $('#transportadora').val()
 
-
-    if (query != '' || query != ' ' && empresa != '' || empresa != ' ') {
-
+    if (query != '' || (query != ' ' && empresa != '') || empresa != ' ') {
         fetchSuggestionsSetores(url, query)
-        
     }
-
 }
 
 function fetchSuggestionsSetores (url, query) {
     empresa = $('#transportadora').val()
-
 
     if (query == null || query == '' || query == ' ') {
         query = '*'
@@ -454,10 +432,7 @@ function updateDatalistSetores (suggestions) {
             return false
         })
 
-        
-
         uniqueSuggestions.forEach(function (suggestion) {
-
             datalist.append(`<option value="${suggestion.setorResponsavel}">`)
         })
     }
@@ -502,7 +477,6 @@ function updateDatalistEmpresas (suggestions) {
         })
 
         uniqueSuggestions.forEach(function (suggestion) {
-
             datalist.append(`<option value="${suggestion.transportadora}">`)
         })
     }
@@ -577,48 +551,38 @@ function preencherDados (id) {
     mostrarAcesso(url, true)
 }
 
-
 //toggle cpf
 
-function checkBoxToggleRgCpf() {
-    
-
-
+function checkBoxToggleRgCpf () {
     var checkbox = $('#cbRgCpf')
 
     if (checkbox.prop('checked')) {
         showRgCpf()
-
     } else {
         hideRgCpf()
     }
-
 }
 
-function showRgCpf() {
+function showRgCpf () {
     var checkbox = $('#rgCpf')
 
-    checkbox.attr("type", "text");
+    checkbox.attr('type', 'text')
 }
 
-function hideRgCpf() {
-    var checkbox = $('#rgCpf')    
-    checkbox.attr("type", "password");
-
+function hideRgCpf () {
+    var checkbox = $('#rgCpf')
+    checkbox.attr('type', 'password')
 }
 
 // solicitar deletagem
 
-
-
-function solicitarDeletagemButton(nome, id) {
+function solicitarDeletagemButton (nome, id) {
     toggleModal('modal-id-delete', true)
     $('#nomeAcesso').val(nome)
     $('#idAcesso').val(id)
 }
 
-
-function solicitarDeletagem(event, url) {
+function solicitarDeletagem (event, url) {
     event.preventDefault()
 
     url = url + '/controleDeAcesso/solicitarDeletagem'
@@ -642,13 +606,11 @@ function solicitarDeletagem(event, url) {
             console.log(error.responseJSON.message)
         }
     })
-
-    
 }
 
- //--------------------NOTIFICAÇÕES--------------------\\
+//--------------------NOTIFICAÇÕES--------------------\\
 
- function showNotification (message) {
+function showNotification (message) {
     var notification = $('<div>', {
         class: 'fixed bottom-4 left-4 bg-gray-800 text-white px-4 py-2 rounded-md shadow-md z-50',
         text: message

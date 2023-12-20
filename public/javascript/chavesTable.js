@@ -3,31 +3,35 @@ $(document).ready(function () {
         responsive: true,
         processing: true,
         serverSide: true,
-        ajax: 'controleDeAcesso',
+        ajax: 'chaves',
         columnDefs: [
             {
                 className: 'align-left',
+                width: '10%',
                 targets: 0,
                 render: function (data) {
                     return new Date(data).toLocaleDateString()
                 }
             },
-
             {
-                width: '20%',
+                width: '10%',
+                targets: 1
+            },
+            {
+                width: '10%',
+                targets: 2
+            },
+            {
+                width: '30%',
                 targets: 3
             },
             {
-                width: '20%',
+                width: '30%',
                 targets: 4
             },
             {
-                width: '20%',
+                width: '10%',
                 targets: 5
-            },
-            {
-                width: '20%',
-                targets: 6
             }
         ],
         columns: [
@@ -64,62 +68,25 @@ $(document).ready(function () {
                     return data
                 }
             },
-
             {
-                data: 'nome',
-                name: 'nome'
+                data: 'nomeChave',
+                orderable: true
             },
             {
-                data: 'rgCpf',
-                orderable: false,
-                render: function (data, type, row) {
-                    if (data.length < 4 || !/^\d+$/.test(data)) {
-                        return data
-                    } else {
-                        // Assuming data is a string with only numeric characters
-                        let prefix = data.substring(0, 3)
-                        let suffix = data.substring(data.length - 3)
-                        let dataModified = prefix + '*******' + suffix
-
-                        return dataModified
-                    }
-                }
-            },
-            {
-                data: 'empresa',
-                orderable: false
-            },
-            {
-                data: 'placa',
-                orderable: false
+                data: 'nomePessoa',
+                orderable: true
             },
             {
                 data: 'actions',
                 orderable: false,
                 render: function (data, type, row) {
-                    var actionsData = data
-
                     return `
                         <button class="bg-blue-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                            onclick="mostrarAcesso('${actionsData.url_show}')">
+                            onclick="showChave(event, '${row.horaSaida.id}' )">
                            EDITAR
                         </button>
-
-                        <button class="bg-red-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                            onclick="solicitarDeletagemButton('${row.nome}', '${row.horaSaida.id}')">
-                           DELETAR
-                        </button>
-                        
                     `
                 }
-            },
-            {
-                data: 'pessoaResponsavel',
-                orderable: false
-            },
-            {
-                data: 'setorResponsavel',
-                orderable: false
             }
         ],
         order: [[2, 'asc']],

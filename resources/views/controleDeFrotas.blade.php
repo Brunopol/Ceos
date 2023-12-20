@@ -4,28 +4,23 @@
         var csrfToken = '{{ csrf_token() }}';
     </script>
 
-
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="text-xl font-semibold leading-tight text-gray-800">
             {{ __('Módulo Controle De Frotas') }}
         </h2>
     </x-slot>
 
-
-
-
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <button
-                        class="self-start bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300 mb-4"
+                        class="mb-4 self-start rounded-md bg-blue-500 px-4 py-2 font-semibold text-white transition duration-300 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
                         type="button" onclick="toggleModal('modal-id-add')">
                         Novo
                     </button>
 
-
-                    <table id="myTable" class="table table-striped nowrap cell-border hover stripe" style="width:100%">
+                    <table id="myTable" class="table-striped nowrap cell-border hover stripe table" style="width:100%">
                         <thead>
                             <tr>
                                 <th>DATA</th>
@@ -46,16 +41,14 @@
                         </tbody>
                     </table>
 
-
-
                     <!-- Modal Adicionar Acesso -->
-                    <div class="fixed z-50 inset-0 flex items-center justify-center overflow-auto bg-black bg-opacity-50 hidden"
+                    <div class="fixed inset-0 z-50 flex hidden items-center justify-center overflow-auto bg-black bg-opacity-50"
                         id="modal-id-add-backdrop">
-                        <div class="relative w-3/5 my-6 mx-auto">
+                        <div class="relative mx-auto my-6 w-3/5">
                             <div
-                                class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                                class="relative flex w-full flex-col rounded-lg border-0 bg-white shadow-lg outline-none focus:outline-none">
 
-                                <div class="flex items-start justify-between p-5 border-b border-slate-200 rounded-t">
+                                <div class="flex items-start justify-between rounded-t border-b border-slate-200 p-5">
                                     <h3 class="text-3xl font-semibold" id="modalTitle">
                                         Adicionar Acesso
                                     </h3>
@@ -81,11 +74,10 @@
                                                 </label>
                                                 <input type="text" id="nome" name="nome" value=""
                                                     autocomplete="off" oninput="pegarAcessoNomes('{{ url('') }}')"
-                                                    class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                                    class="w-full rounded-md border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-400">
 
                                                 <div id="divNomeAcessos"
-                                                    class="rounded-md py-2 px-3 max-h-60 overflow-y-auto border border-gray-300">
-
+                                                    class="max-h-60 overflow-y-auto rounded-md border border-gray-300 px-3 py-2">
 
                                                 </div>
 
@@ -100,7 +92,7 @@
                                                     RG ou CPF
                                                 </label>
                                                 <input type="text" id="rgCpf" name="rgCpf"
-                                                    class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                                    class="w-full rounded-md border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-400">
                                             </div>
 
                                             <div class="mb-4">
@@ -111,7 +103,7 @@
                                                 <input type="text" id="transportadora" name="transportadora"
                                                     list="empresasDatalist"
                                                     oninput="buscarempresas('{{ url('') }}')"
-                                                    class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                                                    class="w-full rounded-md border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-400"
                                                     autocomplete="off">
                                                 <datalist id="empresasDatalist">
 
@@ -127,7 +119,7 @@
                                                     list="SetorResponsavelDataList"
                                                     oninput="buscarsetores('{{ url('') }}')"
                                                     onclick="buscarsetores('{{ url('') }}')"
-                                                    class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                                                    class="w-full rounded-md border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-400"
                                                     autocomplete="off">
                                                 <datalist id="SetorResponsavelDataList">
 
@@ -143,53 +135,51 @@
                                                     list="PessoaResponsavelDataList"
                                                     oninput="buscarpessoas('{{ url('') }}')"
                                                     onclick="buscarpessoas('{{ url('') }}')"
-                                                    class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                                    class="w-full rounded-md border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-400">
                                                 <datalist id="PessoaResponsavelDataList">
 
                                                 </datalist>
 
                                             </div>
 
-                                            <div class="mb-4 " id="placaDiv">
+                                            <div class="mb-4" id="placaDiv">
                                                 <label for="placa" class="block text-sm font-medium text-gray-700">
                                                     PLACA
                                                 </label>
                                                 <input type="text" id="placa" name="placa"
-                                                    class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                                    class="w-full rounded-md border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-400">
                                             </div>
 
-                                            <div class="mb-4 " id="">
+                                            <div class="mb-4" id="">
                                                 <label for="placa" class="block text-sm font-medium text-gray-700">
                                                     USUÁRIO
                                                 </label>
                                                 <input type="text" value="Antes do dia 21/11/23" id="usuario"
                                                     readonly
-                                                    class="bg-gray-200 w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                                    class="w-full rounded-md border bg-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-400">
                                             </div>
 
-                                            <div class="mb-4 " id="horaEntradaDiv">
+                                            <div class="mb-4" id="horaEntradaDiv">
                                                 <label for="horaEntrada"
                                                     class="block text-sm font-medium text-gray-700">
                                                     HORA ENTRADA
                                                 </label>
                                                 <input type="time" id="horaEntrada" name="horaEntrada"
-                                                    class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                                    class="w-full rounded-md border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-400">
                                             </div>
 
-                                            <div class="mb-4 " id="horaSaidaDiv">
+                                            <div class="mb-4" id="horaSaidaDiv">
                                                 <label for="horaSaida"
                                                     class="block text-sm font-medium text-gray-700">
                                                     HORA SAÍDA
                                                 </label>
                                                 <input type="time" id="horaSaida" name="horaSaida"
-                                                    class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                                    class="w-full rounded-md border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-400">
                                             </div>
-
-
 
                                             <!-- Error Message -->
                                             <div id="errorMessage"
-                                                class="bg-red-500 text-white p-2 rounded-md mb-4 hidden">
+                                                class="mb-4 hidden rounded-md bg-red-500 p-2 text-white">
                                                 <span>Error, preencha corretamente todos os campos</span>
                                             </div>
                                         </div>
@@ -197,8 +187,7 @@
 
                                     <!-- Buttons -->
 
-
-                                    <div class="p-5 border-t border-slate-200 rounded-b">
+                                    <div class="rounded-b border-t border-slate-200 p-5">
                                         <div class="grid grid-cols-1 md:grid-cols-1 md:grid-rows-3 md:gap-3">
                                             <label class="inline-flex items-center">
                                                 <input id="cbCarro" type="checkbox" onclick="checkBoxToggleCarro()"
@@ -227,38 +216,33 @@
                                             </label>
 
                                         </div>
-                                        <div class="flex justify-end mt-3">
+                                        <div class="mt-3 flex justify-end">
                                             <button
-                                                class="text-red-500 font-bold text-sm mr-3 focus:outline-none hover:text-red-700"
+                                                class="mr-3 text-sm font-bold text-red-500 hover:text-red-700 focus:outline-none"
                                                 type="button" onclick="closeModal('modal-id-add')">FECHAR</button>
                                             <button id="adicionarButton"
-                                                class="hidden bg-emerald-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
+                                                class="hidden rounded bg-emerald-500 px-4 py-2 text-sm font-bold text-white shadow transition duration-300 hover:shadow-md"
                                                 onclick="adicionarAcesso(event, '{{ url('') }}')">ADICIONAR</button>
 
                                             <button id="atualizarButton"
-                                                class="hidden bg-emerald-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
+                                                class="hidden rounded bg-emerald-500 px-4 py-2 text-sm font-bold text-white shadow transition duration-300 hover:shadow-md"
                                                 onclick="atualizarAcesso(event, '{{ url('') }}')">ATUALIZAR</button>
                                         </div>
                                     </div>
-
 
                                 </form>
                             </div>
                         </div>
                     </div>
 
-
-
-
-
                     <!-- Modal Registrar Saida -->
-                    <div class="fixed z-50 inset-0 flex items-center justify-center overflow-auto bg-black bg-opacity-50 hidden"
+                    <div class="fixed inset-0 z-50 flex hidden items-center justify-center overflow-auto bg-black bg-opacity-50"
                         id="modal-id-reg">
-                        <div class="relative w-3/5 my-6 mx-auto">
+                        <div class="relative mx-auto my-6 w-3/5">
                             <div
-                                class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                                class="relative flex w-full flex-col rounded-lg border-0 bg-white shadow-lg outline-none focus:outline-none">
 
-                                <div class="flex items-start justify-between p-5 border-b border-slate-200 rounded-t">
+                                <div class="flex items-start justify-between rounded-t border-b border-slate-200 p-5">
                                     <h3 class="text-3xl font-semibold" id="modalTitle">
                                         Registrar Saída
                                     </h3>
@@ -281,7 +265,7 @@
                                             DATA SAÍDA
                                         </label>
                                         <input type="date" id="dataSaidaReg" name="dataSaida"
-                                            class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                            class="w-full rounded-md border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-400">
                                     </div>
 
                                     <div class="mb-4" id="">
@@ -289,12 +273,12 @@
                                             HORA SAÍDA
                                         </label>
                                         <input type="time" id="horaSaidaReg" name="horaSaida"
-                                            class="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                                            class="w-full rounded-md border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-400">
                                     </div>
 
-                                    <div class="flex justify-end mt-3">
+                                    <div class="mt-3 flex justify-end">
                                         <button id=""
-                                            class=" bg-emerald-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
+                                            class="rounded bg-emerald-500 px-4 py-2 text-sm font-bold text-white shadow transition duration-300 hover:shadow-md"
                                             onclick="registrarSaidaAcesso(event, '{{ url('') }}')">REGISTRAR</button>
 
                                     </div>
@@ -304,20 +288,19 @@
                     </div>
 
                     <!-- Modal Solicitar exclusao -->
-                    <div class="fixed z-50 inset-0 flex items-center justify-center overflow-auto bg-black bg-opacity-50 hidden"
+                    <div class="fixed inset-0 z-50 flex hidden items-center justify-center overflow-auto bg-black bg-opacity-50"
                         id="modal-id-delete">
-                        <div class="relative w-3/5 my-6 mx-auto">
+                        <div class="relative mx-auto my-6 w-3/5">
                             <div
-                                class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                                class="relative flex w-full flex-col rounded-lg border-0 bg-white shadow-lg outline-none focus:outline-none">
 
-                                <div class="flex items-start justify-between p-5 border-b border-slate-200 rounded-t">
+                                <div class="flex items-start justify-between rounded-t border-b border-slate-200 p-5">
                                     <h3 class="text-3xl font-semibold" id="modalTitle">
                                         EXCLUIR ACESSO:
                                     </h3>
 
                                     <input type="text" id="nomeAcesso" readonly
-                                        class="bg-gray-200 border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-400">
-
+                                        class="rounded-md border bg-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-400">
 
                                     <button class="text-slate-600 hover:text-slate-800 focus:outline-none"
                                         type="button" onclick="closeModal('modal-id-delete')">
@@ -330,7 +313,6 @@
 
                                 </div>
 
-
                                 <form id="formSolicitarDeletagem" class="p-4">
 
                                     <input type="text" name="id" id="idAcesso" class="hidden">
@@ -338,12 +320,12 @@
                                     <label for="motivo">MOTIVO PARA EXCLUSÃO</label>
 
                                     <div class="mb-4">
-                                        <textarea name="motivo" id="motivo" class="w-full px-3 py-2 border rounded-md"></textarea>
+                                        <textarea name="motivo" id="motivo" class="w-full rounded-md border px-3 py-2"></textarea>
                                     </div>
 
-                                    <div class="flex justify-end mt-3">
+                                    <div class="mt-3 flex justify-end">
                                         <button id=""
-                                            class="bg-red-500 text-white font-bold text-sm py-2 px-4 rounded shadow hover:shadow-md transition duration-300"
+                                            class="rounded bg-red-500 px-4 py-2 text-sm font-bold text-white shadow transition duration-300 hover:shadow-md"
                                             onclick="solicitarDeletagem(event, '{{ url('') }}')">DELETAR</button>
                                     </div>
 
@@ -352,11 +334,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
-
-
 
                 </div>
             </div>
@@ -371,5 +348,5 @@
 </x-app-layout>
 
 <script type="module" src="{{ asset('javascript/cfTable.js') }}">
-    
-<script src="{{ asset('javascript/controleDeAcesso1.js') }}"></script>
+    < script src = "{{ asset('javascript/controleDeAcesso1.js') }}" >
+</script>

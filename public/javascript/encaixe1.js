@@ -889,7 +889,7 @@ function checkIfCanEdit () {
 
 function buscarMovimentos () {
     let query = $('#nomeAdd').val()
-    console.log(query);
+    console.log(query)
     var url = window.location.href
     fetchSuggestions(url, query)
 }
@@ -902,7 +902,7 @@ function fetchSuggestions (url, query) {
         method: 'GET',
         success: function (data) {
             updateDatalist(data)
-            console.log(data);
+            console.log(data)
         },
         error: function (error) {
             console.error('Error fetching data:', error)
@@ -927,7 +927,6 @@ function updateDatalist (suggestions) {
         })
 
         uniqueSuggestions.forEach(function (suggestion) {
-
             datalist.append(`<option value="${suggestion.nome}">`)
         })
     }
@@ -935,8 +934,8 @@ function updateDatalist (suggestions) {
 
 // busca no tecidos existentes para add movimentos
 
-function buscarTecidos() {
-    let query =  $('#tecidoAdd').val()
+function buscarTecidos () {
+    let query = $('#tecidoAdd').val()
     var url = window.location.href
     fetchSuggestionsTecidos(url, query)
 }
@@ -949,7 +948,7 @@ function fetchSuggestionsTecidos (url, query) {
         method: 'GET',
         success: function (data) {
             updateDatalistTecidos(data)
-            console.log(data);
+            console.log(data)
         },
         error: function (error) {
             console.error('Error fetching data:', error)
@@ -973,9 +972,7 @@ function updateDatalistTecidos (suggestions) {
         })
 
         uniqueSuggestions.forEach(function (suggestion) {
-
             datalist.append(`<option value="${suggestion.tecido}">`)
         })
     }
 }
-
